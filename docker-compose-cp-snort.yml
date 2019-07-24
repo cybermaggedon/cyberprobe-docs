@@ -1,0 +1,116 @@
+# Deploys a cybermon process cluster with ElasticSearch, Kibana and Gaffer
+# back-end.
+
+version: '3'
+services:
+
+  # ElasticSearch and Kibana
+  elasticsearch:
+    image: elasticsearch:7.0.0
+    ports:
+    - "9200:9200"
+    environment:
+      discovery.type: single-node
+    restart: always
+    shm_size: 1G
+  kibana:
+    image: kibana:7.0.0
+    ports:
+    - "5601:5601"
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200/
+    restart: always
+
+  # Gaffer
+  hadoop:
+    image: docker.io/cybermaggedon/hadoop:3.2.0
+    restart: always
+  zookeeper:    
+    image: docker.io/cybermaggedon/zookeeper:3.4.14
+    restart: always
+  accumulo:
+    image: docker.io/cybermaggedon/accumulo-gaffer:1.9.0
+    restart: always
+  gaffer:
+    image: docker.io/cybermaggedon/wildfly-gaffer:1.9.0
+    ports:
+    - "8080:8080"
+    restart: always
+
+  cyberprobe:
+    image: docker.io/cybermaggedon/cyberprobe:2.3.0
+    command: cyberprobe /etc/config/cyberprobe.cfg
+    volumes:
+    - .:/etc/config
+    - snort-logs:/var/log/snort
+    restart: always
+    network_mode: "host"
+    cap_add:
+      - NET_ADMIN
+
+  snort:
+    image: docker.io/cybermaggedon/snort:2.9.11a
+    command: snort -i enp0s3 -A unsock -N -l /var/log/snort/ -c /etc/snort/snort.conf
+    volumes:
+    - snort-logs:/var/log/snort
+    - ./snort.rules:/etc/snort/rules/local.rules
+    restart: always
+    network_mode: "host"
+    cap_add:
+      - NET_ADMIN
+
+  # RabbitMQ
+  amqp:
+    image: rabbitmq:3.7.14
+    restart: always
+    ports:
+    - "5672:5672"
+
+  # Cybermon receives packets on port 9000 and publishes events on port 5555.
+  cybermon:
+    image: docker.io/cybermaggedon/cyberprobe:2.3.0
+    command: cybermon -p 9000 -c /etc/cyberprobe/amqp-topic.lua
+    ports:
+    - "9000:9000"
+    restart: always
+    environment:
+      AMQP_BROKER: amqp:5672
+
+  # GeoIP: Adds location information to cybermon events and republishes.
+  cybermon-geoip:
+    image: docker.io/cybermaggedon/cybermon:2.3.0
+    command: cybermon-geoip
+    restart: always
+    environment:
+      AMQP_BROKER: amqp
+
+  # Detector: Adds IOC information to output from cybermon-geoip
+  cybermon-detector:
+    image: docker.io/cybermaggedon/cyberprobe:2.3.0
+    command: cybermon-detector
+    volumes:
+    - .:/etc/iocs
+    environment:
+      STIX_INDICATORS: /etc/iocs/stix-default-combined.json
+      AMQP_BROKER: amqp
+    restart: always
+
+  # ElasticSearch loader
+  cybermon-elasticsearch:
+    image: docker.io/cybermaggedon/cyberprobe:2.3.0
+    command: cybermon-elasticsearch ioc http://elasticsearch:9200/
+    environment:
+      AMQP_BROKER: amqp
+    restart: always
+
+  # Gaffer loader
+  cybermon-gaffer:
+    image: docker.io/cybermaggedon/cyberprobe:2.3.0
+    command: cybermon-gaffer
+    environment:
+      AMQP_BROKER: amqp
+    restart: always
+
+volumes:
+  snort-logs:
+
