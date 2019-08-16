@@ -38,69 +38,197 @@
 
 <h2>Overview</h2>
 
-<p>The Cyberprobe project is an open-source distributed architecture for
-real-time monitoring of networks against attack.  The software consists of two
-components:
-<ul><li>a probe, which collects data packets and forwards it over a network in
-standard streaming protocols.</li>
-<li>a monitor, which receives the streamed packets, decodes the protocols,
-and interprets the information.</li>
-</ul>
-These components can be used together or separately.  For a simple
-configuration, they can be run on the same host, for more complex environments,
-a number of probes can feed a single monitor.  For more detail, and to
-see where we are going, read the 
-<a href="cyberprobe.html#Architecture">architecture</a>
-page.
+The full documentation is <a href="https://cybermaggedon.github.io/cyberprobe-docs/">here</a>.
+
+<h3>Summary</h3>
+
+<p>
+Cyberprobe is a network packet inspection toolkit (Deep Packet Inspection)
+for real-time monitoring of networks. This has applications in network
+monitoring, intrusion detection, forensic analysis, and as a defensive
+platform. Cyberprobe packet inspection works on physical networks, and also
+in cloud VPCs. There are features that allow cloud-scale deployments.
 </p>
 
-<img style="align: center" src="cyberprobe-overview.png"/>
+<p>
+This is not a single, monolithic intrusion detection toolkit which does
+everything you want straight out of the box. If that’s what you need, I
+would suggest you look elsewhere. Instead, Cyberprobe is a set of flexible
+components which can combined in many ways to manage a wide variety of
+packet inspection tasks. If you want to build custom network analytics there
+are many interfaces that make this straightforward.
+</p>
 
-<p>The probe, <code>cyberprobe</code> has the following features:
+<div>
+The project maintains a number of components, including:
 <ul>
-<li>The probe can be tasked to collect packets from an interface and forward
-any which match a configurable address list.</li>
-<li>The probe can be configured to receive Snort alerts.
-In this configuration, when an alert is received from Snort, the IP
-source address associated with the alert is dynamically targeted for a period
-of time.  In such a configuration, the system will collect data from any
-network actor who triggers a snort rule and is thus identified as a potential
-attacker.
-</li>
-<li>The probe can optionally run a management interface which allows
-remote interrogation of the state, and alteration of the configuration.  This
-allows dynamic alteration of the targeting map, and integration with other
-systems.
-</li>
-<li>The probe can be configured to deliver on one of two standard
-stream protocols.</li>
+  <li>
+    <p>
+      cyberprobe, which collects data packets and forwards them a network stream
+      protocol in real time. Packet collection can be target with IP addresses,
+      CIDR ranges or full-take.  Collected packets are tagged with a device
+      identifier. cyberprobe can be integrated with Snort to allow dynamic
+      targeting of IP addresses in response to a Snort rule hitting.
+    </p>
+  </li>
+  <li>
+    <p>
+      cybermon, which receives collected packet streams, performs stateful
+      processing and creates a stream of observations describing network
+      events. The events can be consumed in many different ways e.g. the events
+      can be delivered to a pub/sub system, or presented to a gRPC service. The
+      event handling is implemented as a function written in Lua, so you can add
+      your own custom event handling.
+    </p>
+  </li>
+  <li>
+    <p>
+      a set of subscribers which can be used to do things with the captured data
+      e.g. store to ElasticSearch, BigQuery or Gaffer.
+    </p>
+  </li>
 </ul>
-</p>
+</div>
 
-<p>The monitor tool, <code>cybermon</code> has the following features:
+<h3>Cyberprobe</h3>
+
+<div>The probe, cyberprobe has the following features:
+  <ul>
+    <li>
+      <p>
+        Can be tasked to collect packets from an interface and forward any which
+        match a configurable address list. The address list can be individual IP
+        addresses, CIDR ranges, or collect-all tasking (‘0.0.0.0/0’).
+      </p>
+    </li>
+    <li>
+      <p>
+        Can be configured to receive Snort alerts. In this configuration,
+        when an alert is received from Snort, the IP source address
+        associated with the alert is dynamically targeted for a
+        configurable period of time. This is
+        useful for e.g. collecting data from any network actor who triggers
+        a snort
+        rule and is thus identified as a potential attacker.
+      </p>
+    </li>
+    <li>
+      <p>
+        Can optionally offer a management API which allows remote
+        interrogation of the state, and alteration of the
+        configuration. This allows dynamic alteration of the targeting
+        map, and integration with other systems.
+      </p>
+    </li>
+    <li>
+      <p>
+        Can be configured to deliver on one of two standard stream protocols.
+      </p>
+    </li>
+    <li>
+      <p>
+        Can insert a packet collection delay line of configurable duration. This
+        can be useful e.g. with snort alert triggering to make sure all packets
+        which trigger an alert are collected.
+      </p>
+    </li>
+  </ul>
+</div>
+  
+<h3>Cybermon</h3>
+
+<div>
+The monitor tool, cybermon has the following features:
+
 <ul>
-<li>Collects packets delivered in stream protocols.</li>
-<li>Decodes packet protocols in and raises events in near-real-time.</li>
-<li>Decoded information is made available to user-configurable logic to define
-how the decoded data is handled.  A simple configuration language is used
-(LUA) and example configurations are provided to monitor data volumes,
-display data hexdumps, or stash the data in files.</li>
-<li>Packet forgery techniques are included, which allow resetting TCP
-connections, and forging DNS responses.  This can be invoked from your LUA
-  in order to fight back against attacks on your network.</li>
-<li>Has a pub/sub delivery mechanism with subscribers for ElasticSearch,
-  Google BigQuery and Gaffer graph store.
-<li>Supports IP, TCP, UDP, ICMP, HTTP and DNS protocols, currently.</li>
+  <li>
+    <p>
+      Analyses packets delivered in the ETSI stream protocol from one or more
+      cyberprobe instances.
+    </p>
+  </li>
+  <li>
+    <p>
+      Decodes a number of packet protocols to detect network events, which are
+      delivered to your configuration in near-real-time.
+    </p>
+  </li>
+  <li>
+    <p>
+      Decoded information is made available to user-configurable logic (written
+      in Lua) to define how the decoded data is handled. Sample configuration
+      files are provided to deliver to RabbitMQ in JSON, a gRPC endpoint, and
+      deliver to a redis queue.
+    </p>
+  </li>
+  <li>
+    <p>
+      Packet forgery techniques are included, which allow resetting TCP
+      connections, and forging DNS responses. This can be invoked from your Lua
+      configuration.
+    </p>
+  </li>
+  <li>
+    <p>
+      Supports IP, TCP, UDP, ICMP, HTTP, DNS, SMTP, FTP, TLS and more.  The code
+      is targeted at the Linux platform, although it is generic enough to be
+      applicable to other UN*X-like platforms.
+    </p>
+  </li>
 </ul>
-</p>
+</div>
 
-<p>The <code>cybermon</code> software includes some support for STIX as
-a threat indicator specification, and can create alerts on the presence of
-threats on the network.</p>
+<h3>Subscribers</h3>
 
-<p>The code is targeted at the Linux platform, although it is generic enough
-to be applicable to other UN*X-like platforms.
-</p>
+<div>
+The event stream from cybermon can be presented to RabbitMQ in a JSON form,
+which can then be delivered to further analytics:
+<ul>
+  <li>
+    <p>cybermon-alert reports indicator hits in events to standard output.</p>
+  </li>
+  <li>
+    <p>cybermon-bigquery loads events into GCP BigQuery.</p>
+  </li>
+  <li>
+    <p>cybermon-cassandra loads events into Cassandra.</p>
+  </li>
+  <li>
+    <p>cybermon-detector studies events for the presence of indicators. Events are annotated with indicator hits of any are observed.</p>
+  </li>
+  <li>
+    <p>cybermon-dump dumps raw event JSON to standard output.</p>
+  </li>
+  <li>
+    <p>cybermon-elasticsearch loads events into ElasticSearch.</p>
+  </li>
+  <li>
+    <p>cybermon-gaffer loads network information into Gaffer (a graph database).</p>
+  </li>
+  <li>
+    <p>cybermon-geoip looks up IP addresses in GeoIP and annotates events with location information.</p>
+  </li>
+  <li>
+    <p>cybermon-monitor outputs event information to standard output.</p>
+  </li>
+</div>
+
+<h3>Scaling</h3>
+
+<div>
+The architecture has support for AWS Traffic Mirroring, and supports
+cloud-scale deployments:
+<ul>
+  <li>
+    <p>Multiple cyberprobe instances can load-share across multiple cybermon instances behind a load-balancer.</p>
+  </li>
+  <li>
+    <p>The event stream from cybermon can be delivered to a pub/sub system to distribute load and permit scale-up.</p>
+  </li>
+</ul>
+</div>
+
+<h3>More information</h3>
 
 <p>The easiest way to learn about the software is to follow our
 <a href="cyberprobe.html#Quick-start-tutorial">Quick Start tutorial</a>.
