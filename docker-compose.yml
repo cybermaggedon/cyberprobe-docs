@@ -46,7 +46,7 @@ services:
 
   # Cybermon receives packets on port 9000 and publishes events on port 5555.
   cybermon:
-    image: docker.io/cybermaggedon/cyberprobe:2.3.0
+    image: docker.io/cybermaggedon/cyberprobe:2.3.7
     command: cybermon -p 9000 -c /etc/cyberprobe/amqp-topic.lua
     ports:
     - "9000:9000"
@@ -56,7 +56,7 @@ services:
 
   # GeoIP: Adds location information to cybermon events and republishes.
   cybermon-geoip:
-    image: docker.io/cybermaggedon/cybermon:2.3.0
+    image: docker.io/cybermaggedon/cybermon:2.3.7
     command: cybermon-geoip
     restart: always
     environment:
@@ -64,7 +64,7 @@ services:
 
   # Detector: Adds IOC information to output from cybermon-geoip
   cybermon-detector:
-    image: docker.io/cybermaggedon/cyberprobe:2.3.0
+    image: docker.io/cybermaggedon/cyberprobe:2.3.7
     command: cybermon-detector
     volumes:
     - .:/etc/iocs
@@ -75,7 +75,7 @@ services:
 
   # ElasticSearch loader
   cybermon-elasticsearch:
-    image: docker.io/cybermaggedon/cyberprobe:2.3.0
+    image: docker.io/cybermaggedon/cyberprobe:2.3.7
     command: cybermon-elasticsearch ioc http://elasticsearch:9200/
     environment:
       AMQP_BROKER: amqp
@@ -83,7 +83,7 @@ services:
 
   # Gaffer loader
   cybermon-gaffer:
-    image: docker.io/cybermaggedon/cyberprobe:2.3.0
+    image: docker.io/cybermaggedon/cyberprobe:2.3.7
     command: cybermon-gaffer
     environment:
       AMQP_BROKER: amqp
