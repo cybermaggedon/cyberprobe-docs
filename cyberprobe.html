@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- This manual is for Cyberprobe (version 2.3.9, 7 September 2019),
+<!-- This manual is for Cyberprobe (version 2.3.10, 7 September 2019),
 which is an example in the Texinfo documentation.
 
 Copyright (C) 2013-2014 Cyber MacGeddon
@@ -13,10 +13,10 @@ Texts. -->
 <!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Cyberprobe 2.3.9</title>
+<title>Cyberprobe 2.3.10</title>
 
-<meta name="description" content="Cyberprobe 2.3.9">
-<meta name="keywords" content="Cyberprobe 2.3.9">
+<meta name="description" content="Cyberprobe 2.3.10">
+<meta name="keywords" content="Cyberprobe 2.3.10">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -46,7 +46,7 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<h1 class="settitle" align="center">Cyberprobe 2.3.9</h1>
+<h1 class="settitle" align="center">Cyberprobe 2.3.10</h1>
 
 
 
@@ -60,7 +60,7 @@ Next: <a href="#Overview" accesskey="n" rel="next">Overview</a>, Up: <a href="di
 </div>
 <span id="Cyberprobe"></span><h1 class="top">Cyberprobe</h1>
 
-<p>This is the manual for Cyberprobe (version 2.3.9, 7 September 2019).
+<p>This is the manual for Cyberprobe (version 2.3.10, 7 September 2019).
 </p>
 <img src="cyberprobe-overview.png" alt="png">
 
@@ -2682,15 +2682,17 @@ Next: <a href="#Architecture" accesskey="n" rel="next">Architecture</a>, Previou
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#cyberprobe_002dcli-commands" accesskey="4"><code>cyberprobe-cli</code> commands</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#Output-streaming-protocols" accesskey="5">Output streaming protocols</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#eventstream_002dservice-invocation" accesskey="5"><code>eventstream-service</code> invocation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#Management-protocol" accesskey="6">Management protocol</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Output-streaming-protocols" accesskey="6">Output streaming protocols</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#cybermon-invocation" accesskey="7"><code>cybermon</code> invocation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Management-protocol" accesskey="7">Management protocol</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#cybermon-configuration" accesskey="8"><code>cybermon</code> configuration</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#cybermon-invocation" accesskey="8"><code>cybermon</code> invocation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#cybermon-example-configurations" accesskey="9"><code>cybermon</code> example configurations</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#cybermon-configuration" accesskey="9"><code>cybermon</code> configuration</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#Cybermon-JSON-message-format">Cybermon JSON message format</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
@@ -3015,7 +3017,7 @@ administration commands.
 <hr>
 <span id="cyberprobe_002dcli-commands"></span><div class="header">
 <p>
-Next: <a href="#Output-streaming-protocols" accesskey="n" rel="next">Output streaming protocols</a>, Previous: <a href="#cyberprobe_002dcli-invocation" accesskey="p" rel="prev"><code>cyberprobe-cli</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#eventstream_002dservice-invocation" accesskey="n" rel="next"><code>eventstream-service</code> invocation</a>, Previous: <a href="#cyberprobe_002dcli-invocation" accesskey="p" rel="prev"><code>cyberprobe-cli</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="cyberprobe_002dcli-commands-1"></span><h3 class="section">9.4 <code>cyberprobe-cli</code> commands</h3>
 
@@ -3146,11 +3148,60 @@ The PROTOCOL and ADDRESS values are the same as for &lsquo;<samp>add target</sam
 
 
 <hr>
+<span id="eventstream_002dservice-invocation"></span><div class="header">
+<p>
+Next: <a href="#Output-streaming-protocols" accesskey="n" rel="next">Output streaming protocols</a>, Previous: <a href="#cyberprobe_002dcli-commands" accesskey="p" rel="prev"><code>cyberprobe-cli</code> commands</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="eventstream_002dservice-invocation-1"></span><h3 class="section">9.5 <code>eventstream-service</code> invocation</h3>
+
+<span id="eventstream_002dservice"></span><span id="index-eventstream_002dservice_002c-invocation"></span>
+<span id="index-gRPC"></span>
+<span id="index-Protobuf"></span>
+
+<p><code>eventstream-service</code> is a demonstrator gRPC service for
+cyberprobe gRPC.  It isn&rsquo;t particularly useful for anything other than
+demo/debugging/diagnosing gRPC problems.
+</p>
+<p>It receives gRPC requests containing event data, and outputs these in
+a JSON form, one event per line.  This is a default mapping for
+Protobuf data determined by the Protobuf libraries, and is not
+identical to Cyberprobe JSON format.
+</p>
+<p>The <samp>eventstream-service.C</samp> code may be useful in building your own
+gRPC service.
+</p>
+<p>Synopsis:
+</p>
+<div class="example">
+<pre class="example">eventstream-service [HOST:PORT]
+</pre></div>
+
+<p>Example:
+</p><div class="example">
+<pre class="example">eventstream-service 0.0.0.0:9100
+</pre></div>
+
+<dl compact="compact">
+<dt>&lsquo;<samp>HOST</samp>&rsquo;</dt>
+<dd><p>Specifies the hostname or  IP address to bind this service to, to receive
+requests.  0.0.0.0 means any address.
+</p>
+</dd>
+<dt>&lsquo;<samp>PORT</samp>&rsquo;</dt>
+<dd><p>Specifies the port number to listen on.
+</p>
+</dd>
+</dl>
+
+
+
+
+<hr>
 <span id="Output-streaming-protocols"></span><div class="header">
 <p>
-Next: <a href="#Management-protocol" accesskey="n" rel="next">Management protocol</a>, Previous: <a href="#cyberprobe_002dcli-commands" accesskey="p" rel="prev"><code>cyberprobe-cli</code> commands</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#Management-protocol" accesskey="n" rel="next">Management protocol</a>, Previous: <a href="#eventstream_002dservice-invocation" accesskey="p" rel="prev"><code>eventstream-service</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="Output-streaming-protocols-1"></span><h3 class="section">9.5 Output streaming protocols</h3>
+<span id="Output-streaming-protocols-1"></span><h3 class="section">9.6 Output streaming protocols</h3>
 
 <span id="index-NHIS-1_002e1-LI"></span>
 <span id="index-ETSI-LI"></span>
@@ -3238,7 +3289,7 @@ nhis11-rcvr 10000 | tcpdump -n -r-
 <p>
 Next: <a href="#cybermon-invocation" accesskey="n" rel="next"><code>cybermon</code> invocation</a>, Previous: <a href="#Output-streaming-protocols" accesskey="p" rel="prev">Output streaming protocols</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="Management-protocol-1"></span><h3 class="section">9.6 Management protocol</h3>
+<span id="Management-protocol-1"></span><h3 class="section">9.7 Management protocol</h3>
 <span id="index-Management-protocol"></span>
 
 <span id="Overview-3"></span><h3 class="heading">Overview</h3>
@@ -3673,7 +3724,7 @@ probably your fault :) e.g. specifying an interface which doesn&rsquo;t exist.
 <p>
 Next: <a href="#cybermon-configuration" accesskey="n" rel="next"><code>cybermon</code> configuration</a>, Previous: <a href="#Management-protocol" accesskey="p" rel="prev">Management protocol</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="cybermon-invocation-1"></span><h3 class="section">9.7 <code>cybermon</code> invocation</h3>
+<span id="cybermon-invocation-1"></span><h3 class="section">9.8 <code>cybermon</code> invocation</h3>
 
 <span id="index-cybermon_002c-invocation"></span>
 <span id="index-VXLAN-2"></span>
@@ -3747,7 +3798,7 @@ period.
 <p>
 Next: <a href="#cybermon-example-configurations" accesskey="n" rel="next"><code>cybermon</code> example configurations</a>, Previous: <a href="#cybermon-invocation" accesskey="p" rel="prev"><code>cybermon</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="cybermon-configuration-1"></span><h3 class="section">9.8 <code>cybermon</code> configuration</h3>
+<span id="cybermon-configuration-1"></span><h3 class="section">9.9 <code>cybermon</code> configuration</h3>
 
 <span id="Overview-4"></span><h3 class="heading">Overview</h3>
 
@@ -5253,6 +5304,8 @@ protocol data in the DNS encoder.
 </dl>
 
 <span id="gRPC-object"></span><h3 class="heading">gRPC object</h3>
+<span id="index-gRPC-1"></span>
+<span id="index-Protobuf-1"></span>
 
 <p>If gRPC support is compiled into cybermon, a gRPC call containing the
 event, conforming to eventstream protobuf format can be made by calling
@@ -5273,10 +5326,11 @@ end
 return observer
 </pre></div>
 
+<span id="index-eventstream_002dservice"></span>
 <p>The <samp>cyberprobe.proto</samp> file in the source code contains the protobuf/gRPC
-service definition.
+service definition.  The sample gRPC client <code>eventstream-service</code> can
+be used to receive cyberprobe gRPC events.  See <a href="#eventstream_002dservice">eventstream-service</a>.
 </p>
-
 
 
 <hr>
@@ -5284,7 +5338,7 @@ service definition.
 <p>
 Next: <a href="#Cybermon-JSON-message-format" accesskey="n" rel="next">Cybermon JSON message format</a>, Previous: <a href="#cybermon-configuration" accesskey="p" rel="prev"><code>cybermon</code> configuration</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="cybermon-example-configurations-1"></span><h3 class="section">9.9 <code>cybermon</code> example configurations</h3>
+<span id="cybermon-example-configurations-1"></span><h3 class="section">9.10 <code>cybermon</code> example configurations</h3>
 
 <span id="index-cybermon_002c-example-configurations"></span>
 <span id="index-cybermon_002c-configuration-1"></span>
@@ -5371,14 +5425,16 @@ your own event handler.
 </p>
 </dd>
 <dt><samp>protobuf.lua</samp></dt>
-<dd>
+<dd><span id="index-Protobuf-2"></span>
+
 <p>Outputs protobuf-formatted messages in base64 format, one message per line.
 Probably only useful for testing.
 </p>
 </dd>
 <dt><samp>grpc.lua</samp></dt>
 <dd>
-
+<span id="index-gRPC-2"></span>
+<span id="index-Protobuf-3"></span>
 <p>For each Lua event, a gRPC call is made to a service
 defiend by the <code>GRPC_SERVICE</code> environment variable which should be in
 <code>HOST:PORT</code> form.
@@ -5418,7 +5474,7 @@ loaded as modules e.g.
 <p>
 Next: <a href="#cybermon_002dmonitor-invocation" accesskey="n" rel="next"><code>cybermon-monitor</code> invocation</a>, Previous: <a href="#cybermon-example-configurations" accesskey="p" rel="prev"><code>cybermon</code> example configurations</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="Cybermon-JSON-message-format-1"></span><h3 class="section">9.10 Cybermon JSON message format</h3>
+<span id="Cybermon-JSON-message-format-1"></span><h3 class="section">9.11 Cybermon JSON message format</h3>
 
 <span id="index-ZeroMQ-1"></span>
 <span id="index-RabbitMQ-1"></span>
@@ -6584,7 +6640,7 @@ detected.  Each array element is an object with the following fields:
 <p>
 Next: <a href="#cybermon_002delasticsearch-invocation" accesskey="n" rel="next"><code>cybermon-elasticsearch</code> invocation</a>, Previous: <a href="#Cybermon-JSON-message-format" accesskey="p" rel="prev">Cybermon JSON message format</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="cybermon_002dmonitor-invocation-1"></span><h3 class="section">9.11 <code>cybermon-monitor</code> invocation</h3>
+<span id="cybermon_002dmonitor-invocation-1"></span><h3 class="section">9.12 <code>cybermon-monitor</code> invocation</h3>
 
 <span id="index-cybermon_002dmonitor_002c-invocation-1"></span>
 
@@ -6620,7 +6676,7 @@ to &lsquo;<samp>cyberprobe</samp>&rsquo;.
 <p>
 Next: <a href="#cybermon_002dbigquery-invocation" accesskey="n" rel="next"><code>cybermon-bigquery</code> invocation</a>, Previous: <a href="#cybermon_002dmonitor-invocation" accesskey="p" rel="prev"><code>cybermon-monitor</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="cybermon_002delasticsearch-invocation-1"></span><h3 class="section">9.12 <code>cybermon-elasticsearch</code> invocation</h3>
+<span id="cybermon_002delasticsearch-invocation-1"></span><h3 class="section">9.13 <code>cybermon-elasticsearch</code> invocation</h3>
 
 <span id="index-cybermon_002delasticsearch_002c-invocation-1"></span>
 
@@ -6661,7 +6717,7 @@ to &lsquo;<samp>http://localhost:9200</samp>&rsquo;.
 <p>
 Next: <a href="#cybermon_002dgaffer-invocation" accesskey="n" rel="next"><code>cybermon-gaffer</code> invocation</a>, Previous: <a href="#cybermon_002delasticsearch-invocation" accesskey="p" rel="prev"><code>cybermon-elasticsearch</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="cybermon_002dbigquery-invocation-1"></span><h3 class="section">9.13 <code>cybermon-bigquery</code> invocation</h3>
+<span id="cybermon_002dbigquery-invocation-1"></span><h3 class="section">9.14 <code>cybermon-bigquery</code> invocation</h3>
 
 <span id="index-cybermon_002dbigquery_002c-invocation-1"></span>
 
@@ -6720,7 +6776,7 @@ schema, data won&rsquo;t load correctly.
 <p>
 Next: <a href="#cybermon_002dcassandra-invocation" accesskey="n" rel="next"><code>cybermon-cassandra</code> invocation</a>, Previous: <a href="#cybermon_002dbigquery-invocation" accesskey="p" rel="prev"><code>cybermon-bigquery</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="cybermon_002dgaffer-invocation-1"></span><h3 class="section">9.14 <code>cybermon-gaffer</code> invocation</h3>
+<span id="cybermon_002dgaffer-invocation-1"></span><h3 class="section">9.15 <code>cybermon-gaffer</code> invocation</h3>
 
 <span id="index-cybermon_002dgaffer_002c-invocation-1"></span>
 <span id="index-Gaffer-2"></span>
@@ -6769,7 +6825,7 @@ to &lsquo;<samp>http://gaffer:8080/example-rest/v1</samp>&rsquo;.
 <p>
 Next: <a href="#cybermon_002dgeoip-invocation" accesskey="n" rel="next"><code>cybermon-geoip</code> invocation</a>, Previous: <a href="#cybermon_002dgaffer-invocation" accesskey="p" rel="prev"><code>cybermon-gaffer</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="cybermon_002dcassandra-invocation-1"></span><h3 class="section">9.15 <code>cybermon-cassandra</code> invocation</h3>
+<span id="cybermon_002dcassandra-invocation-1"></span><h3 class="section">9.16 <code>cybermon-cassandra</code> invocation</h3>
 
 <span id="index-cybermon_002dcassandra_002c-invocation-1"></span>
 <span id="index-Apache-Cassandra-1"></span>
@@ -6817,7 +6873,7 @@ to &lsquo;<samp>localhost</samp>&rsquo;.
 <p>
 Next: <a href="#cybermon_002ddetector-invocation" accesskey="n" rel="next"><code>cybermon-detector</code> invocation</a>, Previous: <a href="#cybermon_002dcassandra-invocation" accesskey="p" rel="prev"><code>cybermon-cassandra</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="cybermon_002dgeoip-invocation-1"></span><h3 class="section">9.16 <code>cybermon-geoip</code> invocation</h3>
+<span id="cybermon_002dgeoip-invocation-1"></span><h3 class="section">9.17 <code>cybermon-geoip</code> invocation</h3>
 
 <span id="index-cybermon_002dgeoip_002c-invocation"></span>
 <span id="index-GeoIP-1"></span>
@@ -6860,7 +6916,7 @@ to &lsquo;<samp>geo</samp>&rsquo;.
 <p>
 Next: <a href="#cybermon_002ddump-invocation" accesskey="n" rel="next"><code>cybermon-dump</code> invocation</a>, Previous: <a href="#cybermon_002dgeoip-invocation" accesskey="p" rel="prev"><code>cybermon-geoip</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="cybermon_002ddetector-invocation-1"></span><h3 class="section">9.17 <code>cybermon-detector</code> invocation</h3>
+<span id="cybermon_002ddetector-invocation-1"></span><h3 class="section">9.18 <code>cybermon-detector</code> invocation</h3>
 
 <span id="index-cybermon_002ddetector_002c-invocation"></span>
 <span id="index-STIX-1"></span>
@@ -6907,7 +6963,7 @@ to &lsquo;<samp>ioc</samp>&rsquo;.
 <p>
 Next: <a href="#cybermon_002dalert-invocation" accesskey="n" rel="next"><code>cybermon-alert</code> invocation</a>, Previous: <a href="#cybermon_002ddetector-invocation" accesskey="p" rel="prev"><code>cybermon-detector</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="cybermon_002ddump-invocation-1"></span><h3 class="section">9.18 <code>cybermon-dump</code> invocation</h3>
+<span id="cybermon_002ddump-invocation-1"></span><h3 class="section">9.19 <code>cybermon-dump</code> invocation</h3>
 
 <span id="index-cybermon_002ddump_002c-invocation"></span>
 <span id="index-JSON-8"></span>
@@ -6943,7 +6999,7 @@ to &lsquo;<samp>cyberprobe</samp>&rsquo;.
 <p>
 Next: <a href="#taxii_002dclient-invocation" accesskey="n" rel="next"><code>taxii-client</code> invocation</a>, Previous: <a href="#cybermon_002ddump-invocation" accesskey="p" rel="prev"><code>cybermon-dump</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="cybermon_002dalert-invocation-1"></span><h3 class="section">9.19 <code>cybermon-alert</code> invocation</h3>
+<span id="cybermon_002dalert-invocation-1"></span><h3 class="section">9.20 <code>cybermon-alert</code> invocation</h3>
 
 <span id="index-cybermon_002dalert_002c-invocation"></span>
 <span id="index-Alert"></span>
@@ -6979,7 +7035,7 @@ to &lsquo;<samp>ioc</samp>&rsquo;.
 <p>
 Next: <a href="#taxii_002dsync_002djson-invocation" accesskey="n" rel="next"><code>taxii-sync-json</code> invocation</a>, Previous: <a href="#cybermon_002dalert-invocation" accesskey="p" rel="prev"><code>cybermon-alert</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="taxii_002dclient-invocation-1"></span><h3 class="section">9.20 <code>taxii-client</code> invocation</h3>
+<span id="taxii_002dclient-invocation-1"></span><h3 class="section">9.21 <code>taxii-client</code> invocation</h3>
 
 <span id="index-taxii_002dclient_002c-invocation"></span>
 
@@ -7117,7 +7173,7 @@ a logical AND.
 <p>
 Next: <a href="#taxii_002dserver-invocation" accesskey="n" rel="next"><code>taxii-server</code> invocation</a>, Previous: <a href="#taxii_002dclient-invocation" accesskey="p" rel="prev"><code>taxii-client</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="taxii_002dsync_002djson-invocation-1"></span><h3 class="section">9.21 <code>taxii-sync-json</code> invocation</h3>
+<span id="taxii_002dsync_002djson-invocation-1"></span><h3 class="section">9.22 <code>taxii-sync-json</code> invocation</h3>
 
 <span id="index-taxii_002dsync_002djson_002c-invocation"></span>
 
@@ -7193,7 +7249,7 @@ collection name chosen.
 <p>
 Next: <a href="#nhis11_002drcvr-invocation" accesskey="n" rel="next"><code>nhis11-rcvr</code> invocation</a>, Previous: <a href="#taxii_002dsync_002djson-invocation" accesskey="p" rel="prev"><code>taxii-sync-json</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="taxii_002dserver-invocation-1"></span><h3 class="section">9.22 <code>taxii-server</code> invocation</h3>
+<span id="taxii_002dserver-invocation-1"></span><h3 class="section">9.23 <code>taxii-server</code> invocation</h3>
 
 <span id="index-taxii_002dserver_002c-invocation"></span>
 
@@ -7258,7 +7314,7 @@ data directory is the master copy for the sync process.
 <p>
 Next: <a href="#etsi_002drcvr-invocation" accesskey="n" rel="next"><code>etsi-rcvr</code> invocation</a>, Previous: <a href="#taxii_002dserver-invocation" accesskey="p" rel="prev"><code>taxii-server</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="nhis11_002drcvr-invocation-1"></span><h3 class="section">9.23 <code>nhis11-rcvr</code> invocation</h3>
+<span id="nhis11_002drcvr-invocation-1"></span><h3 class="section">9.24 <code>nhis11-rcvr</code> invocation</h3>
 
 <span id="index-nhis11_002drcvr_002c-invocation"></span>
 
@@ -7294,7 +7350,7 @@ should be sent. e.g.
 <p>
 Next: <a href="#ElasticSearch-model" accesskey="n" rel="next">ElasticSearch model</a>, Previous: <a href="#nhis11_002drcvr-invocation" accesskey="p" rel="prev"><code>nhis11-rcvr</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="etsi_002drcvr-invocation-1"></span><h3 class="section">9.24 <code>etsi-rcvr</code> invocation</h3>
+<span id="etsi_002drcvr-invocation-1"></span><h3 class="section">9.25 <code>etsi-rcvr</code> invocation</h3>
 
 <span id="index-etsi_002drcvr_002c-invocation"></span>
 
@@ -7329,7 +7385,7 @@ should be sent. e.g.
 <p>
 Previous: <a href="#etsi_002drcvr-invocation" accesskey="p" rel="prev"><code>etsi-rcvr</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="ElasticSearch-model-1"></span><h3 class="section">9.25 ElasticSearch model</h3>
+<span id="ElasticSearch-model-1"></span><h3 class="section">9.26 ElasticSearch model</h3>
 <span id="index-ElasticSearch-3"></span>
 <span id="index-ElasticSearch_002c-model"></span>
 
@@ -8073,6 +8129,8 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><td></td><td valign="top"><a href="#index-event-1"><code>event</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Writing-your-own-configuration-file">Writing your own configuration file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-event-2"><code>event</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Writing-your-own-configuration-file">Writing your own configuration file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-event-3"><code>event</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Writing-your-own-configuration-file">Writing your own configuration file</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-eventstream_002dservice"><code>eventstream-service</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-configuration"><code>cybermon</code> configuration</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-eventstream_002dservice_002c-invocation"><code>eventstream-service</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#eventstream_002dservice-invocation"><code>eventstream-service</code> invocation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Executables">Executables</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Index_cp_letter-F">F</th><td></td><td></td></tr>
@@ -8100,6 +8158,9 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><td></td><td valign="top"><a href="#index-Graph-store-1">Graph store</a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-Gaffer-subscriber">The Gaffer subscriber</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Graph-store-2">Graph store</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002dgaffer-invocation"><code>cybermon-gaffer</code> invocation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Graph-store-3">Graph store</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002dcassandra-invocation"><code>cybermon-cassandra</code> invocation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-gRPC">gRPC</a>:</td><td>&nbsp;</td><td valign="top"><a href="#eventstream_002dservice-invocation"><code>eventstream-service</code> invocation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-gRPC-1">gRPC</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-configuration"><code>cybermon</code> configuration</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-gRPC-2">gRPC</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Index_cp_letter-H">H</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-HTTP-request">HTTP request</a>:</td><td>&nbsp;</td><td valign="top"><a href="#ElasticSearch-model">ElasticSearch model</a></td></tr>
@@ -8172,6 +8233,10 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><td></td><td valign="top"><a href="#index-Packet-inspection">Packet inspection</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Top">Top</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-pip"><code>pip</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Threat-indicators-using-STIX">Threat indicators using STIX</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Privileged-user">Privileged user</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Using-cyberprobe">Using <code>cyberprobe</code></a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Protobuf">Protobuf</a>:</td><td>&nbsp;</td><td valign="top"><a href="#eventstream_002dservice-invocation"><code>eventstream-service</code> invocation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Protobuf-1">Protobuf</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-configuration"><code>cybermon</code> configuration</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Protobuf-2">Protobuf</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Protobuf-3">Protobuf</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-pub_002fsub">pub/sub</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-pub_002fsub-1">pub/sub</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-pub_002fsub-2">pub/sub</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cybermon-JSON-message-format">Cybermon JSON message format</a></td></tr>
