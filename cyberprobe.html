@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- This manual is for Cyberprobe (version 2.3.7, 15 August 2019),
+<!-- This manual is for Cyberprobe (version 2.3.9, 7 September 2019),
 which is an example in the Texinfo documentation.
 
 Copyright (C) 2013-2014 Cyber MacGeddon
@@ -13,10 +13,10 @@ Texts. -->
 <!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Cyberprobe 2.3.7</title>
+<title>Cyberprobe 2.3.9</title>
 
-<meta name="description" content="Cyberprobe 2.3.7">
-<meta name="keywords" content="Cyberprobe 2.3.7">
+<meta name="description" content="Cyberprobe 2.3.9">
+<meta name="keywords" content="Cyberprobe 2.3.9">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -46,7 +46,7 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<h1 class="settitle" align="center">Cyberprobe 2.3.7</h1>
+<h1 class="settitle" align="center">Cyberprobe 2.3.9</h1>
 
 
 
@@ -60,38 +60,54 @@ Next: <a href="#Overview" accesskey="n" rel="next">Overview</a>, Up: <a href="di
 </div>
 <span id="Cyberprobe"></span><h1 class="top">Cyberprobe</h1>
 
-<p>This is the manual for Cyberprobe (version 2.3.7, 15 August 2019).
+<p>This is the manual for Cyberprobe (version 2.3.9, 7 September 2019).
 </p>
 <img src="cyberprobe-overview.png" alt="png">
 
-<p>Cyberprobe is a distrbuted architecture for real-time monitoring of networks
-against attack. This has applications in network monitoring,
-intrusion detection, forensic analysis, and as a defensive platform during
-an attack.
+<span id="index-Packet-inspection"></span>
+<span id="index-DPI"></span>
+<p>Cyberprobe is a network packet inspection toolkit (Deep Packet Inspection)
+for real-time monitoring of networks.  This has applications in network
+monitoring, intrusion detection, forensic analysis, and as a defensive
+platform.  Cyberprobe packet inspection works on physical networks, and
+also in cloud VPCs.  There are features that allow cloud-scale deployments.
 </p>
-<p>The software consists of a number of components, including:
+<p>This is not a single, monolithic intrusion detection toolkit which does
+everything you want straight out of the box.  If that&rsquo;s what you need,
+I would suggest you look elsewhere.  Instead, Cyberprobe is a set of flexible
+components which can combined in many ways
+to manage a wide variety of packet inspection tasks.  If you want to build
+custom network analytics there are many interfaces that make this
+straightforward.
 </p>
-<ul>
-<li> a probe, which collects data packets and forwards it over a network in
-standard streaming protocols.
+<p>The project maintains a number of components, including:
+</p>
+<span id="index-cyberprobe"></span>
+<span id="index-cybermon"></span>
+<span id="index-Snort"></span>
 
-</li><li> a monitor, which receives the streamed packets, decodes the protocols, and
-interprets the information.
+<ul>
+<li> <code>cyberprobe</code>, which collects data packets and forwards them a network
+stream protocol in real time.  Packet collection can be target with IP
+addresses, CIDR ranges or full-take.  Collected packets are tagged with a
+device identifier.  <code>cyberprobe</code> can be integrated with Snort to allow
+dynamic targeting of IP addresses in response to a Snort rule hitting.
+
+</li><li> <code>cybermon</code>, which receives collected packet streams, performs stateful
+processing and creates a stream of observations describing network events.
+The events can be consumed in many different ways e.g. the events can be
+delivered to a pub/sub system, or presented to a gRPC service.
+The event handling is implemented as a function written in Lua, so you can
+add your own custom event handling.
 
 </li><li> a set of subscribers which can be used to do things with the captured data
 e.g. store to ElasticSearch, BigQuery or Gaffer.
 
 </li></ul>
 
-<p>These components can be used together or separately. For a simple
-configuration, they can be run on the same host, for more complex
-environments, a number of probes can feed a single monitor. For more detail,
-and to see where we are going, read the <a href="#Architecture">Architecture</a> page.
+<p>The architecture has support for AWS Traffic Mirroring, and
+supports cloud-scale deployments.
 </p>
-<blockquote>
-<p><b>Note:</b> FIXME: Architecture diagram needs an update.
-</p></blockquote>
-
 
 <table class="menu" border="0" cellspacing="0">
 <tr><td align="left" valign="top">&bull; <a href="#Overview" accesskey="1">Overview</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
@@ -130,77 +146,149 @@ Next: <a href="#Obtaining-the-software" accesskey="n" rel="next">Obtaining the s
 <span id="index-Overview-of-Cyberprobe"></span>
 <span id="Summary"></span><h3 class="heading">Summary</h3>
 
-<p>Cyberprobe is a distrbuted architecture for real-time monitoring of networks
-against attack. The software consists of a number of components, including:
+<p>Cyberprobe is a network packet inspection toolkit (Deep Packet Inspection)
+for real-time monitoring of networks.  This has applications in network
+monitoring, intrusion detection, forensic analysis, and as a defensive
+platform.  Cyberprobe packet inspection works on physical networks, and
+also in cloud VPCs.  There are features that allow cloud-scale deployments.
 </p>
-<ul>
-<li> a probe, which collects data packets and forwards it over a network in
-a streaming protocol.
+<p>This is not a single, monolithic intrusion detection toolkit which does
+everything you want straight out of the box.  If that&rsquo;s what you need,
+I would suggest you look elsewhere.  Instead, Cyberprobe is a set of flexible
+components which can combined in many ways
+to manage a wide variety of packet inspection tasks.  If you want to build
+custom network analytics there are many interfaces that make this
+straightforward.
+</p>
+<p>The project maintains a number of components, including:
+</p>
+<span id="index-cyberprobe-1"></span>
+<span id="index-cybermon-1"></span>
+<span id="index-Snort-1"></span>
 
-</li><li> a monitor, which receives the streamed packets, decodes the protocols, and
-interprets the information.
+<ul>
+<li> <code>cyberprobe</code>, which collects data packets and forwards them a network
+stream protocol in real time.  Packet collection can be target with IP
+addresses, CIDR ranges or full-take.  Collected packets are tagged with a
+device identifier.  <code>cyberprobe</code> can be integrated with Snort to allow
+dynamic targeting of IP addresses in response to a Snort rule hitting.
+
+</li><li> <code>cybermon</code>, which receives collected packet streams, performs stateful
+processing and creates a stream of observations describing network events.
+The events can be consumed in many different ways e.g. the events can be
+delivered to a pub/sub system, or presented to a gRPC service.
+The event handling is implemented as a function written in Lua, so you can
+add your own custom event handling.
 
 </li><li> a set of subscribers which can be used to do things with the captured data
 e.g. store to ElasticSearch, BigQuery or Gaffer.
 
 </li></ul>
 
+<span id="Cyberprobe-1"></span><h3 class="heading">Cyberprobe</h3>
+
 <span id="index-cyberprobe_002c-features"></span>
 <span id="index-Features_002c-of-cyberprobe"></span>
 
-<p>These components can be used together or separately. For a simple
-configuration, they can be run on the same host, for more complex
-environments, a number of probes can feed a single monitor. For more detail,
-and to see where we are going, read the <a href="#Architecture">Architecture</a> page.
-</p>
 <p>The probe, <code>cyberprobe</code> has the following features:
 </p>
 <ul>
-<li> The probe can be tasked to collect packets from an interface and forward any
-which match a configurable address list.
+<li> Can be tasked to collect packets from an interface and forward any
+which match a configurable address list.  The address list can be
+individual IP addresses, CIDR ranges, or collect-all tasking (&lsquo;<samp>0.0.0.0/0</samp>&rsquo;).
 
-</li><li> The probe can be configured to receive Snort alerts. In this configuration,
+</li><li> Can be configured to receive Snort alerts. In this configuration,
 when an alert is received from Snort, the IP source address associated with
-the alert is dynamically targeted for a period of time. In such a
-configuration, the system will collect data from any network actor who
+the alert is dynamically targeted for a configurable period of time. This is
+useful for e.g. collecting data from any network actor who
 triggers a snort rule and is thus identified as a potential attacker.
 
-</li><li> The probe can optionally run a management interface which allows remote
+</li><li> Can optionally offer a management API which allows remote
 interrogation of the state, and alteration of the configuration. This
 allows dynamic alteration of the targeting map, and integration with other
 systems.
 
-</li><li> The probe can be configured to deliver on one of two standard stream
-protocols.
+</li><li> Can be configured to deliver on one of two standard stream protocols.
+
+</li><li> Can insert a packet collection delay line of configurable duration.
+This can be useful e.g. with snort alert triggering to make sure all packets
+which trigger an alert are collected.
 
 </li></ul>
 
 <span id="index-cybermon_002c-features"></span>
 <span id="index-Features_002c-of-cybermon"></span>
 
+<span id="Cybermon"></span><h3 class="heading">Cybermon</h3>
+
 <p>The monitor tool, <code>cybermon</code> has the following features:
 </p>
 <ul>
-<li> Collects packets delivered in stream protocols.
+<li> Analyses packets delivered in the ETSI stream protocol from one or more
+<code>cyberprobe</code> instances.
 
-</li><li> Decodes packet protocols in and raises events in near-real-time.
+</li><li> Decodes a number of packet protocols to detect network events, which are
+delivered to your configuration in near-real-time.
 
-</li><li> Decoded information is made available to user-configurable logic to define
-how the decoded data is handled. A simple configuration language is used
-(LUA) and example configurations are provided to monitor data volumes,
-display data hexdumps, or stash the data in files.
+</li><li> Decoded information is made available to user-configurable logic (written
+in Lua) to define how the decoded data is handled.  Sample configuration
+files are provided to deliver to RabbitMQ in JSON, a gRPC endpoint, and
+deliver to a redis queue.
 
 </li><li> Packet forgery techniques are included, which allow resetting TCP
-connections, and forging DNS responses. This can be invoked from your LUA in
-order to fight back against attacks on your network.
+connections, and forging DNS responses. This can be invoked from your Lua
+configuration.
 
-</li><li> Supports IP, TCP, UDP, ICMP, HTTP and DNS protocols, currently.
+</li><li> Supports IP, TCP, UDP, ICMP, HTTP, DNS, SMTP, FTP, TLS and more.
 
 </li></ul>
 
 <p>The code is targeted at the Linux platform, although it is generic enough to
 be applicable to other UN*X-like platforms.
 </p>
+<span id="Subscribers"></span><h3 class="heading">Subscribers</h3>
+
+<p>The event stream from <code>cybermon</code> can be presented to RabbitMQ
+in a JSON form, which can then be delivered to further analytics:
+</p>
+<ul>
+<li> <code>cybermon-alert</code> reports indicator hits in events to standard output.
+
+</li><li> <code>cybermon-bigquery</code> loads events into GCP BigQuery.
+
+</li><li> <code>cybermon-cassandra</code> loads events into Cassandra.
+
+</li><li> <code>cybermon-detector</code> studies events for the presence of indicators.
+Events are annotated with indicator hits of any are observed.
+
+</li><li> <code>cybermon-dump</code> dumps raw event JSON to standard output.
+
+</li><li> <code>cybermon-elasticsearch</code> loads events into ElasticSearch.
+
+</li><li> <code>cybermon-gaffer</code> loads network information into Gaffer (a graph
+database).
+
+</li><li> <code>cybermon-geoip</code> looks up IP addresses in GeoIP and annotates
+events with location information.
+
+</li><li> <code>cybermon-monitor</code> outputs event information to standard output.
+
+</li></ul>
+
+<span id="Scaling"></span><h3 class="heading">Scaling</h3>
+
+<p>The architecture has support for AWS Traffic Mirroring, and
+supports cloud-scale deployments:
+</p>
+<ul>
+<li> Multiple <code>cyberprobe</code> instances can load-share across multiple
+<code>cybermon</code> instances behind a load-balancer.
+
+</li><li> The event stream from <code>cybermon</code> can be delivered to a pub/sub system
+to distribute load and permit scale-up.
+
+</li></ul>
+
 <p>The easiest way to learn about the software is to follow our Quick Start
 tutorial.
 </p>
@@ -647,12 +735,12 @@ downloads page (<a href="http://github.com/cybermaggedon/cyberprobe/releases">ht
 </p>
 <dl compact="compact">
 <dd>
-<span id="index-cyberprobe"></span>
+<span id="index-cyberprobe-2"></span>
 </dd>
 <dt><code>cyberprobe</code></dt>
 <dd><p>Packet capture.
 </p>
-<span id="index-cybermon"></span>
+<span id="index-cybermon-2"></span>
 </dd>
 <dt><code>cybermon</code></dt>
 <dd><p>Data analyser, analyses the data streams and reports events.
@@ -774,7 +862,7 @@ a particular IP address to this workstation, so that it won&rsquo;t change.
 Next: <a href="#Management-interface" accesskey="n" rel="next">Management interface</a>, Previous: <a href="#Preparation" accesskey="p" rel="prev">Preparation</a>, Up: <a href="#Quick-start-tutorial" accesskey="u" rel="up">Quick start tutorial</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="Using-cyberprobe-1"></span><h3 class="section">3.2 Using <code>cyberprobe</code></h3>
-<span id="index-cyberprobe-1"></span>
+<span id="index-cyberprobe-3"></span>
 <span id="index-cyberprobe-configuration"></span>
 
 <span id="Starting-cyberprobe-with-a-configuration-file"></span><h3 class="heading">Starting cyberprobe with a configuration file</h3>
@@ -1274,7 +1362,7 @@ analyse and act on the captured data.
 Next: <a href="#Writing-your-own-configuration-file" accesskey="n" rel="next">Writing your own configuration file</a>, Previous: <a href="#Integration-with-snort" accesskey="p" rel="prev">Integration with <code>snort</code></a>, Up: <a href="#Quick-start-tutorial" accesskey="u" rel="up">Quick start tutorial</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="Using-cybermon-1"></span><h3 class="section">3.5 Using <code>cybermon</code></h3>
-<span id="index-cybermon-1"></span>
+<span id="index-cybermon-3"></span>
 <span id="index-cybermon_002c-configuration"></span>
 <span id="Introducing-cybermon"></span><h3 class="heading">Introducing <code>cybermon</code></h3>
 
@@ -3599,8 +3687,9 @@ provides.  Synposes:
 </p>
 <div class="example">
 <pre class="example">cybermon [--help] [--transport TRANSPORT] [--port PORT] [--key KEY]
-        [--certificate CERT] [--trusted-ca CHAIN] [--pcap PCAP_FILE]
-        [--config CONFIG] [--vxlan VXLAN-PORT]
+        [--certificate CERT] [--trusted-ca CHAIN] [--pcap PCAP-FILE]
+        [--config CONFIG] [--vxlan VXLAN-PORT] [--interface IFACE]
+        [--device DEVICE] [--time-limit LIMIT]
 </pre></div>
 
 <ul>
@@ -3623,7 +3712,7 @@ Only used in TLS mode.
 </li><li> <var>CHAIN</var>
 specifies a filename for trusted CA keys in PEM format.  Only used in TLS mode.
 
-</li><li> <var>PCAP_FILE</var>
+</li><li> <var>PCAP-FILE</var>
 is a PCAP file to read.  This form of the command reads the PCAP file, and
 then exits.  If the file is &lsquo;<samp>-</samp>&rsquo;, standard input is read.
 
@@ -3636,6 +3725,18 @@ should take when certain events are observed.  See
 is a UDP port number.  This describes a port number to listen on for
 VXLAN protocol.  This scenario is used to receive traffic-mirrored data
 on AWS.
+
+</li><li> <var>IFACE</var>
+is a network interface to sniff for packets as input.
+
+</li><li> <var>DEVICE</var>
+is a device-name to include in the output events.  Use this to specify
+the device for PCAP files, interfaces or VXLAN input if you don&rsquo;t want the
+default placeholder.
+
+</li><li> <var>LIMIT</var>
+is the length of time to run for (in seconds).  The program exits after this
+period.
 
 </li></ul>
 
@@ -7847,8 +7948,10 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><td></td><td valign="top"><a href="#index-context-object"><code>context</code> object</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-configuration"><code>cybermon</code> configuration</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-control"><code>control</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#cyberprobe-configuration"><code>cyberprobe</code> configuration</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Cyber-threat-indicators">Cyber threat indicators</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Threat-indicators-using-STIX">Threat indicators using STIX</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon"><code>cybermon</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon-1"><code>cybermon</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Using-cybermon">Using <code>cybermon</code></a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-cybermon"><code>cybermon</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Top">Top</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-cybermon-1"><code>cybermon</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Overview">Overview</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-cybermon-2"><code>cybermon</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-cybermon-3"><code>cybermon</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Using-cybermon">Using <code>cybermon</code></a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-cybermon-context-object"><code>cybermon</code> <code>context</code> object</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-configuration"><code>cybermon</code> configuration</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-cybermon-events"><code>cybermon</code> events</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-configuration"><code>cybermon</code> configuration</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Cybermon-JSON-message-format">Cybermon JSON message format</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
@@ -7895,8 +7998,10 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><td></td><td valign="top"><a href="#index-cybermon_002dgeoip_002c-invocation"><code>cybermon-geoip</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002dgeoip-invocation"><code>cybermon-geoip</code> invocation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-cybermon_002dmonitor_002c-invocation"><code>cybermon-monitor</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-debug-monitor-subscriber">The debug monitor subscriber</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-cybermon_002dmonitor_002c-invocation-1"><code>cybermon-monitor</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002dmonitor-invocation"><code>cybermon-monitor</code> invocation</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cyberprobe"><code>cyberprobe</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cyberprobe-1"><code>cyberprobe</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Using-cyberprobe">Using <code>cyberprobe</code></a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-cyberprobe"><code>cyberprobe</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Top">Top</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-cyberprobe-1"><code>cyberprobe</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Overview">Overview</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-cyberprobe-2"><code>cyberprobe</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-cyberprobe-3"><code>cyberprobe</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Using-cyberprobe">Using <code>cyberprobe</code></a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-cyberprobe-configuration"><code>cyberprobe</code> configuration</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Using-cyberprobe">Using <code>cyberprobe</code></a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-cyberprobe-secure-delivery">cyberprobe secure delivery</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cyberprobe-configuration"><code>cyberprobe</code> configuration</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Cyberprobe_002c-architecture">Cyberprobe, architecture</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Architecture">Architecture</a></td></tr>
@@ -7942,6 +8047,7 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><td></td><td valign="top"><a href="#index-docker_002dcompose_002dcp_002dsnort_002eyml"><samp>docker-compose-cp-snort.yml</samp></a>:</td><td>&nbsp;</td><td valign="top"><a href="#A-containerised-processing-system">A containerised processing system</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-docker_002dcompose_002eyml"><samp>docker-compose.yml</samp></a>:</td><td>&nbsp;</td><td valign="top"><a href="#A-containerised-processing-system">A containerised processing system</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Downloading">Downloading</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-DPI">DPI</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Top">Top</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-dpkg"><code>dpkg</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Obtaining-the-software">Obtaining the software</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Index_cp_letter-E">E</th><td></td><td></td></tr>
@@ -8063,6 +8169,7 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><td></td><td valign="top"><a href="#index-Packages">Packages</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Packet-forgery">Packet forgery</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Writing-your-own-configuration-file">Writing your own configuration file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Packet-injection">Packet injection</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Writing-your-own-configuration-file">Writing your own configuration file</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Packet-inspection">Packet inspection</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Top">Top</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-pip"><code>pip</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Threat-indicators-using-STIX">Threat indicators using STIX</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Privileged-user">Privileged user</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Using-cyberprobe">Using <code>cyberprobe</code></a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-pub_002fsub">pub/sub</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
@@ -8091,6 +8198,8 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><td></td><td valign="top"><a href="#index-SMTP-command">SMTP command</a>:</td><td>&nbsp;</td><td valign="top"><a href="#ElasticSearch-model">ElasticSearch model</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-SMTP-data">SMTP data</a>:</td><td>&nbsp;</td><td valign="top"><a href="#ElasticSearch-model">ElasticSearch model</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-SMTP-response">SMTP response</a>:</td><td>&nbsp;</td><td valign="top"><a href="#ElasticSearch-model">ElasticSearch model</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Snort">Snort</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Top">Top</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Snort-1">Snort</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Overview">Overview</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-snort-alerts"><code>snort</code> alerts</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Integration-with-snort">Integration with <code>snort</code></a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-snort_002c-integration"><code>snort</code>, integration</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Integration-with-snort">Integration with <code>snort</code></a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-snort_002c-rules"><code>snort</code>, rules</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Integration-with-snort">Integration with <code>snort</code></a></td></tr>
