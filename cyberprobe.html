@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- This manual is for Cyberprobe (version 2.3.10, 7 September 2019),
+<!-- This manual is for Cyberprobe (version 2.4.1, 26 December 2019),
 which is an example in the Texinfo documentation.
 
 Copyright (C) 2013-2014 Cyber MacGeddon
@@ -13,10 +13,10 @@ Texts. -->
 <!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Cyberprobe 2.3.10</title>
+<title>Cyberprobe 2.4.1</title>
 
-<meta name="description" content="Cyberprobe 2.3.10">
-<meta name="keywords" content="Cyberprobe 2.3.10">
+<meta name="description" content="Cyberprobe 2.4.1">
+<meta name="keywords" content="Cyberprobe 2.4.1">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -46,7 +46,7 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<h1 class="settitle" align="center">Cyberprobe 2.3.10</h1>
+<h1 class="settitle" align="center">Cyberprobe 2.4.1</h1>
 
 
 
@@ -60,7 +60,7 @@ Next: <a href="#Overview" accesskey="n" rel="next">Overview</a>, Up: <a href="di
 </div>
 <span id="Cyberprobe"></span><h1 class="top">Cyberprobe</h1>
 
-<p>This is the manual for Cyberprobe (version 2.3.10, 7 September 2019).
+<p>This is the manual for Cyberprobe (version 2.4.1, 26 December 2019).
 </p>
 <img src="cyberprobe-overview.png" alt="png">
 
@@ -299,6 +299,11 @@ tutorial.
 <p>Cyberprobe release highlights:
 </p>
 <dl compact="compact">
+<dt><code>2.4</code></dt>
+<dd><p><code>cybermon-detector</code> refactored to use FSM-based evaluation of
+boolean expressions.
+</p>
+</dd>
 <dt><code>2.3</code></dt>
 <dd><p><code>cyberprobe-cli</code> and control API reworked, protobuf and gRPC support.
 Amazon Linux support.
@@ -703,7 +708,7 @@ Next: <a href="#Running-cyberprobe_002fcybermon-at-boot-time" accesskey="n" rel=
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#Visualisation" accesskey="7">Visualisation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#Threat-indicators-using-STIX" accesskey="8">Threat indicators using STIX</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Threat-indicators" accesskey="8">Threat indicators</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
@@ -1767,7 +1772,7 @@ you want to find out what else you can do in your LUA code.
 <hr>
 <span id="Visualisation"></span><div class="header">
 <p>
-Next: <a href="#Threat-indicators-using-STIX" accesskey="n" rel="next">Threat indicators using STIX</a>, Previous: <a href="#Writing-your-own-configuration-file" accesskey="p" rel="prev">Writing your own configuration file</a>, Up: <a href="#Quick-start-tutorial" accesskey="u" rel="up">Quick start tutorial</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#Threat-indicators" accesskey="n" rel="next">Threat indicators</a>, Previous: <a href="#Writing-your-own-configuration-file" accesskey="p" rel="prev">Writing your own configuration file</a>, Up: <a href="#Quick-start-tutorial" accesskey="u" rel="up">Quick start tutorial</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="Visualisation-1"></span><h3 class="section">3.7 Visualisation</h3>
 <span id="index-Visualisation"></span>
@@ -1938,131 +1943,45 @@ our basic dashboards.  These are installed at:
 
 
 <hr>
-<span id="Threat-indicators-using-STIX"></span><div class="header">
+<span id="Threat-indicators"></span><div class="header">
 <p>
 Previous: <a href="#Visualisation" accesskey="p" rel="prev">Visualisation</a>, Up: <a href="#Quick-start-tutorial" accesskey="u" rel="up">Quick start tutorial</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="Threat-indicators-using-STIX-1"></span><h3 class="section">3.8 Threat indicators using STIX</h3>
-<span id="index-STIX"></span>
-<span id="index-TAXII"></span>
-<span id="index-STIX-indicators"></span>
-<span id="index-Threat-indicators"></span>
-<span id="index-Cyber-threat-indicators"></span>
+<span id="Threat-indicators-1"></span><h3 class="section">3.8 Threat indicators</h3>
+<span id="index-IOC"></span>
+<span id="index-Indicator-of-Compromise"></span>
+<span id="index-Indicator"></span>
+<span id="index-Threat-indicator"></span>
 <span id="index-JSON-1"></span>
 
-<p>We&rsquo;ve been experimenting with an open model for describing cyber
-threats. STIX is a community-driven effort to standardise a model for cyber
-theat information. TAXII defines a set of services for distributing STIX
-information. There&rsquo;s some support in <code>Cyberprobe</code>, but you should
-know that this is very prototype at the moment.
+<p>Cyberprobe includes a subscriber which apply indicators to events.  When
+an event matches an indicator, information about the indicator is tagged
+into the event.
 </p>
-<p>This is what we&rsquo;ve got so far:
+<p>Indicator support is present in the <code>cybermon-detector</code> subscriber
+which reads indicators from a JSON file.
 </p>
-<ul>
-<li> There&rsquo;s a simple CSV file format we&rsquo;ve created to describe cyber
-threats. This is just for convenience.
+<span id="Indicator-files"></span><h3 class="heading">Indicator files</h3>
 
-</li><li> <span id="index-stix_002dcreate"></span>
-A script, <code>stix-create</code> which reads the above configuration file,
-and converts into a STIX document containing Indicator objects.
-
-</li><li> <span id="index-taxii_002dserver"></span>
-A script, <code>taxii-server</code> which acts as a very simple TAXII server,
-serving up STIX documents.
-
-</li><li> <span id="index-taxii_002dclient"></span>
-A script, <code>taxii-client</code> which connects to a TAXII server, gets STIX
-documents and dumps some stuff out.
-
-</li><li> <span id="index-taxii_002dsync_002djson"></span>
-A script <code>taxii-sync-json</code> which connects to a TAXII server, gets
-STIX documents, massages the whole lot into a single JSON form, and dumps
-that to a file.  This is intended to be used with the
-<samp>cybermon-detector</samp> subscriber.
-See <a href="#cybermon_002ddetector-invocation"><code>cybermon-detector</code> invocation</a>.
-
-</li><li> A configuration file for <code>cybermon</code> which reads the JSON threat
-information and reports when theats are observed.
-
-</li></ul>
-
-<span id="index-pyOpenSSL"></span>
-<span id="index-libtaxii-1"></span>
-<span id="index-stix-1"></span>
-<span id="index-pip"></span>
-
-<p>Before taking this any further, you need to have Python installed, along
-with various dependencies (<code>pyOpenSSL</code>, <code>libtaxii</code> and
-<code>stix</code>). The easiest way to install the dependencies is to install
-<code>pip</code>, and issue this command:
-</p>
-<div class="example">
-<pre class="example">sudo pip install libtaxii pyOpenSSL stix
-</pre></div>
-
-<span id="A-STIX-document-service"></span><h3 class="heading">A STIX document service</h3>
-
-<p>The installation bundle includes a couple of CSV files containing some
-fictional cyber theats. Search for <samp>example1.txt</samp> and
-<samp>example2.txt</samp>. They may be in <samp>/usr/local/share/doc/cyberprobe</samp>
-once you&rsquo;ve installed everything. You need to create a data area, and
-convert these files into STIX ready for serving:
-</p>
-<div class="example">
-<pre class="example">mkdir /tmp/stix
-cd /tmp/stix
-mkdir -p data/default
-stix-create /usr/local/share/doc/cyberprobe/example1.txt \
-        data/default/1 -i ex:1
-stix-create /usr/local/share/doc/cyberprobe/example2.txt \
-        data/default/2 -i ex:2
-</pre></div>
-
-<p>Check that you have two new XML files in data/default directory. If they&rsquo;re
-there, you&rsquo;re ready to start a STIX server. This will run on port 8080, so
-you&rsquo;ll need to use a different port number if you don&rsquo;t like this one. It&rsquo;s
-important that this is run from the directory where you just created the
-data directory.
-</p>
-<div class="example">
-<pre class="example">taxii-server --port 8080
-</pre></div>
-
-<p>If that works, use the test client to communicate:
-</p>
-<div class="example">
-<pre class="example">taxii-client --port 8080 --poll
-</pre></div>
-
-<p>And you should see some stuff that looks like cyber threat information
-dumped on the screen.
+<p>The installation bundle includes a a file containing some
+sample indicators, search for <samp>indicators.json</samp>, which may be installed
+at <samp>/usr/local/share/doc/cyberprobe</samp>.
 </p>
 <span id="Deploying-theat-information-to-cybermon"></span><h3 class="heading">Deploying theat information to <code>cybermon</code></h3>
 
-<span id="index-JSON-2"></span>
-
-<p>Now, we use <code>taxii-sync-json</code> to fetch the STIX information in a
-JSON form I can easily ingest into the LUA code:
-</p>
-<div class="example">
-<pre class="example">taxii-sync-json --port 8080
-</pre></div>
-
-<p>This will create a JSON file called <samp>stix-default-combined.json</samp>.
-</p>
-<p>Finally, run processing.  Stop any running <code>cybermon</code> and
-<code>cybermon-elasticsearch</code> processes.  Then run <code>cybermon</code>
-to publish to a queue on RabbitMQ:
+<p>To run using your existing processing pipeline, stop any running
+<code>cybermon</code> and <code>cybermon-elasticsearch</code> processes.  Then run
+<code>cybermon</code> to publish to a queue on RabbitMQ:
 </p>
 <div class="example">
 <pre class="example">cybermon -p 10000 -c /usr/local/etc/cyberprobe/amqp-topic.lua
 </pre></div>
 
-<p>Next run <code>cyberprobe-detector</code> to apply STIX rules.  By default,
+<p>Next run <code>cyberprobe-detector</code> to apply indicator rules.  By default,
 this will subscribe to &lsquo;<samp>cyberprobe</samp>&rsquo; and publish to &lsquo;<samp>ioc</samp>&rsquo;:
 </p>
 <div class="example">
-<pre class="example">STIX_INDICATORS=stix-default-combined.json cybermon-detector \
+<pre class="example">env INDICATORS=/path/to/indicators.json cybermon-detector \
     cyberprobe ioc
 </pre></div>
 
@@ -2083,7 +2002,7 @@ when indicators hit:
 <p>This activity should trigger a theat:
 </p>
 <div class="example">
-<pre class="example">wget -q -O- http://www.malware.com/malware.dat
+<pre class="example">wget -q -O- http://www.malware.org/malware.dat
 </pre></div>
 
 <p>If this works, you should see the following output:
@@ -2091,10 +2010,12 @@ when indicators hit:
 <div class="example">
 <pre class="example">[
   {
+    &quot;description&quot;: &quot;URL of a page serving malware&quot;,
+    &quot;category&quot;: &quot;malware&quot;,
+    &quot;author&quot;: &quot;someone@example.com&quot;,
+    &quot;source&quot;: &quot;id:3245edd9-e0f3-4982-9406-fbf93b874555&quot;,
     &quot;type&quot;: &quot;url&quot;,
-    &quot;id&quot;: &quot;example1:7&quot;,
-    &quot;value&quot;: &quot;http://www.malware.com/malware.dat&quot;,
-    &quot;description&quot;: &quot;URL of a page serving malware&quot;
+    &quot;value&quot;: &quot;http://malware.org/malware.dat&quot;
   }
 ]
 </pre></div>
@@ -2102,14 +2023,11 @@ when indicators hit:
 <p>This hits on a number of theat indicators. The hostname www.malware.com is
 present in a theat indicator, and it is detected in the HTTP request, and
 both the DNS query and response. Also, the URL
-<code>http://www.malware.com/malware.dat</code> is in a threat indicator and it is
+<code>http://www.malware.org/malware.dat</code> is in a threat indicator and it is
 detected in both the HTTP request and response.
 </p>
 <p><code>cybermon-detector</code> updates its state if
-the JSON configuration file has changed. So, you can do a round-trip update
-by changing the input files, re-running stix-create, using
-<code>taxii-sync-json</code> to fetch the updates, and all without stopping the
-monitoring.
+the JSON configuration file has changed.
 </p>
 <p>If you want to load the output of <code>cybermon-detector</code> into
 ElasticSearch, you can, but you need to subscribe to &lsquo;<samp>ioc</samp>&rsquo;:
@@ -2118,6 +2036,15 @@ ElasticSearch, you can, but you need to subscribe to &lsquo;<samp>ioc</samp>&rsq
 <pre class="example">cybermon-elasticsearch ioc
 </pre></div>
 
+<p>This results in indicator hit information being loaded into ES.
+</p>
+<p>For more information on indicators, see
+<a href="#cybermon_002ddetector-invocation"><code>cybermon-detector</code> invocation</a> and
+<a href="#Cyberprobe-indicator-format">Cyberprobe indicator format</a>.
+</p>
+<p>See <a href="https://github.com/cybermaggedon/threat-exchanges">https://github.com/cybermaggedon/threat-exchanges</a> for code which
+creates indicator sets from threat exchanges.
+</p>
 <span id="Conclusion"></span><h3 class="heading">Conclusion</h3>
 
 <p>All done, I hope you enjoyed the tutorial! Any comments on the software, or
@@ -2709,6 +2636,8 @@ Next: <a href="#Architecture" accesskey="n" rel="next">Architecture</a>, Previou
 <tr><td align="left" valign="top">&bull; <a href="#cybermon_002dgeoip-invocation"><code>cybermon-geoip</code> invocation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#cybermon_002ddetector-invocation"><code>cybermon-detector</code> invocation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Cyberprobe-indicator-format">Cyberprobe indicator format</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#cybermon_002ddump-invocation"><code>cybermon-dump</code> invocation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
@@ -5374,7 +5303,7 @@ output.
 <span id="index-Cybermon-JSON-message-format"></span>
 <span id="index-publish_002fsubscribe"></span>
 <span id="index-pub_002fsub"></span>
-<span id="index-JSON-3"></span>
+<span id="index-JSON-2"></span>
 
 <p>For each Lua event, a JSON record is formatted and published to a ZeroMQ
 queue on port 5555.  See <a href="#Cybermon-JSON-message-format">Cybermon JSON message format</a>.
@@ -5387,7 +5316,7 @@ queue on port 5555.  See <a href="#Cybermon-JSON-message-format">Cybermon JSON m
 <span id="index-Cybermon-JSON-message-format-1"></span>
 <span id="index-publish_002fsubscribe-1"></span>
 <span id="index-pub_002fsub-1"></span>
-<span id="index-JSON-4"></span>
+<span id="index-JSON-3"></span>
 
 <p>For each Lua event, a JSON record is formatted and published to a RabbitMQ
 broker.  See <a href="#Cybermon-JSON-message-format">Cybermon JSON message format</a>.  Environment variables
@@ -5400,7 +5329,7 @@ used to tailor delivery.
 <span id="index-Redis"></span>
 <span id="index-Cybermon-JSON-message-format-2"></span>
 <span id="index-queue-delivery-using-Redis"></span>
-<span id="index-JSON-5"></span>
+<span id="index-JSON-4"></span>
 
 <p>For each Lua event, a JSON record is formatted and RPUSH&rsquo;d to a Redis server
 defiend by the <code>REDIS_SERVER</code> environment variable which should be in
@@ -5411,7 +5340,7 @@ Each message is JSON format, see <a href="#Cybermon-JSON-message-format">Cybermo
 <dt><samp>json.lua</samp></dt>
 <dd>
 <span id="index-Cybermon-JSON-message-format-3"></span>
-<span id="index-JSON-6"></span>
+<span id="index-JSON-5"></span>
 
 <p>For each Lua event, a JSON record is formatted and delivered to standard
 outut.
@@ -5483,7 +5412,7 @@ Next: <a href="#cybermon_002dmonitor-invocation" accesskey="n" rel="next"><code>
 <span id="index-Cybermon-JSON-message-format-4"></span>
 <span id="index-publish_002fsubscribe-2"></span>
 <span id="index-pub_002fsub-2"></span>
-<span id="index-JSON-7"></span>
+<span id="index-JSON-6"></span>
 
 <p>Cybermon&rsquo;s &lsquo;<samp>amqp-topic.lua</samp>&rsquo;, &lsquo;<samp>zeromq.lua</samp>&rsquo; and &lsquo;<samp>redis.lua</samp>&rsquo;
 configuration files
@@ -6601,7 +6530,7 @@ following fields, if the information is known:
 
 </dd>
 <dt>&lsquo;<samp>indicators</samp>&rsquo;</dt>
-<dd><span id="index-IOC"></span>
+<dd><span id="index-IOC-1"></span>
 <span id="index-Indicator-of-compromise"></span>
 <span id="index-cybermon_002ddetector-1"></span>
 <p>Not emitted by <code>cybermon</code>, but can be added to the message by
@@ -6626,6 +6555,18 @@ detected.  Each array element is an object with the following fields:
 </dd>
 <dt>&lsquo;<samp>description</samp>&rsquo;</dt>
 <dd><p>Human-readable text describing the IOC.
+</p>
+</dd>
+<dt>&lsquo;<samp>category</samp>&rsquo;</dt>
+<dd><p>Category tag for the indicator.
+</p>
+</dd>
+<dt>&lsquo;<samp>source</samp>&rsquo;</dt>
+<dd><p>Indicator source, a URL, could be the URL of a web page or report.
+</p>
+</dd>
+<dt>&lsquo;<samp>author</samp>&rsquo;</dt>
+<dd><p>Email address of the originator.
 </p>
 </dd>
 </dl>
@@ -6914,14 +6855,14 @@ to &lsquo;<samp>geo</samp>&rsquo;.
 <hr>
 <span id="cybermon_002ddetector-invocation"></span><div class="header">
 <p>
-Next: <a href="#cybermon_002ddump-invocation" accesskey="n" rel="next"><code>cybermon-dump</code> invocation</a>, Previous: <a href="#cybermon_002dgeoip-invocation" accesskey="p" rel="prev"><code>cybermon-geoip</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#Cyberprobe-indicator-format" accesskey="n" rel="next">Cyberprobe indicator format</a>, Previous: <a href="#cybermon_002dgeoip-invocation" accesskey="p" rel="prev"><code>cybermon-geoip</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="cybermon_002ddetector-invocation-1"></span><h3 class="section">9.18 <code>cybermon-detector</code> invocation</h3>
 
 <span id="index-cybermon_002ddetector_002c-invocation"></span>
-<span id="index-STIX-1"></span>
-<span id="index-IOC-1"></span>
+<span id="index-IOC-2"></span>
 <span id="index-Indicator-of-compromise-1"></span>
+<span id="index-Indicator-1"></span>
 
 <p><code>cybermon-detector</code> subscribes to a RabbitMQ pub/sub queue for
 <code>cybermon</code> events, inspects them for IOCs, and adds detection
@@ -6929,6 +6870,11 @@ information if IOCs are observed before re-publishing
 the elaborated events.  This effectively creates a processing
 chain.  The event subscription and publishing events should be different in
 order to avoid creating an infinite loop.
+</p>
+<p>The indicator file is specified by the &lsquo;<samp>INDICATORS</samp>&rsquo; environment variable,
+the default is <samp>indicators.json</samp>.  The file format is the
+<a href="#Cyberprobe-indicator-format">Cyberprobe indicator format</a>.  When the file changes, the indicators are
+reloaded without the needed to restart <code>cybermon-detector</code>.
 </p>
 <p>Synopsis:
 </p>
@@ -6959,14 +6905,234 @@ to &lsquo;<samp>ioc</samp>&rsquo;.
 
 
 <hr>
+<span id="Cyberprobe-indicator-format"></span><div class="header">
+<p>
+Next: <a href="#cybermon_002ddump-invocation" accesskey="n" rel="next"><code>cybermon-dump</code> invocation</a>, Previous: <a href="#cybermon_002ddetector-invocation" accesskey="p" rel="prev"><code>cybermon-detector</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Cyberprobe-indicator-format-1"></span><h3 class="section">9.19 Cyberprobe indicator format</h3>
+
+<span id="index-IOC-3"></span>
+<span id="index-Indicator-of-compromise-2"></span>
+<span id="index-Indicator-2"></span>
+
+<span id="Overview-5"></span><h3 class="heading">Overview</h3>
+
+<p>The <code>cybermon-detector</code> subscriber implements detection against a
+set of indicators (see <a href="#cybermon_002ddetector-invocation"><code>cybermon-detector</code> invocation</a>.  The
+indicators are presented in a file containing JSON describing the
+indicators.
+</p>
+<p>Indicators consist of two parts:
+</p>
+<ul>
+<li> A boolean expression which describes what to look for.
+
+</li><li> A descriptor which describes changes made to the output event when an
+indicator selects data.
+
+</li></ul>
+
+<span id="Overall-structure"></span><h3 class="heading">Overall structure</h3>
+
+<p>The indicators file consists of a simple header containing the
+&lsquo;<samp>description</samp>&rsquo; and &lsquo;<samp>version</samp>&rsquo; fields.  The &lsquo;<samp>version</samp>&rsquo; field is
+intended to record a revision history identified for the indicators, and
+should be changed to a unique value when an update occurs.
+</p>
+<p>These fields are not used by <code>cybermon-detect</code>.  
+</p>
+<div class="example">
+<pre class="example">{
+    &quot;description&quot;: &quot;Some test data&quot;,
+    &quot;version&quot;: &quot;1&quot;,
+    &quot;indicators&quot;: [
+      ...
+    ]
+}
+</pre></div>
+
+<p>The &lsquo;<samp>indicators</samp>&rsquo; field consists of a list of indicators.
+</p>
+<span id="Indicator"></span><h3 class="heading">Indicator</h3>
+
+<p>An indicator consists of: an ID, a descriptor which is tagged onto events
+when they hit indicators, and a definition of what to hit on.  The
+example below shows ID and descriptor.  
+</p>
+<div class="example">
+<pre class="example">{
+    &quot;id&quot;: &quot;6b7aa83f-8c43-4aaa-817f-5039adef19ef&quot;,
+    &quot;descriptor&quot;: {
+        &quot;description&quot;: &quot;URL of a page serving malware&quot;,
+        &quot;category&quot;: &quot;malware&quot;,
+        &quot;author&quot;: &quot;someone@example.com&quot;,
+        &quot;source&quot;: &quot;id:3245edd9-e0f3-4982-9406-fbf93b874555&quot;,
+        &quot;type&quot;: &quot;url&quot;,
+        &quot;value&quot;: &quot;http://malware.org/malware.dat&quot;
+    },
+    ...
+}
+</pre></div>
+
+<p>A descriptor contains a type/value pair which is a seed of information that an
+investigator would want to search for for further information.
+</p>
+<p>The descriptor fields are:
+</p>
+<dl compact="compact">
+<dt>&lsquo;<samp>description</samp>&rsquo;</dt>
+<dd><p>A human-readable description of the purpose of this indicator.
+</p>
+</dd>
+<dt>&lsquo;<samp>category</samp>&rsquo;</dt>
+<dd><p>A threat category for the indicator, which is used to group threats into
+type of threat
+</p>
+</dd>
+<dt>&lsquo;<samp>author</samp>&rsquo;</dt>
+<dd><p>Email address of indicator author
+</p>
+</dd>
+<dt>&lsquo;<samp>source</samp>&rsquo;</dt>
+<dd><p>Source of the indicator, should be a URL e.g. a web-page address of a report
+</p>
+</dd>
+<dt>&lsquo;<samp>type</samp>&rsquo;</dt>
+<dd><p>The type of the &lsquo;<samp>value</samp>&rsquo; field, can be one of &lsquo;<samp>hostname</samp>&rsquo;,
+&lsquo;<samp>url</samp>&rsquo;, &lsquo;<samp>ipv4</samp>&rsquo;, &lsquo;<samp>ipv6</samp>&rsquo;, &lsquo;<samp>tcp</samp>&rsquo;, &lsquo;<samp>udp</samp>&rsquo;, &lsquo;<samp>email</samp>&rsquo;.
+</p>
+</dd>
+</dl>
+
+<span id="Indicator-value"></span><h3 class="heading">Indicator value</h3>
+
+<p>The indicator value consists of four constructs:
+</p>
+<ul>
+<li> &lsquo;<samp>and</samp>&rsquo;
+
+</li><li> &lsquo;<samp>or</samp>&rsquo;
+
+</li><li> &lsquo;<samp>not</samp>&rsquo;
+
+</li><li> Match term
+
+</li></ul>
+
+<p>The value construct is included in the Indicator object alongside the
+&lsquo;<samp>id</samp>&rsquo; field e.g.
+</p>
+<div class="example">
+<pre class="example">{
+    &quot;id&quot;: &quot;845bcc85-49f5-427c-806c-5fe5984c2c5c&quot;,
+    &quot;descriptor&quot;: {
+      ...
+    },
+    &quot;type&quot;: &quot;tcp&quot;,
+    &quot;value&quot;: &quot;11111&quot;
+}
+</pre></div>
+
+<p>or
+</p>
+<div class="example">
+<pre class="example">{
+    &quot;id&quot;: &quot;845bcc85-49f5-427c-806c-5fe5984c2c5c&quot;,
+    &quot;descriptor&quot;: {
+      ...
+    },
+    &quot;or&quot;: [
+        {
+            &quot;type&quot;: &quot;tcp&quot;,
+            &quot;value&quot;: &quot;11111&quot;
+        },
+        {
+            &quot;type&quot;: &quot;tcp&quot;,
+            &quot;value&quot;: &quot;11112&quot;
+        }
+    ]
+}
+</pre></div>
+
+<p>The four value constructs can be combined with multiple layers to any
+depth.
+</p>
+<span id="Match-term"></span><h4 class="subheading">Match term</h4>
+
+<p>The simple matching form consists of a type and value.  The type field
+can be one of: &lsquo;<samp>hostname</samp>&rsquo;, &lsquo;<samp>url</samp>&rsquo;, &lsquo;<samp>ipv4</samp>&rsquo;, &lsquo;<samp>ipv4.src</samp>&rsquo;,
+&lsquo;<samp>ipv4.dest</samp>&rsquo;, &lsquo;<samp>ipv6</samp>&rsquo;, &lsquo;<samp>ipv6.src</samp>&rsquo;, &lsquo;<samp>ipv6.dest</samp>&rsquo;,
+&lsquo;<samp>tcp</samp>&rsquo;, &lsquo;<samp>tcp.src</samp>&rsquo;, &lsquo;<samp>tcp.dest</samp>&rsquo;, &lsquo;<samp>udp</samp>&rsquo;,
+&lsquo;<samp>udp.src</samp>&rsquo;, &lsquo;<samp>udp.dest</samp>&rsquo;, &lsquo;<samp>email</samp>&rsquo;. e.g.
+</p>
+<div class="example">
+<pre class="example">{
+    &quot;type&quot;: &quot;ipv4.src&quot;,
+    &quot;value&quot;: &quot;192.168.0.1&quot;
+}
+</pre></div>
+
+<span id="and-construct"></span><h4 class="subheading">&lsquo;<samp>and</samp>&rsquo; construct</h4>
+
+<p>The &lsquo;<samp>and</samp>&rsquo; construct is true if all of its children are true.
+</p>
+<div class="example">
+<pre class="example">&quot;and&quot;: [
+    {
+        &quot;type&quot;: &quot;hostname&quot;,
+        &quot;value&quot;: &quot;example.com&quot;
+    },
+    {
+        &quot;type&quot;: &quot;tcp&quot;,
+        &quot;value&quot;: &quot;11112&quot;
+    }
+]
+</pre></div>
+
+<span id="or-construct"></span><h4 class="subheading">&lsquo;<samp>or</samp>&rsquo; construct</h4>
+
+<p>The &lsquo;<samp>or</samp>&rsquo; construct is true if any of its children are true.
+</p>
+<div class="example">
+<pre class="example">&quot;or&quot;: [
+    {
+        &quot;type&quot;: &quot;hostname&quot;,
+        &quot;value&quot;: &quot;example.com&quot;
+    },
+    {
+        &quot;type&quot;: &quot;hostname&quot;,
+        &quot;value&quot;: &quot;example.com&quot;
+    }
+]
+</pre></div>
+
+<span id="not-construct"></span><h4 class="subheading">&lsquo;<samp>not</samp>&rsquo; construct</h4>
+
+<p>The &lsquo;<samp>not</samp>&rsquo; construct is true if its child is false.
+</p>
+<div class="example">
+<pre class="example">&quot;not&quot;: {
+    &quot;type&quot;: &quot;hostname&quot;,
+    &quot;value&quot;: &quot;example.com&quot;
+}
+</pre></div>
+
+<span id="Threat-exchanges"></span><h3 class="heading">Threat exchanges</h3>
+
+<p>See <a href="https://github.com/cybermaggedon/threat-exchanges">https://github.com/cybermaggedon/threat-exchanges</a> for code which
+creates indicator sets from threat exchanges.
+</p>
+
+
+<hr>
 <span id="cybermon_002ddump-invocation"></span><div class="header">
 <p>
-Next: <a href="#cybermon_002dalert-invocation" accesskey="n" rel="next"><code>cybermon-alert</code> invocation</a>, Previous: <a href="#cybermon_002ddetector-invocation" accesskey="p" rel="prev"><code>cybermon-detector</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#cybermon_002dalert-invocation" accesskey="n" rel="next"><code>cybermon-alert</code> invocation</a>, Previous: <a href="#Cyberprobe-indicator-format" accesskey="p" rel="prev">Cyberprobe indicator format</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="cybermon_002ddump-invocation-1"></span><h3 class="section">9.19 <code>cybermon-dump</code> invocation</h3>
+<span id="cybermon_002ddump-invocation-1"></span><h3 class="section">9.20 <code>cybermon-dump</code> invocation</h3>
 
 <span id="index-cybermon_002ddump_002c-invocation"></span>
-<span id="index-JSON-8"></span>
+<span id="index-JSON-7"></span>
 <span id="index-Cybermon-JSON-message-format-5"></span>
 
 <p><code>cybermon-dump</code> subscribes to a RabbitMQ pub/sub queue for
@@ -6999,7 +7165,7 @@ to &lsquo;<samp>cyberprobe</samp>&rsquo;.
 <p>
 Next: <a href="#taxii_002dclient-invocation" accesskey="n" rel="next"><code>taxii-client</code> invocation</a>, Previous: <a href="#cybermon_002ddump-invocation" accesskey="p" rel="prev"><code>cybermon-dump</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="cybermon_002dalert-invocation-1"></span><h3 class="section">9.20 <code>cybermon-alert</code> invocation</h3>
+<span id="cybermon_002dalert-invocation-1"></span><h3 class="section">9.21 <code>cybermon-alert</code> invocation</h3>
 
 <span id="index-cybermon_002dalert_002c-invocation"></span>
 <span id="index-Alert"></span>
@@ -7035,7 +7201,7 @@ to &lsquo;<samp>ioc</samp>&rsquo;.
 <p>
 Next: <a href="#taxii_002dsync_002djson-invocation" accesskey="n" rel="next"><code>taxii-sync-json</code> invocation</a>, Previous: <a href="#cybermon_002dalert-invocation" accesskey="p" rel="prev"><code>cybermon-alert</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="taxii_002dclient-invocation-1"></span><h3 class="section">9.21 <code>taxii-client</code> invocation</h3>
+<span id="taxii_002dclient-invocation-1"></span><h3 class="section">9.22 <code>taxii-client</code> invocation</h3>
 
 <span id="index-taxii_002dclient_002c-invocation"></span>
 
@@ -7173,7 +7339,7 @@ a logical AND.
 <p>
 Next: <a href="#taxii_002dserver-invocation" accesskey="n" rel="next"><code>taxii-server</code> invocation</a>, Previous: <a href="#taxii_002dclient-invocation" accesskey="p" rel="prev"><code>taxii-client</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="taxii_002dsync_002djson-invocation-1"></span><h3 class="section">9.22 <code>taxii-sync-json</code> invocation</h3>
+<span id="taxii_002dsync_002djson-invocation-1"></span><h3 class="section">9.23 <code>taxii-sync-json</code> invocation</h3>
 
 <span id="index-taxii_002dsync_002djson_002c-invocation"></span>
 
@@ -7249,7 +7415,7 @@ collection name chosen.
 <p>
 Next: <a href="#nhis11_002drcvr-invocation" accesskey="n" rel="next"><code>nhis11-rcvr</code> invocation</a>, Previous: <a href="#taxii_002dsync_002djson-invocation" accesskey="p" rel="prev"><code>taxii-sync-json</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="taxii_002dserver-invocation-1"></span><h3 class="section">9.23 <code>taxii-server</code> invocation</h3>
+<span id="taxii_002dserver-invocation-1"></span><h3 class="section">9.24 <code>taxii-server</code> invocation</h3>
 
 <span id="index-taxii_002dserver_002c-invocation"></span>
 
@@ -7314,7 +7480,7 @@ data directory is the master copy for the sync process.
 <p>
 Next: <a href="#etsi_002drcvr-invocation" accesskey="n" rel="next"><code>etsi-rcvr</code> invocation</a>, Previous: <a href="#taxii_002dserver-invocation" accesskey="p" rel="prev"><code>taxii-server</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="nhis11_002drcvr-invocation-1"></span><h3 class="section">9.24 <code>nhis11-rcvr</code> invocation</h3>
+<span id="nhis11_002drcvr-invocation-1"></span><h3 class="section">9.25 <code>nhis11-rcvr</code> invocation</h3>
 
 <span id="index-nhis11_002drcvr_002c-invocation"></span>
 
@@ -7350,7 +7516,7 @@ should be sent. e.g.
 <p>
 Next: <a href="#ElasticSearch-model" accesskey="n" rel="next">ElasticSearch model</a>, Previous: <a href="#nhis11_002drcvr-invocation" accesskey="p" rel="prev"><code>nhis11-rcvr</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="etsi_002drcvr-invocation-1"></span><h3 class="section">9.25 <code>etsi-rcvr</code> invocation</h3>
+<span id="etsi_002drcvr-invocation-1"></span><h3 class="section">9.26 <code>etsi-rcvr</code> invocation</h3>
 
 <span id="index-etsi_002drcvr_002c-invocation"></span>
 
@@ -7385,11 +7551,11 @@ should be sent. e.g.
 <p>
 Previous: <a href="#etsi_002drcvr-invocation" accesskey="p" rel="prev"><code>etsi-rcvr</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="ElasticSearch-model-1"></span><h3 class="section">9.26 ElasticSearch model</h3>
+<span id="ElasticSearch-model-1"></span><h3 class="section">9.27 ElasticSearch model</h3>
 <span id="index-ElasticSearch-3"></span>
 <span id="index-ElasticSearch_002c-model"></span>
 
-<span id="Overview-5"></span><h3 class="heading">Overview</h3>
+<span id="Overview-6"></span><h3 class="heading">Overview</h3>
 
 <p>When <code>cybermon-elasticsearch</code> is used
 observations are created in an ElasticSearch database.
@@ -8003,7 +8169,6 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><td></td><td valign="top"><a href="#index-context-2"><code>context</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Writing-your-own-configuration-file">Writing your own configuration file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-context-object"><code>context</code> object</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-configuration"><code>cybermon</code> configuration</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-control"><code>control</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#cyberprobe-configuration"><code>cyberprobe</code> configuration</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Cyber-threat-indicators">Cyber threat indicators</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Threat-indicators-using-STIX">Threat indicators using STIX</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-cybermon"><code>cybermon</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Top">Top</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-cybermon-1"><code>cybermon</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Overview">Overview</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-cybermon-2"><code>cybermon</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
@@ -8171,26 +8336,32 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><th id="Index_cp_letter-I">I</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-ICMP">ICMP</a>:</td><td>&nbsp;</td><td valign="top"><a href="#ElasticSearch-model">ElasticSearch model</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-ifconfig"><code>ifconfig</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Indicator">Indicator</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Threat-indicators">Threat indicators</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Indicator-1">Indicator</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002ddetector-invocation"><code>cybermon-detector</code> invocation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Indicator-2">Indicator</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cyberprobe-indicator-format">Cyberprobe indicator format</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Indicator-of-Compromise">Indicator of Compromise</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Threat-indicators">Threat indicators</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Indicator-of-compromise">Indicator of compromise</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cybermon-JSON-message-format">Cybermon JSON message format</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Indicator-of-compromise-1">Indicator of compromise</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002ddetector-invocation"><code>cybermon-detector</code> invocation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Indicator-of-compromise-2">Indicator of compromise</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cyberprobe-indicator-format">Cyberprobe indicator format</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Installation">Installation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Integration-with-snort">Integration with <code>snort</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Integration-with-snort">Integration with <code>snort</code></a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-interfaces"><code>interfaces</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#cyberprobe-configuration"><code>cyberprobe</code> configuration</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-IOC">IOC</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cybermon-JSON-message-format">Cybermon JSON message format</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-IOC-1">IOC</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002ddetector-invocation"><code>cybermon-detector</code> invocation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-IOC">IOC</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Threat-indicators">Threat indicators</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-IOC-1">IOC</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cybermon-JSON-message-format">Cybermon JSON message format</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-IOC-2">IOC</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002ddetector-invocation"><code>cybermon-detector</code> invocation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-IOC-3">IOC</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cyberprobe-indicator-format">Cyberprobe indicator format</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-IP-address-mask">IP address mask</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cyberprobe-configuration"><code>cyberprobe</code> configuration</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-IP-address-matching">IP address matching</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cyberprobe-configuration"><code>cyberprobe</code> configuration</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Index_cp_letter-J">J</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-JSON">JSON</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Visualisation">Visualisation</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-JSON-1">JSON</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Threat-indicators-using-STIX">Threat indicators using STIX</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-JSON-2">JSON</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Threat-indicators-using-STIX">Threat indicators using STIX</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-JSON-1">JSON</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Threat-indicators">Threat indicators</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-JSON-2">JSON</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-JSON-3">JSON</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-JSON-4">JSON</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-JSON-5">JSON</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-JSON-6">JSON</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-JSON-7">JSON</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cybermon-JSON-message-format">Cybermon JSON message format</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-JSON-8">JSON</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002ddump-invocation"><code>cybermon-dump</code> invocation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-JSON-6">JSON</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cybermon-JSON-message-format">Cybermon JSON message format</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-JSON-7">JSON</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002ddump-invocation"><code>cybermon-dump</code> invocation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-json_002elua"><samp>json.lua</samp></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Using-cybermon">Using <code>cybermon</code></a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Index_cp_letter-K">K</th><td></td><td></td></tr>
@@ -8200,7 +8371,6 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><th id="Index_cp_letter-L">L</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-libpcap"><code>libpcap</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Obtaining-the-software">Obtaining the software</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-libtaxii"><code>libtaxii</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Obtaining-the-software">Obtaining the software</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-libtaxii-1"><code>libtaxii</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Threat-indicators-using-STIX">Threat indicators using STIX</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-LIID">LIID</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Output-streaming-protocols">Output streaming protocols</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-LIID-1">LIID</a>:</td><td>&nbsp;</td><td valign="top"><a href="#ElasticSearch-model">ElasticSearch model</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Lua">Lua</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Obtaining-the-software">Obtaining the software</a></td></tr>
@@ -8231,7 +8401,6 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><td></td><td valign="top"><a href="#index-Packet-forgery">Packet forgery</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Writing-your-own-configuration-file">Writing your own configuration file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Packet-injection">Packet injection</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Writing-your-own-configuration-file">Writing your own configuration file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Packet-inspection">Packet inspection</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Top">Top</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-pip"><code>pip</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Threat-indicators-using-STIX">Threat indicators using STIX</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Privileged-user">Privileged user</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Using-cyberprobe">Using <code>cyberprobe</code></a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Protobuf">Protobuf</a>:</td><td>&nbsp;</td><td valign="top"><a href="#eventstream_002dservice-invocation"><code>eventstream-service</code> invocation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Protobuf-1">Protobuf</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-configuration"><code>cybermon</code> configuration</a></td></tr>
@@ -8245,7 +8414,6 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><td></td><td valign="top"><a href="#index-publish_002fsubscribe">publish/subscribe</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-publish_002fsubscribe-1">publish/subscribe</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-publish_002fsubscribe-2">publish/subscribe</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cybermon-JSON-message-format">Cybermon JSON message format</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-pyOpenSSL"><code>pyOpenSSL</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Threat-indicators-using-STIX">Threat indicators using STIX</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Index_cp_letter-Q">Q</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-queue-delivery-using-Redis">queue delivery using Redis</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
@@ -8272,28 +8440,19 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><td></td><td valign="top"><a href="#index-snort_005falert"><code>snort_alert</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#cyberprobe-configuration"><code>cyberprobe</code> configuration</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-SSL">SSL</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cyberprobe-configuration"><code>cyberprobe</code> configuration</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-stix"><code>stix</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Obtaining-the-software">Obtaining the software</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-STIX">STIX</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Threat-indicators-using-STIX">Threat indicators using STIX</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-stix-1"><code>stix</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Threat-indicators-using-STIX">Threat indicators using STIX</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-STIX-1">STIX</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002ddetector-invocation"><code>cybermon-detector</code> invocation</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-STIX-indicators">STIX indicators</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Threat-indicators-using-STIX">Threat indicators using STIX</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-stix_002dcreate"><code>stix-create</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Threat-indicators-using-STIX">Threat indicators using STIX</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Storing-observations">Storing observations</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Visualisation">Visualisation</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Index_cp_letter-T">T</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Target">Target</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Using-cyberprobe">Using <code>cyberprobe</code></a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-targets"><code>targets</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#cyberprobe-configuration"><code>cyberprobe</code> configuration</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-targets_002c-address-mask"><code>targets</code>, address mask</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cyberprobe-configuration"><code>cyberprobe</code> configuration</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-TAXII">TAXII</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Threat-indicators-using-STIX">Threat indicators using STIX</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-taxii_002dclient"><code>taxii-client</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Threat-indicators-using-STIX">Threat indicators using STIX</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-taxii_002dclient_002c-invocation"><code>taxii-client</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#taxii_002dclient-invocation"><code>taxii-client</code> invocation</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-taxii_002dserver"><code>taxii-server</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Threat-indicators-using-STIX">Threat indicators using STIX</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-taxii_002dserver_002c-invocation"><code>taxii-server</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#taxii_002dserver-invocation"><code>taxii-server</code> invocation</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-taxii_002dsync_002djson"><code>taxii-sync-json</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Threat-indicators-using-STIX">Threat indicators using STIX</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-taxii_002dsync_002djson_002c-invocation"><code>taxii-sync-json</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#taxii_002dsync_002djson-invocation"><code>taxii-sync-json</code> invocation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-TCP-reset">TCP reset</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Writing-your-own-configuration-file">Writing your own configuration file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-tcpdump"><code>tcpdump</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Obtaining-the-software">Obtaining the software</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-telnet"><code>telnet</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Obtaining-the-software">Obtaining the software</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Threat-indicators">Threat indicators</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Threat-indicators-using-STIX">Threat indicators using STIX</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Threat-indicator">Threat indicator</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Threat-indicators">Threat indicators</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-TLS">TLS</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cyberprobe-configuration"><code>cyberprobe</code> configuration</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-trusted_002dca_002c-cyberprobe-configuration-option"><code>trusted-ca</code>, cyberprobe configuration option</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cyberprobe-configuration"><code>cyberprobe</code> configuration</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-TS-101-671">TS 101 671</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Output-streaming-protocols">Output streaming protocols</a></td></tr>
