@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- This manual is for Cyberprobe (version 2.4.1, 26 December 2019),
+<!-- This manual is for Cyberprobe (version 2.5.0, 5 June 2020),
 which is an example in the Texinfo documentation.
 
 Copyright (C) 2013-2014 Cyber MacGeddon
@@ -10,19 +10,18 @@ under the terms of the GNU Free Documentation License, Version 1.3 or
 any later version published by the Free Software Foundation; with no
 Invariant Sections, with no Front-Cover Texts, and with no Back-Cover
 Texts. -->
-<!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Cyberprobe 2.4.1</title>
+<title>Cyberprobe 2.5.0</title>
 
-<meta name="description" content="Cyberprobe 2.4.1">
-<meta name="keywords" content="Cyberprobe 2.4.1">
+<meta name="description" content="Cyberprobe 2.5.0">
+<meta name="keywords" content="Cyberprobe 2.5.0">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
 <link href="#Top" rel="start" title="Top">
 <link href="#Index" rel="index" title="Index">
-<link href="dir.html#Top" rel="up" title="(dir)">
 <style type="text/css">
 <!--
 a.summary-letter {text-decoration: none}
@@ -46,7 +45,7 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<h1 class="settitle" align="center">Cyberprobe 2.4.1</h1>
+<h1 class="settitle" align="center">Cyberprobe 2.5.0</h1>
 
 
 
@@ -56,11 +55,11 @@ ul.no-bullet {list-style: none}
 
 <span id="Top"></span><div class="header">
 <p>
-Next: <a href="#Overview" accesskey="n" rel="next">Overview</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#Overview" accesskey="n" rel="next">Overview</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="Cyberprobe"></span><h1 class="top">Cyberprobe</h1>
 
-<p>This is the manual for Cyberprobe (version 2.4.1, 26 December 2019).
+<p>This is the manual for Cyberprobe (version 2.5.0, 5 June 2020).
 </p>
 <img src="cyberprobe-overview.png" alt="png">
 
@@ -101,7 +100,7 @@ The event handling is implemented as a function written in Lua, so you can
 add your own custom event handling.
 
 </li><li> a set of subscribers which can be used to do things with the captured data
-e.g. store to ElasticSearch, BigQuery or Gaffer.
+e.g. store to ElasticSearch, Cassandra or Gaffer.
 
 </li></ul>
 
@@ -130,7 +129,7 @@ supports cloud-scale deployments.
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#Architecture">Architecture</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#Index">Index</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Index" rel="index">Index</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
@@ -181,7 +180,7 @@ The event handling is implemented as a function written in Lua, so you can
 add your own custom event handling.
 
 </li><li> a set of subscribers which can be used to do things with the captured data
-e.g. store to ElasticSearch, BigQuery or Gaffer.
+e.g. store to ElasticSearch, Cassandra or Gaffer.
 
 </li></ul>
 
@@ -248,13 +247,11 @@ be applicable to other UN*X-like platforms.
 </p>
 <span id="Subscribers"></span><h3 class="heading">Subscribers</h3>
 
-<p>The event stream from <code>cybermon</code> can be presented to RabbitMQ
-in a JSON form, which can then be delivered to further analytics:
+<p>The event stream from <code>cybermon</code> can be presented to a Pulsar
+exchange in protobuf form, which can then be delivered to further analytics:
 </p>
 <ul>
 <li> <code>cybermon-alert</code> reports indicator hits in events to standard output.
-
-</li><li> <code>cybermon-bigquery</code> loads events into GCP BigQuery.
 
 </li><li> <code>cybermon-cassandra</code> loads events into Cassandra.
 
@@ -299,6 +296,11 @@ tutorial.
 <p>Cyberprobe release highlights:
 </p>
 <dl compact="compact">
+<dt><code>2.5</code></dt>
+<dd><p>Pulsar and protobuf support added, permits events from cybermon to be
+described in protobuf form, and delivered to a Pulsar pub/sub exchange.
+</p>
+</dd>
 <dt><code>2.4</code></dt>
 <dd><p><code>cybermon-detector</code> refactored to use FSM-based evaluation of
 boolean expressions.
@@ -421,8 +423,8 @@ install if you&rsquo;re not using containers.
 
 <p>We use this signing key:
 </p><div class="example">
-<pre class="example">pub   rsa4096 2019-04-16 [SC]
-      F6D4 AAA5 BFA0 8F63 515A  E22D DA59 F5B6 12EA 476C
+<pre class="example">pub   rsa4096 2020-06-05 [SC]
+      E684 ECDC B4EA 9F64 DDD0  3D64 3C5A 9A8D 1389 8455
 uid           [ultimate] Cyber MacGeddon &lt;cybermaggedon@gmail.com&gt;
 </pre></div>
 
@@ -478,8 +480,8 @@ gpgkey=https://cybermaggedon.github.io/cyberprobe-release/cyberprobe.asc
 
 <p>We use this signing key:
 </p><div class="example">
-<pre class="example">pub   rsa4096 2019-04-16 [SC]
-      F6D4 AAA5 BFA0 8F63 515A  E22D DA59 F5B6 12EA 476C
+<pre class="example">pub   rsa4096 2020-06-05 [SC]
+      E684 ECDC B4EA 9F64 DDD0  3D64 3C5A 9A8D 1389 8455
 uid           [ultimate] Cyber MacGeddon &lt;cybermaggedon@gmail.com&gt;
 </pre></div>
 
@@ -508,8 +510,8 @@ gpgkey=https://cybermaggedon.github.io/cyberprobe-release/cyberprobe.asc
 
 <p>We use this signing key:
 </p><div class="example">
-<pre class="example">pub   rsa4096 2019-04-16 [SC]
-      F6D4 AAA5 BFA0 8F63 515A  E22D DA59 F5B6 12EA 476C
+<pre class="example">pub   rsa4096 2020-06-05 [SC]
+      E684 ECDC B4EA 9F64 DDD0  3D64 3C5A 9A8D 1389 8455
 uid           [ultimate] Cyber MacGeddon &lt;cybermaggedon@gmail.com&gt;
 </pre></div>
 
@@ -759,11 +761,6 @@ downloads page (<a href="http://github.com/cybermaggedon/cyberprobe/releases">ht
 </dd>
 <dt><code>cyberprobe-cli</code></dt>
 <dd><p>Cyberprobe control command-line client.
-</p>
-<span id="index-cybermon_002dbigquery"></span>
-</dd>
-<dt><code>cybermon-bigquery</code></dt>
-<dd><p>Pub/sub subscriber, delivers events to Google Bigquery.
 </p>
 <span id="index-cybermon_002dcassandra"></span>
 </dd>
@@ -1837,20 +1834,24 @@ this:
 </pre></div>
 
 <p>Once ElasticSearch is running, you can get <code>cybermon</code> to load
-observations into it.  Before we do that, need RabbitMQ to provide the
+observations into it.  Before we do that, need Pulsar to provide the
 pub/sub infrastructure:
 </p>
 <div class="example">
-<pre class="example">docker run --name amqp -p 5672:5672 -p 15672:15672 \
-    docker.io/library/rabbitmq:3.7.4-management
+<pre class="example">docker run -it \
+    --name pubsub \
+    -p 6650:6650 \
+    -p 8080:8080 \
+    apachepulsar/pulsar:2.5.2 \
+    bin/pulsar standalone
 </pre></div>
 
 <p>Next we need to run two commands.
-Firstly, <code>cybermon</code> is run to output events on a RabbitMQ
-pub/sub queue.
+Firstly, <code>cybermon</code> is run to output events on a Pulsar
+pub/sub exchange.
 </p>
 <div class="example">
-<pre class="example">cybermon -p 10000 -c /usr/local/etc/cyberprobe/amqp-topic.lua
+<pre class="example">cybermon -p 10000 -c /usr/local/etc/cyberprobe/pulsar.lua
 </pre></div>
 
 <p>While that&rsquo;s running, we can start the ElasticSearch loader:
@@ -1971,10 +1972,10 @@ at <samp>/usr/local/share/doc/cyberprobe</samp>.
 
 <p>To run using your existing processing pipeline, stop any running
 <code>cybermon</code> and <code>cybermon-elasticsearch</code> processes.  Then run
-<code>cybermon</code> to publish to a queue on RabbitMQ:
+<code>cybermon</code> to publish to a topic on Pulsar:
 </p>
 <div class="example">
-<pre class="example">cybermon -p 10000 -c /usr/local/etc/cyberprobe/amqp-topic.lua
+<pre class="example">cybermon -p 10000 -c /usr/local/etc/cyberprobe/pulsar.lua
 </pre></div>
 
 <p>Next run <code>cyberprobe-detector</code> to apply indicator rules.  By default,
@@ -2135,9 +2136,7 @@ Next: <a href="#A-containerised-processing-system" accesskey="n" rel="next">A co
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#The-Gaffer-subscriber" accesskey="4">The Gaffer subscriber</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#The-Google-BigQuery-subscriber" accesskey="5">The Google BigQuery subscriber</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
-</td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#The-debug-monitor-subscriber" accesskey="6">The debug monitor subscriber</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#The-debug-monitor-subscriber" accesskey="5">The debug monitor subscriber</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
@@ -2154,21 +2153,21 @@ Next: <a href="#The-Cassandra-subscriber" accesskey="n" rel="next">The Cassandra
 
 <p>Events from <code>cybermon</code> can be delivered to a pub/sub mechanism which
 allows subscribers to connect and disconnect without disrupting delivery
-to other subscribers.  The pub/sub mechanism used is RabbitMQ, which is a
-simple non-persistent, broker-less mechanism.
+to other subscribers.  The pub/sub mechanism used is Pulsar, which is a
+simple high-performance, distributed exchange.
 </p>
 <p>In order to use this mechanism, you need to ensure you have configured
-<code>cybermon</code> appropriately.  This is normally done by copying the
-<samp>amqp-topic.lua</samp> to <samp>cybermon.lua</samp> in directory
-<samp>/usr/local/etc/cyberprobe/</samp>.
-prior to executing
-<code>cybermon</code>.  Alternatively, <code>cybermon</code> can be manually
-invoked, specifying the <samp>amqp-topic.lua</samp> pathname on the command line.
+<code>cybermon</code> appropriately.  This is normally done by using the
+<samp>pulsar.lua</samp> configuration file.  Copy to <samp>cybermon.lua</samp> in directory
+<samp>/usr/local/etc/cyberprobe/</samp> to use this by default with standard
+system startup of <code>cybermon</code>.
+Alternatively, <code>cybermon</code> can be manually
+invoked, specifying the <samp>pulsar.lua</samp> pathname on the command line.
 </p>
 <p>Once running, <code>cybermon</code> will publish all events
-to RabbitMQ.
+to Pulsar&rsquo;s &lsquo;<samp>cyberprobe</samp>&rsquo; topic.
 </p>
-<p>RabbitMQ allows subscribers to be started and stopped without affecting the
+<p>Pulsar allows subscribers to be started and stopped without affecting the
 delivery of events to other receivers.  That is, you can start
 <code>cybermon</code> with no subscribers, discarding data, and introduce
 subscribers later.
@@ -2177,13 +2176,13 @@ subscribers later.
 chained.  e.g.
 </p>
 <ul>
-<li> <code>cybermon</code> can be executed with <samp>amqp-topic.lua</samp> to publish
-events to RabbitMQ queue &lsquo;<samp>cyberprobe</samp>&rsquo;.
+<li> <code>cybermon</code> can be executed with <samp>pulsar</samp> to publish
+events to Pulsar topic &lsquo;<samp>cyberprobe</samp>&rsquo;.
 
 </li><li> <code>cybermon-geoip</code> can subscribe to &lsquo;<samp>cyberprobe</samp>&rsquo;, and push
 events containing information to &lsquo;<samp>geo</samp>&rsquo;.
 
-</li><li> <code>cybermon-detector</code> can lookup for IOCs and push events with IOC
+</li><li> <code>cybermon-detector</code> can do lookup for IOCs and push events with IOC
 detection information to &lsquo;<samp>ioc</samp>&rsquo;.
 
 </li><li> <code>cybermon-elasticsearch</code> can subscribe to &lsquo;<samp>ioc</samp>&rsquo; and write events to
@@ -2251,7 +2250,7 @@ base URI, which is used as a command-line parameter e.g.
 <hr>
 <span id="The-Gaffer-subscriber"></span><div class="header">
 <p>
-Next: <a href="#The-Google-BigQuery-subscriber" accesskey="n" rel="next">The Google BigQuery subscriber</a>, Previous: <a href="#The-ElasticSearch-subscriber" accesskey="p" rel="prev">The ElasticSearch subscriber</a>, Up: <a href="#The-pub_002fsub-infrastructure" accesskey="u" rel="up">The pub/sub infrastructure</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#The-debug-monitor-subscriber" accesskey="n" rel="next">The debug monitor subscriber</a>, Previous: <a href="#The-ElasticSearch-subscriber" accesskey="p" rel="prev">The ElasticSearch subscriber</a>, Up: <a href="#The-pub_002fsub-infrastructure" accesskey="u" rel="up">The pub/sub infrastructure</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="The-Gaffer-subscriber-1"></span><h3 class="section">5.4 The Gaffer subscriber</h3>
 
@@ -2351,47 +2350,11 @@ of the Gaffer REST API. e.g.
 </p>
 
 <hr>
-<span id="The-Google-BigQuery-subscriber"></span><div class="header">
-<p>
-Next: <a href="#The-debug-monitor-subscriber" accesskey="n" rel="next">The debug monitor subscriber</a>, Previous: <a href="#The-Gaffer-subscriber" accesskey="p" rel="prev">The Gaffer subscriber</a>, Up: <a href="#The-pub_002fsub-infrastructure" accesskey="u" rel="up">The pub/sub infrastructure</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
-</div>
-<span id="The-Google-BigQuery-subscriber-1"></span><h3 class="section">5.5 The Google BigQuery subscriber</h3>
-
-<span id="index-cybermon_002dbigquery_002c-invocation"></span>
-<span id="index-Google-BigQuery"></span>
-<span id="index-Google-Cloud-Platform"></span>
-
-<p>Google BigQuery is a cloud data storage mechanism which is part of the
-Google Cloud Platform, available to Google Cloud subscribers.
-</p>
-<p>BigQuery is a &rsquo;big data&rsquo; relational style database, with a query language
-familiar to SQL users.
-</p>
-<p>To use BigQuery, you need to get a private key file in private JSON format
-from the cloud interface, and store this at
-<samp>/usr/local/etc/cyberprobe/private.json</samp>.  One way to do this is
-to go to the IAM interface and create a use with BigQuery access, and download
-the private JSON file.
-</p>
-<p>You need to also to create the BigQuery dataset.  Call it &lsquo;<samp>cyberprobe</samp>&rsquo;.
-The BigQuery table is created automatically when the subscriber is started.
-</p>
-<p>If the key is installed at the above location, you do not need to
-provide any further parameters on the command line.  Just run:
-</p>
-<div class="example">
-<pre class="example">cybermon-bigquery
-</pre></div>
-
-<p>See <a href="#cybermon_002dbigquery-invocation"><code>cybermon-bigquery</code> invocation</a>.
-</p>
-
-<hr>
 <span id="The-debug-monitor-subscriber"></span><div class="header">
 <p>
-Previous: <a href="#The-Google-BigQuery-subscriber" accesskey="p" rel="prev">The Google BigQuery subscriber</a>, Up: <a href="#The-pub_002fsub-infrastructure" accesskey="u" rel="up">The pub/sub infrastructure</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
+Previous: <a href="#The-Gaffer-subscriber" accesskey="p" rel="prev">The Gaffer subscriber</a>, Up: <a href="#The-pub_002fsub-infrastructure" accesskey="u" rel="up">The pub/sub infrastructure</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="The-debug-monitor-subscriber-1"></span><h3 class="section">5.6 The debug monitor subscriber</h3>
+<span id="The-debug-monitor-subscriber-1"></span><h3 class="section">5.5 The debug monitor subscriber</h3>
 
 <span id="index-cybermon_002dmonitor_002c-invocation"></span>
 
@@ -2623,11 +2586,11 @@ Next: <a href="#Architecture" accesskey="n" rel="next">Architecture</a>, Previou
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#Cybermon-JSON-message-format">Cybermon JSON message format</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Cybermon-protobuf-event-format">Cybermon protobuf event format</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#cybermon_002dmonitor-invocation"><code>cybermon-monitor</code> invocation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#cybermon_002delasticsearch-invocation"><code>cybermon-elasticsearch</code> invocation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
-</td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#cybermon_002dbigquery-invocation"><code>cybermon-bigquery</code> invocation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#cybermon_002dgaffer-invocation"><code>cybermon-gaffer</code> invocation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
@@ -3796,14 +3759,17 @@ in the event object itself.
 <p>The action which caused the event.
 </p>
 </dd>
-<dt><code>json</code></dt>
+<dt><code>json()</code></dt>
 <dd>
-<p>Returns the event in JSON form.
+<p>Function, returns the event in JSON form.
+See <a href="#Cybermon-JSON-message-format">Cybermon JSON message format</a>.
 </p>
 </dd>
-<dt><code>protobuf</code></dt>
+<dt><code>protobuf()</code></dt>
 <dd>
-<p>Returns the event in protobuf format.
+<p>Method, returns the event in protobuf wire format.  This is only implemented
+if protobuf support is detected during build).
+See <a href="#Cybermon-protobuf-event-format">Cybermon protobuf event format</a>.
 </p>
 </dd>
 </dl>
@@ -5255,10 +5221,19 @@ end
 return observer
 </pre></div>
 
-<span id="index-eventstream_002dservice"></span>
-<p>The <samp>cyberprobe.proto</samp> file in the source code contains the protobuf/gRPC
-service definition.  The sample gRPC client <code>eventstream-service</code> can
-be used to receive cyberprobe gRPC events.  See <a href="#eventstream_002dservice">eventstream-service</a>.
+<p>If protobuf support is compiled into cybermon, a protobuf representation of
+a cybermon event can be obtained by calling <code>e:protobuf()</code>.  This obtains
+the event described in protobuf v3 wire format.  No network communication
+takes place.
+</p>
+<div class="example">
+<pre class="example">observer.event = function(e)
+  x = e:protobuf()
+  -- do something useful
+end
+</pre></div>
+
+<p>See <a href="#Cybermon-protobuf-event-format">Cybermon protobuf event format</a> for details of the protobuf events.
 </p>
 
 
@@ -5323,6 +5298,50 @@ broker.  See <a href="#Cybermon-JSON-message-format">Cybermon JSON message forma
 &lsquo;<samp>AMQP_BROKER</samp>&rsquo;, &lsquo;<samp>AMQP_EXCHANGE</samp>&rsquo;, &lsquo;<samp>AMQP_ROUTING_KEY</samp>&rsquo; can be
 used to tailor delivery.
 </p>
+</dd>
+<dt><samp>pulsar.lua</samp></dt>
+<dd>
+<span id="index-Apache-Pulsar"></span>
+<span id="index-Pulsar"></span>
+<span id="index-Cybermon-protobuf-event-format"></span>
+<span id="index-publish_002fsubscribe-2"></span>
+<span id="index-pub_002fsub-2"></span>
+<span id="index-protobuf"></span>
+
+<p>For each Lua event, an event is formatted in protobuf wire format
+and published to a Pulsar exchange.
+See <a href="#Cybermon-protobuf-event-format">Cybermon protobuf event format</a> for details.  The following
+environment variables configure the exchange:
+</p>
+<dl compact="compact">
+<dt>&lsquo;<samp>PULSAR_BROKER</samp>&rsquo;</dt>
+<dd>
+<p>Specifies broker location.  Currently we use the Pulsar websocket endpoint,
+default is &lsquo;<samp>ws://localhost:8080</samp>&rsquo;.
+</p>
+</dd>
+<dt>&lsquo;<samp>PULSAR_TENANT</samp>&rsquo;</dt>
+<dd>
+<p>Specifies tenant, default is &lsquo;<samp>public</samp>&rsquo;.
+</p>
+</dd>
+<dt>&lsquo;<samp>PULSAR_PERSISTENCY</samp>&rsquo;</dt>
+<dd>
+<p>Specifies persistency of messages, default is &lsquo;<samp>persistent</samp>&rsquo;.
+</p>
+</dd>
+<dt>&lsquo;<samp>PULSAR_NAMESPACE</samp>&rsquo;</dt>
+<dd>
+<p>Specifies namespace, default is &lsquo;<samp>default</samp>&rsquo;.
+</p>
+</dd>
+<dt>&lsquo;<samp>PULSAR_TOPIC</samp>&rsquo;</dt>
+<dd>
+<p>Specifies topic, default is &lsquo;<samp>cyberprobe</samp>&rsquo;.
+</p>
+</dd>
+</dl>
+
 </dd>
 <dt><samp>redis.lua</samp></dt>
 <dd>
@@ -5401,7 +5420,7 @@ loaded as modules e.g.
 <hr>
 <span id="Cybermon-JSON-message-format"></span><div class="header">
 <p>
-Next: <a href="#cybermon_002dmonitor-invocation" accesskey="n" rel="next"><code>cybermon-monitor</code> invocation</a>, Previous: <a href="#cybermon-example-configurations" accesskey="p" rel="prev"><code>cybermon</code> example configurations</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#Cybermon-protobuf-event-format" accesskey="n" rel="next">Cybermon protobuf event format</a>, Previous: <a href="#cybermon-example-configurations" accesskey="p" rel="prev"><code>cybermon</code> example configurations</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="Cybermon-JSON-message-format-1"></span><h3 class="section">9.11 Cybermon JSON message format</h3>
 
@@ -5410,8 +5429,8 @@ Next: <a href="#cybermon_002dmonitor-invocation" accesskey="n" rel="next"><code>
 <span id="index-AMQP-1"></span>
 <span id="index-Redis-1"></span>
 <span id="index-Cybermon-JSON-message-format-4"></span>
-<span id="index-publish_002fsubscribe-2"></span>
-<span id="index-pub_002fsub-2"></span>
+<span id="index-publish_002fsubscribe-3"></span>
+<span id="index-pub_002fsub-3"></span>
 <span id="index-JSON-6"></span>
 
 <p>Cybermon&rsquo;s &lsquo;<samp>amqp-topic.lua</samp>&rsquo;, &lsquo;<samp>zeromq.lua</samp>&rsquo; and &lsquo;<samp>redis.lua</samp>&rsquo;
@@ -6577,15 +6596,39 @@ detected.  Each array element is an object with the following fields:
 
 
 <hr>
+<span id="Cybermon-protobuf-event-format"></span><div class="header">
+<p>
+Next: <a href="#cybermon_002dmonitor-invocation" accesskey="n" rel="next"><code>cybermon-monitor</code> invocation</a>, Previous: <a href="#Cybermon-JSON-message-format" accesskey="p" rel="prev">Cybermon JSON message format</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Cybermon-protobuf-event-format-1"></span><h3 class="section">9.12 Cybermon protobuf event format</h3>
+
+<span id="index-protobuf-1"></span>
+<span id="index-gRPC-3"></span>
+<span id="index-Cybermon-protobuf-event-format-1"></span>
+
+<p>Cybermon&rsquo;s &lsquo;<samp>pulsar.lua</samp>&rsquo; configuration file
+transmit messages in protobuf format to a Pulsar exchange.
+</p>
+<p>The <samp>cyberprobe.proto</samp> file in the source code contains the protobuf
+definition.  The format is decoded by pub/sub subscribers in the Cyberprobe
+source code <samp>subscribers</samp> directory if you want a good starting point
+to code your own.  See <a href="https://github.com/cybermaggedon/cyberprobe/tree/master/subscribers">https://github.com/cybermaggedon/cyberprobe/tree/master/subscribers</a>.
+</p>
+<p>See <a href="https://github.com/cybermaggedon/cyberprobe/blob/master/protos/cyberprobe.proto">https://github.com/cybermaggedon/cyberprobe/blob/master/protos/cyberprobe.proto</a> for the protobuf definition file.
+</p>
+
+
+
+<hr>
 <span id="cybermon_002dmonitor-invocation"></span><div class="header">
 <p>
-Next: <a href="#cybermon_002delasticsearch-invocation" accesskey="n" rel="next"><code>cybermon-elasticsearch</code> invocation</a>, Previous: <a href="#Cybermon-JSON-message-format" accesskey="p" rel="prev">Cybermon JSON message format</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#cybermon_002delasticsearch-invocation" accesskey="n" rel="next"><code>cybermon-elasticsearch</code> invocation</a>, Previous: <a href="#Cybermon-protobuf-event-format" accesskey="p" rel="prev">Cybermon protobuf event format</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="cybermon_002dmonitor-invocation-1"></span><h3 class="section">9.12 <code>cybermon-monitor</code> invocation</h3>
+<span id="cybermon_002dmonitor-invocation-1"></span><h3 class="section">9.13 <code>cybermon-monitor</code> invocation</h3>
 
 <span id="index-cybermon_002dmonitor_002c-invocation-1"></span>
 
-<p><code>cybermon-monitor</code> subscribes to a RabbitMQ pub/sub queue for
+<p><code>cybermon-monitor</code> subscribes to a pub/sub topic for
 <code>cybermon</code>
 events, and upon receipt of events, formats them for output in a human-readable
 manner.
@@ -6604,7 +6647,7 @@ cybermon-monitor cyberprobe
 
 <dl compact="compact">
 <dt>&lsquo;<samp>BINDING</samp>&rsquo;</dt>
-<dd><p>Specifies the RabbitMQ pub/sub queue to connect to.  If not specified, defaults
+<dd><p>Specifies the pub/sub topic to connect to.  If not specified, defaults
 to &lsquo;<samp>cyberprobe</samp>&rsquo;.
 </p>
 </dd>
@@ -6615,13 +6658,13 @@ to &lsquo;<samp>cyberprobe</samp>&rsquo;.
 <hr>
 <span id="cybermon_002delasticsearch-invocation"></span><div class="header">
 <p>
-Next: <a href="#cybermon_002dbigquery-invocation" accesskey="n" rel="next"><code>cybermon-bigquery</code> invocation</a>, Previous: <a href="#cybermon_002dmonitor-invocation" accesskey="p" rel="prev"><code>cybermon-monitor</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#cybermon_002dgaffer-invocation" accesskey="n" rel="next"><code>cybermon-gaffer</code> invocation</a>, Previous: <a href="#cybermon_002dmonitor-invocation" accesskey="p" rel="prev"><code>cybermon-monitor</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="cybermon_002delasticsearch-invocation-1"></span><h3 class="section">9.13 <code>cybermon-elasticsearch</code> invocation</h3>
+<span id="cybermon_002delasticsearch-invocation-1"></span><h3 class="section">9.14 <code>cybermon-elasticsearch</code> invocation</h3>
 
 <span id="index-cybermon_002delasticsearch_002c-invocation-1"></span>
 
-<p><code>cybermon-elasticsearch</code> subscribes to a RabbitMQ pub/sub queue for
+<p><code>cybermon-elasticsearch</code> subscribes to a pub/sub topic for
 <code>cybermon</code>
 events, and upon receipt of events, formats them for delivery to an
 ElasticSearch store.
@@ -6640,7 +6683,7 @@ cybermon-elasticsearch ioc http://elastic-store:9200/
 
 <dl compact="compact">
 <dt>&lsquo;<samp>BINDING</samp>&rsquo;</dt>
-<dd><p>Specifies the RabbitMQ pub/sub queue to connect to.  If not specified, defaults
+<dd><p>Specifies the pub/sub topic to connect to.  If not specified, defaults
 to &lsquo;<samp>ioc</samp>&rsquo;.
 </p>
 </dd>
@@ -6654,68 +6697,9 @@ to &lsquo;<samp>http://localhost:9200</samp>&rsquo;.
 
 
 <hr>
-<span id="cybermon_002dbigquery-invocation"></span><div class="header">
-<p>
-Next: <a href="#cybermon_002dgaffer-invocation" accesskey="n" rel="next"><code>cybermon-gaffer</code> invocation</a>, Previous: <a href="#cybermon_002delasticsearch-invocation" accesskey="p" rel="prev"><code>cybermon-elasticsearch</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
-</div>
-<span id="cybermon_002dbigquery-invocation-1"></span><h3 class="section">9.14 <code>cybermon-bigquery</code> invocation</h3>
-
-<span id="index-cybermon_002dbigquery_002c-invocation-1"></span>
-
-<p><code>cybermon-bigquery</code> subscribes to a RabbitMQ pub/sub queue for
-<code>cybermon</code>
-events, and upon receipt of events, formats them for delivery to a Google
-BigQuery table.
-</p>
-<p>Synopsis:
-</p>
-<div class="example">
-<pre class="example">cybermon-bigquery [BINDING [KEY-FILE [PROJECT [DATASET [TABLE] ] ] ] ]
-</pre></div>
-
-<p>Example:
-</p><div class="example">
-<pre class="example">cybermon-bigquery
-cybermon-bigquery ioc /priv.json
-</pre></div>
-
-<dl compact="compact">
-<dt>&lsquo;<samp>BINDING</samp>&rsquo;</dt>
-<dd><p>Specifies the RabbitMQ pub/sub queue to connect to.  If not specified, defaults
-to &lsquo;<samp>ioc</samp>&rsquo;.
-</p>
-</dd>
-<dt>&lsquo;<samp>KEY-FILE</samp>&rsquo;</dt>
-<dd><p>Specifies the path to a Google cloud key file in &rsquo;private JSON&rsquo; format.
-If not specified, defaults
-to <samp>/etc/cyberprobe/private.json</samp>.
-</p>
-</dd>
-<dt>&lsquo;<samp>PROJECT</samp>&rsquo;</dt>
-<dd><p>Specifies the Google Cloud project ID to use.  Defaults to the project ID
-specified in the private JSON key file.
-</p>
-</dd>
-<dt>&lsquo;<samp>DATASET</samp>&rsquo;</dt>
-<dd><p>Specifies the BigQuery data set, defaults to &lsquo;<samp>cyberprobe</samp>&rsquo;.  You need to
-create this dataset, it is not created for you.
-</p>
-</dd>
-<dt>&lsquo;<samp>TABLE</samp>&rsquo;</dt>
-<dd><p>Specifies the BigQuery table within the dataset.  This is created if it does
-not already exist.  Don&rsquo;t try to create this yourself, if you use the wrong
-schema, data won&rsquo;t load correctly.
-</p>
-</dd>
-</dl>
-
-
-
-
-<hr>
 <span id="cybermon_002dgaffer-invocation"></span><div class="header">
 <p>
-Next: <a href="#cybermon_002dcassandra-invocation" accesskey="n" rel="next"><code>cybermon-cassandra</code> invocation</a>, Previous: <a href="#cybermon_002dbigquery-invocation" accesskey="p" rel="prev"><code>cybermon-bigquery</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#cybermon_002dcassandra-invocation" accesskey="n" rel="next"><code>cybermon-cassandra</code> invocation</a>, Previous: <a href="#cybermon_002delasticsearch-invocation" accesskey="p" rel="prev"><code>cybermon-elasticsearch</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="cybermon_002dgaffer-invocation-1"></span><h3 class="section">9.15 <code>cybermon-gaffer</code> invocation</h3>
 
@@ -6723,7 +6707,7 @@ Next: <a href="#cybermon_002dcassandra-invocation" accesskey="n" rel="next"><cod
 <span id="index-Gaffer-2"></span>
 <span id="index-Graph-store-2"></span>
 
-<p><code>cybermon-gaffer</code> subscribes to a RabbitMQ pub/sub queue for
+<p><code>cybermon-gaffer</code> subscribes to a pub/sub topic for
 <code>cybermon</code>
 events, and upon receipt of events, formats them for delivery to a
 Gaffer store.  The format used is intended to allow Gaffer to be used
@@ -6748,7 +6732,7 @@ cybermon-gaffer ioc \
 
 <dl compact="compact">
 <dt>&lsquo;<samp>BINDING</samp>&rsquo;</dt>
-<dd><p>Specifies the RabbitMQ pub/sub queue to connect to.  If not specified, defaults
+<dd><p>Specifies the pub/sub topic to connect to.  If not specified, defaults
 to &lsquo;<samp>ioc</samp>&rsquo;.
 </p>
 </dd>
@@ -6773,7 +6757,7 @@ Next: <a href="#cybermon_002dgeoip-invocation" accesskey="n" rel="next"><code>cy
 <span id="index-Cassandra-1"></span>
 <span id="index-Graph-store-3"></span>
 
-<p><code>cybermon-cassandra</code> subscribes to a RabbitMQ pub/sub queue for
+<p><code>cybermon-cassandra</code> subscribes to a Pulsar pub/sub topic for
 <code>cybermon</code>
 events, and upon receipt of events, formats them for delivery to a
 Cassandra store.  The format used is intended to allow Cassandra to be used
@@ -6794,7 +6778,7 @@ cybermon-cassandra ioc cassandra1,cassandra2
 
 <dl compact="compact">
 <dt>&lsquo;<samp>BINDING</samp>&rsquo;</dt>
-<dd><p>Specifies the RabbitMQ pub/sub queue to connect to.  If not specified, defaults
+<dd><p>Specifies the pub/sub topic to connect to.  If not specified, defaults
 to &lsquo;<samp>ioc</samp>&rsquo;.
 </p>
 </dd>
@@ -6819,7 +6803,7 @@ Next: <a href="#cybermon_002ddetector-invocation" accesskey="n" rel="next"><code
 <span id="index-cybermon_002dgeoip_002c-invocation"></span>
 <span id="index-GeoIP-1"></span>
 
-<p><code>cybermon-geoip</code> subscribes to a RabbitMQ pub/sub queue for
+<p><code>cybermon-geoip</code> subscribes to a pub/sub topic for
 <code>cybermon</code> events, adds location information from GeoIP, and
 re-publishes the elaborated events.  This effectively creates a processing
 chain.  The event subscription and publishing events should be different in
@@ -6839,12 +6823,12 @@ cybermon-geoip cyberprobe geo
 
 <dl compact="compact">
 <dt>&lsquo;<samp>BINDING</samp>&rsquo;</dt>
-<dd><p>Specifies the RabbitMQ pub/sub queue to connect to.  If not specified, defaults
+<dd><p>Specifies the pub/sub topic to connect to.  If not specified, defaults
 to &lsquo;<samp>cyberprobe</samp>&rsquo;.
 </p>
 </dd>
 <dt>&lsquo;<samp>PUBLICATION</samp>&rsquo;</dt>
-<dd><p>Specifies the RabbitMQ pub/sub queue to publish to.  If not specified, defaults
+<dd><p>Specifies the pub/sub topic to publish to.  If not specified, defaults
 to &lsquo;<samp>geo</samp>&rsquo;.
 </p>
 </dd>
@@ -6864,7 +6848,7 @@ Next: <a href="#Cyberprobe-indicator-format" accesskey="n" rel="next">Cyberprobe
 <span id="index-Indicator-of-compromise-1"></span>
 <span id="index-Indicator-1"></span>
 
-<p><code>cybermon-detector</code> subscribes to a RabbitMQ pub/sub queue for
+<p><code>cybermon-detector</code> subscribes to a pub/sub topic for
 <code>cybermon</code> events, inspects them for IOCs, and adds detection
 information if IOCs are observed before re-publishing
 the elaborated events.  This effectively creates a processing
@@ -6890,12 +6874,12 @@ cybermon-detector geo ioc
 
 <dl compact="compact">
 <dt>&lsquo;<samp>BINDING</samp>&rsquo;</dt>
-<dd><p>Specifies the RabbitMQ pub/sub queue to connect to.  If not specified, defaults
+<dd><p>Specifies the pub/sub topic to connect to.  If not specified, defaults
 to &lsquo;<samp>geo</samp>&rsquo;.
 </p>
 </dd>
 <dt>&lsquo;<samp>PUBLICATION</samp>&rsquo;</dt>
-<dd><p>Specifies the RabbitMQ pub/sub queue to publish to.  If not specified, defaults
+<dd><p>Specifies the pub/sub topic to publish to.  If not specified, defaults
 to &lsquo;<samp>ioc</samp>&rsquo;.
 </p>
 </dd>
@@ -7135,7 +7119,7 @@ Next: <a href="#cybermon_002dalert-invocation" accesskey="n" rel="next"><code>cy
 <span id="index-JSON-7"></span>
 <span id="index-Cybermon-JSON-message-format-5"></span>
 
-<p><code>cybermon-dump</code> subscribes to a RabbitMQ pub/sub queue for
+<p><code>cybermon-dump</code> subscribes to a pub/sub topic for
 <code>cybermon</code> events, and dumps the raw JSON to standard output.
 </p>
 <p>Synopsis:
@@ -7152,7 +7136,7 @@ cybermon-dump cyberprobe
 
 <dl compact="compact">
 <dt>&lsquo;<samp>BINDING</samp>&rsquo;</dt>
-<dd><p>Specifies the RabbitMQ pub/sub queue to connect to.  If not specified, defaults
+<dd><p>Specifies the pub/sub topic to connect to.  If not specified, defaults
 to &lsquo;<samp>cyberprobe</samp>&rsquo;.
 </p>
 </dd>
@@ -7170,7 +7154,7 @@ Next: <a href="#taxii_002dclient-invocation" accesskey="n" rel="next"><code>taxi
 <span id="index-cybermon_002dalert_002c-invocation"></span>
 <span id="index-Alert"></span>
 
-<p><code>cybermon-alert</code> subscribes to a RabbitMQ pub/sub queue for
+<p><code>cybermon-alert</code> subscribes to a pub/sub topic for
 <code>cybermon</code> events, and outputs a human-readable message
 when an IOC hits.
 </p>
@@ -7188,7 +7172,7 @@ cybermon-alert ioc
 
 <dl compact="compact">
 <dt>&lsquo;<samp>BINDING</samp>&rsquo;</dt>
-<dd><p>Specifies the RabbitMQ pub/sub queue to connect to.  If not specified, defaults
+<dd><p>Specifies the pub/sub topic to connect to.  If not specified, defaults
 to &lsquo;<samp>ioc</samp>&rsquo;.
 </p>
 </dd>
@@ -8011,41 +7995,33 @@ cyber threat indicators. When these indicators are observed, the indicator
 meta-data is also added to the JSON events.
 </p>
 </dd>
-<dt><code>zeromq.lua</code></dt>
-<dd><span id="index-amqp_002dtopic_002elua-configuration-file"></span>
-<span id="index-cybermon_002c-amqp_002dtopic_002elua-configuration-file"></span>
+<dt><code>pulsar.lua</code></dt>
+<dd><span id="index-pulsar_002elua-configuration-file"></span>
+<span id="index-cybermon_002c-pulsar_002elua-configuration-file"></span>
 <p>is a cybermon configuration file we provide which publishes data to a
-RabbitMQ pub/sub queue.  It allows connection of consumers to the
+Pulsar pub/sub exchange.  It allows connection of consumers to the
 <code>cybermon</code> event stream.
-</p>
-</dd>
-<dt><code>cybermon-bigquery</code></dt>
-<dd><span id="index-cybermon_002dbigquery-1"></span>
-<span id="index-Google-BigQuery-1"></span>
-<span id="index-BigQuery"></span>
-<p>is a RabbitMQ subscriber which output <code>cybermon</code> events to a
-Google BigQuery table.
 </p>
 </dd>
 <dt><code>cybermon-cassandra</code></dt>
 <dd><span id="index-cybermon_002dcassandra-1"></span>
 <span id="index-Cassandra-2"></span>
 <span id="index-Apache-Cassandra-2"></span>
-<p>is a RabbitMQ subscriber which output <code>cybermon</code> events to a
+<p>is an event subscriber which output <code>cybermon</code> events to a
 Cassandra store.
 </p>
 </dd>
 <dt><code>cybermon-elasticsearch</code></dt>
 <dd><span id="index-cybermon_002delasticsearch-1"></span>
 <span id="index-ElasticSearch-4"></span>
-<p>is a RabbitMQ subscriber which output <code>cybermon</code> events to a
+<p>is an event subscriber which output <code>cybermon</code> events to a
 ElasticSearch store.
 </p>
 </dd>
 <dt><code>cybermon-gaffer</code></dt>
 <dd><span id="index-cybermon_002dgaffer-1"></span>
 <span id="index-Gaffer-3"></span>
-<p>is a RabbitMQ subscriber which output <code>cybermon</code> events to a
+<p>is an event subscriber which output <code>cybermon</code> events to a
 Gaffer store.
 </p>
 </dd>
@@ -8132,10 +8108,10 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><td></td><td valign="top"><a href="#index-Amazon-Linux">Amazon Linux</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Obtaining-the-software">Obtaining the software</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-AMQP">AMQP</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-AMQP-1">AMQP</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cybermon-JSON-message-format">Cybermon JSON message format</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-amqp_002dtopic_002elua-configuration-file"><samp>amqp-topic.lua</samp> configuration file</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Architecture">Architecture</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Apache-Cassandra">Apache Cassandra</a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-Cassandra-subscriber">The Cassandra subscriber</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Apache-Cassandra-1">Apache Cassandra</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002dcassandra-invocation"><code>cybermon-cassandra</code> invocation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Apache-Cassandra-2">Apache Cassandra</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Architecture">Architecture</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Apache-Pulsar">Apache Pulsar</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-apt_002dget"><code>apt-get</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Obtaining-the-software">Obtaining the software</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Architecture">Architecture</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Architecture">Architecture</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Authentication">Authentication</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Management-interface">Management interface</a></td></tr>
@@ -8144,7 +8120,6 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><td></td><td valign="top"><a href="#index-AWS-Traffic-Mirroring-2">AWS Traffic Mirroring</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-invocation"><code>cybermon</code> invocation</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Index_cp_letter-B">B</th><td></td><td></td></tr>
-<tr><td></td><td valign="top"><a href="#index-BigQuery">BigQuery</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Architecture">Architecture</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Boost">Boost</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Obtaining-the-software">Obtaining the software</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Build-dependencies">Build dependencies</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Obtaining-the-software">Obtaining the software</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Build-targets">Build targets</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
@@ -8181,7 +8156,8 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><td></td><td valign="top"><a href="#index-Cybermon-JSON-message-format-3">Cybermon JSON message format</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Cybermon-JSON-message-format-4">Cybermon JSON message format</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cybermon-JSON-message-format">Cybermon JSON message format</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Cybermon-JSON-message-format-5">Cybermon JSON message format</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002ddump-invocation"><code>cybermon-dump</code> invocation</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002c-amqp_002dtopic_002elua-configuration-file"><code>cybermon</code>, <samp>amqp-topic.lua</samp> configuration file</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Architecture">Architecture</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Cybermon-protobuf-event-format">Cybermon protobuf event format</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Cybermon-protobuf-event-format-1">Cybermon protobuf event format</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cybermon-protobuf-event-format">Cybermon protobuf event format</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-cybermon_002c-configuration"><code>cybermon</code>, configuration</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Using-cybermon">Using <code>cybermon</code></a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-cybermon_002c-configuration-1"><code>cybermon</code>, configuration</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-cybermon_002c-docker-repository"><code>cybermon</code>, docker repository</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Obtaining-the-software">Obtaining the software</a></td></tr>
@@ -8190,12 +8166,9 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><td></td><td valign="top"><a href="#index-cybermon_002c-invocation"><code>cybermon</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-invocation"><code>cybermon</code> invocation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-cybermon_002c-pub_002fsub"><code>cybermon</code>, pub/sub</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Running-cyberprobe_002fcybermon-at-boot-time">Running cyberprobe/cybermon at boot time</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-cybermon_002c-pub_002fsub-1"><code>cybermon</code>, pub/sub</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Pub_002fsub-overview">Pub/sub overview</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-cybermon_002c-pulsar_002elua-configuration-file"><code>cybermon</code>, <samp>pulsar.lua</samp> configuration file</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Architecture">Architecture</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-cybermon_002dalert"><code>cybermon-alert</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-cybermon_002dalert_002c-invocation"><code>cybermon-alert</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002dalert-invocation"><code>cybermon-alert</code> invocation</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002dbigquery"><code>cybermon-bigquery</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002dbigquery-1"><code>cybermon-bigquery</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Architecture">Architecture</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002dbigquery_002c-invocation"><code>cybermon-bigquery</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-Google-BigQuery-subscriber">The Google BigQuery subscriber</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002dbigquery_002c-invocation-1"><code>cybermon-bigquery</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002dbigquery-invocation"><code>cybermon-bigquery</code> invocation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-cybermon_002dcassandra"><code>cybermon-cassandra</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-cybermon_002dcassandra-1"><code>cybermon-cassandra</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Architecture">Architecture</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-cybermon_002dcassandra_002c-invocation"><code>cybermon-cassandra</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-Cassandra-subscriber">The Cassandra subscriber</a></td></tr>
@@ -8294,7 +8267,6 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><td></td><td valign="top"><a href="#index-event-1"><code>event</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Writing-your-own-configuration-file">Writing your own configuration file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-event-2"><code>event</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Writing-your-own-configuration-file">Writing your own configuration file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-event-3"><code>event</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Writing-your-own-configuration-file">Writing your own configuration file</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-eventstream_002dservice"><code>eventstream-service</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-configuration"><code>cybermon</code> configuration</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-eventstream_002dservice_002c-invocation"><code>eventstream-service</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#eventstream_002dservice-invocation"><code>eventstream-service</code> invocation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Executables">Executables</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
@@ -8316,9 +8288,6 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><td></td><td valign="top"><a href="#index-Getting-started">Getting started</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Quick-start-tutorial">Quick start tutorial</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-git-repository"><code>git</code> repository</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Obtaining-the-software">Obtaining the software</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-GLIC">GLIC</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Output-streaming-protocols">Output streaming protocols</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Google-BigQuery">Google BigQuery</a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-Google-BigQuery-subscriber">The Google BigQuery subscriber</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Google-BigQuery-1">Google BigQuery</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Architecture">Architecture</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Google-Cloud-Platform">Google Cloud Platform</a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-Google-BigQuery-subscriber">The Google BigQuery subscriber</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Graph-store">Graph store</a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-Cassandra-subscriber">The Cassandra subscriber</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Graph-store-1">Graph store</a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-Gaffer-subscriber">The Gaffer subscriber</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Graph-store-2">Graph store</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002dgaffer-invocation"><code>cybermon-gaffer</code> invocation</a></td></tr>
@@ -8326,6 +8295,7 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><td></td><td valign="top"><a href="#index-gRPC">gRPC</a>:</td><td>&nbsp;</td><td valign="top"><a href="#eventstream_002dservice-invocation"><code>eventstream-service</code> invocation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-gRPC-1">gRPC</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-configuration"><code>cybermon</code> configuration</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-gRPC-2">gRPC</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-gRPC-3">gRPC</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cybermon-protobuf-event-format">Cybermon protobuf event format</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Index_cp_letter-H">H</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-HTTP-request">HTTP request</a>:</td><td>&nbsp;</td><td valign="top"><a href="#ElasticSearch-model">ElasticSearch model</a></td></tr>
@@ -8404,16 +8374,22 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><td></td><td valign="top"><a href="#index-Privileged-user">Privileged user</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Using-cyberprobe">Using <code>cyberprobe</code></a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Protobuf">Protobuf</a>:</td><td>&nbsp;</td><td valign="top"><a href="#eventstream_002dservice-invocation"><code>eventstream-service</code> invocation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Protobuf-1">Protobuf</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-configuration"><code>cybermon</code> configuration</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-protobuf">protobuf</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Protobuf-2">Protobuf</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Protobuf-3">Protobuf</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-protobuf-1">protobuf</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cybermon-protobuf-event-format">Cybermon protobuf event format</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-pub_002fsub">pub/sub</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-pub_002fsub-1">pub/sub</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-pub_002fsub-2">pub/sub</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cybermon-JSON-message-format">Cybermon JSON message format</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-pub_002fsub-2">pub/sub</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-pub_002fsub-3">pub/sub</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cybermon-JSON-message-format">Cybermon JSON message format</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Pub_002fsub-delivery">Pub/sub delivery</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Running-cyberprobe_002fcybermon-at-boot-time">Running cyberprobe/cybermon at boot time</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Pub_002fsub-delivery-1">Pub/sub delivery</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Pub_002fsub-overview">Pub/sub overview</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-publish_002fsubscribe">publish/subscribe</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-publish_002fsubscribe-1">publish/subscribe</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-publish_002fsubscribe-2">publish/subscribe</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cybermon-JSON-message-format">Cybermon JSON message format</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-publish_002fsubscribe-2">publish/subscribe</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-publish_002fsubscribe-3">publish/subscribe</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cybermon-JSON-message-format">Cybermon JSON message format</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Pulsar">Pulsar</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-pulsar_002elua-configuration-file"><samp>pulsar.lua</samp> configuration file</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Architecture">Architecture</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Index_cp_letter-Q">Q</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-queue-delivery-using-Redis">queue delivery using Redis</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
