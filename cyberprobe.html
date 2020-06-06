@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- This manual is for Cyberprobe (version 2.5.0, 5 June 2020),
+<!-- This manual is for Cyberprobe (version 2.5.1, 6 June 2020),
 which is an example in the Texinfo documentation.
 
 Copyright (C) 2013-2014 Cyber MacGeddon
@@ -13,10 +13,10 @@ Texts. -->
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Cyberprobe 2.5.0</title>
+<title>Cyberprobe 2.5.1</title>
 
-<meta name="description" content="Cyberprobe 2.5.0">
-<meta name="keywords" content="Cyberprobe 2.5.0">
+<meta name="description" content="Cyberprobe 2.5.1">
+<meta name="keywords" content="Cyberprobe 2.5.1">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -45,7 +45,7 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<h1 class="settitle" align="center">Cyberprobe 2.5.0</h1>
+<h1 class="settitle" align="center">Cyberprobe 2.5.1</h1>
 
 
 
@@ -59,7 +59,7 @@ Next: <a href="#Overview" accesskey="n" rel="next">Overview</a> &nbsp; [<a href=
 </div>
 <span id="Cyberprobe"></span><h1 class="top">Cyberprobe</h1>
 
-<p>This is the manual for Cyberprobe (version 2.5.0, 5 June 2020).
+<p>This is the manual for Cyberprobe (version 2.5.1, 6 June 2020).
 </p>
 <img src="cyberprobe-overview.png" alt="png">
 
@@ -251,24 +251,24 @@ be applicable to other UN*X-like platforms.
 exchange in protobuf form, which can then be delivered to further analytics:
 </p>
 <ul>
-<li> <code>cybermon-alert</code> reports indicator hits in events to standard output.
+<li> <code>evs-alert</code> reports indicator hits in events to standard output.
 
-</li><li> <code>cybermon-cassandra</code> loads events into Cassandra.
+</li><li> <code>evs-cassandra</code> loads events into Cassandra.
 
-</li><li> <code>cybermon-detector</code> studies events for the presence of indicators.
+</li><li> <code>evs-detector</code> studies events for the presence of indicators.
 Events are annotated with indicator hits of any are observed.
 
-</li><li> <code>cybermon-dump</code> dumps raw event JSON to standard output.
+</li><li> <code>evs-dump</code> dumps raw event JSON to standard output.
 
-</li><li> <code>cybermon-elasticsearch</code> loads events into ElasticSearch.
+</li><li> <code>evs-elasticsearch</code> loads events into ElasticSearch.
 
-</li><li> <code>cybermon-gaffer</code> loads network information into Gaffer (a graph
+</li><li> <code>evs-gaffer</code> loads network information into Gaffer (a graph
 database).
 
-</li><li> <code>cybermon-geoip</code> looks up IP addresses in GeoIP and annotates
+</li><li> <code>evs-geoip</code> looks up IP addresses in GeoIP and annotates
 events with location information.
 
-</li><li> <code>cybermon-monitor</code> outputs event information to standard output.
+</li><li> <code>evs-monitor</code> outputs event information to standard output.
 
 </li></ul>
 
@@ -299,6 +299,7 @@ tutorial.
 <dt><code>2.5</code></dt>
 <dd><p>Pulsar and protobuf support added, permits events from cybermon to be
 described in protobuf form, and delivered to a Pulsar pub/sub exchange.
+Renamed cybermon- subscribers to evs- (Event Stream).
 </p>
 </dd>
 <dt><code>2.4</code></dt>
@@ -630,13 +631,13 @@ and map it in to the container.
   cybermon -p 9000 -c /etc/cyberprobe/amqp-topic.lua
 </pre></div>
 
-</li><li> Run <code>cybermon-cassandra</code>.  You need to know the IP address
+</li><li> Run <code>evs-cassandra</code>.  You need to know the IP address
 of the host side of the Docker bridge network, and provide addresses
 of the Cassandra servers.
 <div class="example">
 <pre class="example">sudo docker -it --rm -v \
   docker.io/cybermaggedon/cybermon \
-  cybermon-cassandra cyberprobe \
+  evs-cassandra cyberprobe \
   10.142.146.6,10.142.146.8
 </pre></div>
 
@@ -762,41 +763,41 @@ downloads page (<a href="http://github.com/cybermaggedon/cyberprobe/releases">ht
 <dt><code>cyberprobe-cli</code></dt>
 <dd><p>Cyberprobe control command-line client.
 </p>
-<span id="index-cybermon_002dcassandra"></span>
+<span id="index-evs_002dcassandra"></span>
 </dd>
-<dt><code>cybermon-cassandra</code></dt>
+<dt><code>evs-cassandra</code></dt>
 <dd><p>Pub/sub subscriber, delivers events to Cassandra.
 </p>
-<span id="index-cybermon_002delasticsearch"></span>
+<span id="index-evs_002delasticsearch"></span>
 </dd>
-<dt><code>cybermon-elasticsearch</code></dt>
+<dt><code>evs-elasticsearch</code></dt>
 <dd><p>Pub/sub subscriber, delivers events to ElasticSearch.
 </p>
-<span id="index-cybermon_002dgaffer"></span>
+<span id="index-evs_002dgaffer"></span>
 </dd>
-<dt><code>cybermon-gaffer</code></dt>
+<dt><code>evs-gaffer</code></dt>
 <dd><p>Pub/sub subscriber, delivers events to Gaffer.
 </p>
-<span id="index-cybermon_002dgeoip"></span>
+<span id="index-evs_002dgeoip"></span>
 </dd>
-<dt><code>cybermon-geoip</code></dt>
+<dt><code>evs-geoip</code></dt>
 <dd><p>Pub/sub subscriber, uses GeoIP to add location information to events, and
 then republishes them.
 </p>
-<span id="index-cybermon_002ddetector"></span>
+<span id="index-evs_002ddetector"></span>
 </dd>
-<dt><code>cybermon-detector</code></dt>
+<dt><code>evs-detector</code></dt>
 <dd><p>Pub/sub subscriber, looks for matches for STIX IOCs, adds IOC information
 to events, and then republishes them.
 </p>
-<span id="index-cybermon_002ddump"></span>
+<span id="index-evs_002ddump"></span>
 </dd>
-<dt><code>cybermon-dump</code></dt>
+<dt><code>evs-dump</code></dt>
 <dd><p>Pub/sub subscriber, dumps out raw JSON messages.
 </p>
-<span id="index-cybermon_002dalert"></span>
+<span id="index-evs_002dalert"></span>
 </dd>
-<dt><code>cybermon-dump</code></dt>
+<dt><code>evs-dump</code></dt>
 <dd><p>Pub/sub subscriber, alerts on matching IOCs.
 </p>
 </dd>
@@ -1857,7 +1858,7 @@ pub/sub exchange.
 <p>While that&rsquo;s running, we can start the ElasticSearch loader:
 </p>
 <div class="example">
-<pre class="example">cybermon-elasticsearch cyberprobe
+<pre class="example">evs-elasticsearch cyberprobe
 </pre></div>
 
 <p>After some network data has been observed, you should be able to see results
@@ -1899,7 +1900,7 @@ results.
 
 <p>If you see a lot of information scrolling past on the screen, that&rsquo;s good.
 </p>
-<p><code>cybermon-elasticsearch</code> maps the <code>cybermon</code>
+<p><code>evs-elasticsearch</code> maps the <code>cybermon</code>
 observations into a form which is appropriate to store in
 ElasticSearch. 
 </p>
@@ -1959,7 +1960,7 @@ Previous: <a href="#Visualisation" accesskey="p" rel="prev">Visualisation</a>, U
 an event matches an indicator, information about the indicator is tagged
 into the event.
 </p>
-<p>Indicator support is present in the <code>cybermon-detector</code> subscriber
+<p>Indicator support is present in the <code>evs-detector</code> subscriber
 which reads indicators from a JSON file.
 </p>
 <span id="Indicator-files"></span><h3 class="heading">Indicator files</h3>
@@ -1971,7 +1972,7 @@ at <samp>/usr/local/share/doc/cyberprobe</samp>.
 <span id="Deploying-theat-information-to-cybermon"></span><h3 class="heading">Deploying theat information to <code>cybermon</code></h3>
 
 <p>To run using your existing processing pipeline, stop any running
-<code>cybermon</code> and <code>cybermon-elasticsearch</code> processes.  Then run
+<code>cybermon</code> and <code>evs-elasticsearch</code> processes.  Then run
 <code>cybermon</code> to publish to a topic on Pulsar:
 </p>
 <div class="example">
@@ -1982,7 +1983,7 @@ at <samp>/usr/local/share/doc/cyberprobe</samp>.
 this will subscribe to &lsquo;<samp>cyberprobe</samp>&rsquo; and publish to &lsquo;<samp>ioc</samp>&rsquo;:
 </p>
 <div class="example">
-<pre class="example">env INDICATORS=/path/to/indicators.json cybermon-detector \
+<pre class="example">env INDICATORS=/path/to/indicators.json evs-detector \
     cyberprobe ioc
 </pre></div>
 
@@ -1990,14 +1991,14 @@ this will subscribe to &lsquo;<samp>cyberprobe</samp>&rsquo; and publish to &lsq
 &lsquo;<samp>ioc</samp>&rsquo;:
 </p>
 <div class="example">
-<pre class="example">cybermon-dump ioc
+<pre class="example">evs-dump ioc
 </pre></div>
 
 <p>If you have <code>jq</code> installed, this will make it easier to see
 when indicators hit:
 </p>
 <div class="example">
-<pre class="example">cybermon-dump ioc | jq --unbuffered .indicators
+<pre class="example">evs-dump ioc | jq --unbuffered .indicators
 </pre></div>
 
 <p>This activity should trigger a theat:
@@ -2027,20 +2028,20 @@ both the DNS query and response. Also, the URL
 <code>http://www.malware.org/malware.dat</code> is in a threat indicator and it is
 detected in both the HTTP request and response.
 </p>
-<p><code>cybermon-detector</code> updates its state if
+<p><code>evs-detector</code> updates its state if
 the JSON configuration file has changed.
 </p>
-<p>If you want to load the output of <code>cybermon-detector</code> into
+<p>If you want to load the output of <code>evs-detector</code> into
 ElasticSearch, you can, but you need to subscribe to &lsquo;<samp>ioc</samp>&rsquo;:
 </p>
 <div class="example">
-<pre class="example">cybermon-elasticsearch ioc
+<pre class="example">evs-elasticsearch ioc
 </pre></div>
 
 <p>This results in indicator hit information being loaded into ES.
 </p>
 <p>For more information on indicators, see
-<a href="#cybermon_002ddetector-invocation"><code>cybermon-detector</code> invocation</a> and
+<a href="#evs_002ddetector-invocation"><code>evs-detector</code> invocation</a> and
 <a href="#Cyberprobe-indicator-format">Cyberprobe indicator format</a>.
 </p>
 <p>See <a href="https://github.com/cybermaggedon/threat-exchanges">https://github.com/cybermaggedon/threat-exchanges</a> for code which
@@ -2179,13 +2180,13 @@ chained.  e.g.
 <li> <code>cybermon</code> can be executed with <samp>pulsar</samp> to publish
 events to Pulsar topic &lsquo;<samp>cyberprobe</samp>&rsquo;.
 
-</li><li> <code>cybermon-geoip</code> can subscribe to &lsquo;<samp>cyberprobe</samp>&rsquo;, and push
+</li><li> <code>evs-geoip</code> can subscribe to &lsquo;<samp>cyberprobe</samp>&rsquo;, and push
 events containing information to &lsquo;<samp>geo</samp>&rsquo;.
 
-</li><li> <code>cybermon-detector</code> can do lookup for IOCs and push events with IOC
+</li><li> <code>evs-detector</code> can do lookup for IOCs and push events with IOC
 detection information to &lsquo;<samp>ioc</samp>&rsquo;.
 
-</li><li> <code>cybermon-elasticsearch</code> can subscribe to &lsquo;<samp>ioc</samp>&rsquo; and write events to
+</li><li> <code>evs-elasticsearch</code> can subscribe to &lsquo;<samp>ioc</samp>&rsquo; and write events to
 ElasticSearch.
 
 </li></ul>
@@ -2203,7 +2204,7 @@ Next: <a href="#The-ElasticSearch-subscriber" accesskey="n" rel="next">The Elast
 bit.
 </p></blockquote>
 
-<span id="index-cybermon_002dcassandra_002c-invocation"></span>
+<span id="index-evs_002dcassandra_002c-invocation"></span>
 <span id="index-Cassandra"></span>
 <span id="index-Apache-Cassandra"></span>
 <span id="index-Graph-store"></span>
@@ -2219,10 +2220,10 @@ I&rsquo;m using.
 of the Cassandra contact points e.g.
 </p>
 <div class="example">
-<pre class="example">cybermon-cassandra ioc cas1,cas2,cas3
+<pre class="example">evs-cassandra ioc cas1,cas2,cas3
 </pre></div>
 
-<p>See <a href="#cybermon_002dcassandra-invocation"><code>cybermon-cassandra</code> invocation</a>.
+<p>See <a href="#evs_002dcassandra-invocation"><code>evs-cassandra</code> invocation</a>.
 </p>
 
 
@@ -2233,7 +2234,7 @@ Next: <a href="#The-Gaffer-subscriber" accesskey="n" rel="next">The Gaffer subsc
 </div>
 <span id="The-ElasticSearch-subscriber-1"></span><h3 class="section">5.3 The ElasticSearch subscriber</h3>
 
-<span id="index-cybermon_002delasticsearch_002c-invocation"></span>
+<span id="index-evs_002delasticsearch_002c-invocation"></span>
 <span id="index-ElasticSearch-1"></span>
 
 <p>This suscriber extracts events from pub/sub and formats them for delivery
@@ -2241,10 +2242,10 @@ to ElasticSearch.  The only piece of information you need is the ElasticSearch
 base URI, which is used as a command-line parameter e.g.
 </p>
 <div class="example">
-<pre class="example">cybermon-elasticsearch ioc http://es-host1:9200
+<pre class="example">evs-elasticsearch ioc http://es-host1:9200
 </pre></div>
 
-<p>See <a href="#cybermon_002delasticsearch-invocation"><code>cybermon-elasticsearch</code> invocation</a>.
+<p>See <a href="#evs_002delasticsearch-invocation"><code>evs-elasticsearch</code> invocation</a>.
 </p>
 
 <hr>
@@ -2254,7 +2255,7 @@ Next: <a href="#The-debug-monitor-subscriber" accesskey="n" rel="next">The debug
 </div>
 <span id="The-Gaffer-subscriber-1"></span><h3 class="section">5.4 The Gaffer subscriber</h3>
 
-<span id="index-cybermon_002dgaffer_002c-invocation"></span>
+<span id="index-evs_002dgaffer_002c-invocation"></span>
 <span id="index-Gaffer"></span>
 <span id="index-Graph-store-1"></span>
 
@@ -2342,11 +2343,11 @@ with loads of data:
 of the Gaffer REST API. e.g.
 </p>
 <div class="example">
-<pre class="example">cybermon-gaffer ioc \
+<pre class="example">evs-gaffer ioc \
     http://localhost:8080/rest/v1
 </pre></div>
 
-<p>See <a href="#cybermon_002dgaffer-invocation"><code>cybermon-gaffer</code> invocation</a>.
+<p>See <a href="#evs_002dgaffer-invocation"><code>evs-gaffer</code> invocation</a>.
 </p>
 
 <hr>
@@ -2356,14 +2357,14 @@ Previous: <a href="#The-Gaffer-subscriber" accesskey="p" rel="prev">The Gaffer s
 </div>
 <span id="The-debug-monitor-subscriber-1"></span><h3 class="section">5.5 The debug monitor subscriber</h3>
 
-<span id="index-cybermon_002dmonitor_002c-invocation"></span>
+<span id="index-evs_002dmonitor_002c-invocation"></span>
 
-<p>The <code>cybermon-monitor</code> subscriber is a subscriber which takes
+<p>The <code>evs-monitor</code> subscriber is a subscriber which takes
 events and writes human-readable output on standard output.  This is a
 useful means to verify that <code>cyberprobe</code>, <code>cybermon</code> and
 pub/sub are configured correctly.
 </p>
-<p>See <a href="#cybermon_002dmonitor-invocation"><code>cybermon-monitor</code> invocation</a>.
+<p>See <a href="#evs_002dmonitor-invocation"><code>evs-monitor</code> invocation</a>.
 </p>
 
 
@@ -2393,15 +2394,15 @@ can be used to start:
 <ul>
 <li> A <code>cybermon</code>, listening on port 9000.
 
-</li><li> A <code>cybermon-geoip</code> container, adding GeoIP information to events.
+</li><li> A <code>evs-geoip</code> container, adding GeoIP information to events.
 
-</li><li> A <code>cybermon-detector</code> container, adding IOC information to events
+</li><li> A <code>evs-detector</code> container, adding IOC information to events
 from a sample STIX data set.
 
-</li><li> A <code>cybermon-elasticsearch</code> container, to load information into
+</li><li> A <code>evs-elasticsearch</code> container, to load information into
 ElasticSearch.
 
-</li><li> A <code>cybermon-gaffer</code> container, to load information into Gaffer.
+</li><li> A <code>evs-gaffer</code> container, to load information into Gaffer.
 
 </li><li> An <code>elasticsearch</code> container to store events.
 
@@ -2588,23 +2589,23 @@ Next: <a href="#Architecture" accesskey="n" rel="next">Architecture</a>, Previou
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#Cybermon-protobuf-event-format">Cybermon protobuf event format</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#cybermon_002dmonitor-invocation"><code>cybermon-monitor</code> invocation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#evs_002dmonitor-invocation"><code>evs-monitor</code> invocation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#cybermon_002delasticsearch-invocation"><code>cybermon-elasticsearch</code> invocation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#evs_002delasticsearch-invocation"><code>evs-elasticsearch</code> invocation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#cybermon_002dgaffer-invocation"><code>cybermon-gaffer</code> invocation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#evs_002dgaffer-invocation"><code>evs-gaffer</code> invocation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#cybermon_002dcassandra-invocation"><code>cybermon-cassandra</code> invocation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#evs_002dcassandra-invocation"><code>evs-cassandra</code> invocation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#cybermon_002dgeoip-invocation"><code>cybermon-geoip</code> invocation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#evs_002dgeoip-invocation"><code>evs-geoip</code> invocation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#cybermon_002ddetector-invocation"><code>cybermon-detector</code> invocation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#evs_002ddetector-invocation"><code>evs-detector</code> invocation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#Cyberprobe-indicator-format">Cyberprobe indicator format</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#cybermon_002ddump-invocation"><code>cybermon-dump</code> invocation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#evs_002ddump-invocation"><code>evs-dump</code> invocation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#cybermon_002dalert-invocation"><code>cybermon-alert</code> invocation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#evs_002dalert-invocation"><code>evs-alert</code> invocation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#taxii_002dclient-invocation"><code>taxii-client</code> invocation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
@@ -6515,9 +6516,9 @@ containing the following fields:
 </dd>
 <dt>&lsquo;<samp>location</samp>&rsquo;</dt>
 <dd><span id="index-GeoIP"></span>
-<span id="index-cybermon_002dgeoip-1"></span>
+<span id="index-evs_002dgeoip-1"></span>
 <p>Not emitted by <code>cybermon</code>, but can be added to the message by
-<code>cybermon-geoip</code>.  See <a href="#cybermon_002dgeoip-invocation"><code>cybermon-geoip</code> invocation</a>.
+<code>evs-geoip</code>.  See <a href="#evs_002dgeoip-invocation"><code>evs-geoip</code> invocation</a>.
 </p>
 <p>The <code>location</code> object contains potentially two child-objects:
 <code>src</code> and <code>dest</code>.  Both <code>src</code> and <code>dest</code> may contain the
@@ -6551,9 +6552,9 @@ following fields, if the information is known:
 <dt>&lsquo;<samp>indicators</samp>&rsquo;</dt>
 <dd><span id="index-IOC-1"></span>
 <span id="index-Indicator-of-compromise"></span>
-<span id="index-cybermon_002ddetector-1"></span>
+<span id="index-evs_002ddetector-1"></span>
 <p>Not emitted by <code>cybermon</code>, but can be added to the message by
-<code>cybermon-detector</code>.  See <a href="#cybermon_002ddetector-invocation"><code>cybermon-detector</code> invocation</a>.
+<code>evs-detector</code>.  See <a href="#evs_002ddetector-invocation"><code>evs-detector</code> invocation</a>.
 </p>
 <p>The <code>indicators</code> object is an array of IOC hits, if any have been
 detected.  Each array element is an object with the following fields:
@@ -6598,7 +6599,7 @@ detected.  Each array element is an object with the following fields:
 <hr>
 <span id="Cybermon-protobuf-event-format"></span><div class="header">
 <p>
-Next: <a href="#cybermon_002dmonitor-invocation" accesskey="n" rel="next"><code>cybermon-monitor</code> invocation</a>, Previous: <a href="#Cybermon-JSON-message-format" accesskey="p" rel="prev">Cybermon JSON message format</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#evs_002dmonitor-invocation" accesskey="n" rel="next"><code>evs-monitor</code> invocation</a>, Previous: <a href="#Cybermon-JSON-message-format" accesskey="p" rel="prev">Cybermon JSON message format</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="Cybermon-protobuf-event-format-1"></span><h3 class="section">9.12 Cybermon protobuf event format</h3>
 
@@ -6620,15 +6621,15 @@ to code your own.  See <a href="https://github.com/cybermaggedon/cyberprobe/tree
 
 
 <hr>
-<span id="cybermon_002dmonitor-invocation"></span><div class="header">
+<span id="evs_002dmonitor-invocation"></span><div class="header">
 <p>
-Next: <a href="#cybermon_002delasticsearch-invocation" accesskey="n" rel="next"><code>cybermon-elasticsearch</code> invocation</a>, Previous: <a href="#Cybermon-protobuf-event-format" accesskey="p" rel="prev">Cybermon protobuf event format</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#evs_002delasticsearch-invocation" accesskey="n" rel="next"><code>evs-elasticsearch</code> invocation</a>, Previous: <a href="#Cybermon-protobuf-event-format" accesskey="p" rel="prev">Cybermon protobuf event format</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="cybermon_002dmonitor-invocation-1"></span><h3 class="section">9.13 <code>cybermon-monitor</code> invocation</h3>
+<span id="evs_002dmonitor-invocation-1"></span><h3 class="section">9.13 <code>evs-monitor</code> invocation</h3>
 
-<span id="index-cybermon_002dmonitor_002c-invocation-1"></span>
+<span id="index-evs_002dmonitor_002c-invocation-1"></span>
 
-<p><code>cybermon-monitor</code> subscribes to a pub/sub topic for
+<p><code>evs-monitor</code> subscribes to a pub/sub topic for
 <code>cybermon</code>
 events, and upon receipt of events, formats them for output in a human-readable
 manner.
@@ -6636,13 +6637,13 @@ manner.
 <p>Synopsis:
 </p>
 <div class="example">
-<pre class="example">cybermon-monitor [BINDING]
+<pre class="example">evs-monitor [BINDING]
 </pre></div>
 
 <p>Example:
 </p><div class="example">
-<pre class="example">cybermon-monitor
-cybermon-monitor cyberprobe
+<pre class="example">evs-monitor
+evs-monitor cyberprobe
 </pre></div>
 
 <dl compact="compact">
@@ -6656,15 +6657,15 @@ to &lsquo;<samp>cyberprobe</samp>&rsquo;.
 
 
 <hr>
-<span id="cybermon_002delasticsearch-invocation"></span><div class="header">
+<span id="evs_002delasticsearch-invocation"></span><div class="header">
 <p>
-Next: <a href="#cybermon_002dgaffer-invocation" accesskey="n" rel="next"><code>cybermon-gaffer</code> invocation</a>, Previous: <a href="#cybermon_002dmonitor-invocation" accesskey="p" rel="prev"><code>cybermon-monitor</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#evs_002dgaffer-invocation" accesskey="n" rel="next"><code>evs-gaffer</code> invocation</a>, Previous: <a href="#evs_002dmonitor-invocation" accesskey="p" rel="prev"><code>evs-monitor</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="cybermon_002delasticsearch-invocation-1"></span><h3 class="section">9.14 <code>cybermon-elasticsearch</code> invocation</h3>
+<span id="evs_002delasticsearch-invocation-1"></span><h3 class="section">9.14 <code>evs-elasticsearch</code> invocation</h3>
 
-<span id="index-cybermon_002delasticsearch_002c-invocation-1"></span>
+<span id="index-evs_002delasticsearch_002c-invocation-1"></span>
 
-<p><code>cybermon-elasticsearch</code> subscribes to a pub/sub topic for
+<p><code>evs-elasticsearch</code> subscribes to a pub/sub topic for
 <code>cybermon</code>
 events, and upon receipt of events, formats them for delivery to an
 ElasticSearch store.
@@ -6672,13 +6673,13 @@ ElasticSearch store.
 <p>Synopsis:
 </p>
 <div class="example">
-<pre class="example">cybermon-elasticsearch [BINDING [ELASTICSEARCH-URL] ]
+<pre class="example">evs-elasticsearch [BINDING [ELASTICSEARCH-URL] ]
 </pre></div>
 
 <p>Example:
 </p><div class="example">
-<pre class="example">cybermon-elasticsearch
-cybermon-elasticsearch ioc http://elastic-store:9200/
+<pre class="example">evs-elasticsearch
+evs-elasticsearch ioc http://elastic-store:9200/
 </pre></div>
 
 <dl compact="compact">
@@ -6697,17 +6698,17 @@ to &lsquo;<samp>http://localhost:9200</samp>&rsquo;.
 
 
 <hr>
-<span id="cybermon_002dgaffer-invocation"></span><div class="header">
+<span id="evs_002dgaffer-invocation"></span><div class="header">
 <p>
-Next: <a href="#cybermon_002dcassandra-invocation" accesskey="n" rel="next"><code>cybermon-cassandra</code> invocation</a>, Previous: <a href="#cybermon_002delasticsearch-invocation" accesskey="p" rel="prev"><code>cybermon-elasticsearch</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#evs_002dcassandra-invocation" accesskey="n" rel="next"><code>evs-cassandra</code> invocation</a>, Previous: <a href="#evs_002delasticsearch-invocation" accesskey="p" rel="prev"><code>evs-elasticsearch</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="cybermon_002dgaffer-invocation-1"></span><h3 class="section">9.15 <code>cybermon-gaffer</code> invocation</h3>
+<span id="evs_002dgaffer-invocation-1"></span><h3 class="section">9.15 <code>evs-gaffer</code> invocation</h3>
 
-<span id="index-cybermon_002dgaffer_002c-invocation-1"></span>
+<span id="index-evs_002dgaffer_002c-invocation-1"></span>
 <span id="index-Gaffer-2"></span>
 <span id="index-Graph-store-2"></span>
 
-<p><code>cybermon-gaffer</code> subscribes to a pub/sub topic for
+<p><code>evs-gaffer</code> subscribes to a pub/sub topic for
 <code>cybermon</code>
 events, and upon receipt of events, formats them for delivery to a
 Gaffer store.  The format used is intended to allow Gaffer to be used
@@ -6720,13 +6721,13 @@ can be found at
 <p>Synopsis:
 </p>
 <div class="example">
-<pre class="example">cybermon-gaffer [BINDING [GAFFER-URL] ]
+<pre class="example">evs-gaffer [BINDING [GAFFER-URL] ]
 </pre></div>
 
 <p>Example:
 </p><div class="example">
-<pre class="example">cybermon-gaffer
-cybermon-gaffer ioc \
+<pre class="example">evs-gaffer
+evs-gaffer ioc \
     http://gaffer-store:8080/rest/v1
 </pre></div>
 
@@ -6746,18 +6747,18 @@ to &lsquo;<samp>http://gaffer:8080/example-rest/v1</samp>&rsquo;.
 
 
 <hr>
-<span id="cybermon_002dcassandra-invocation"></span><div class="header">
+<span id="evs_002dcassandra-invocation"></span><div class="header">
 <p>
-Next: <a href="#cybermon_002dgeoip-invocation" accesskey="n" rel="next"><code>cybermon-geoip</code> invocation</a>, Previous: <a href="#cybermon_002dgaffer-invocation" accesskey="p" rel="prev"><code>cybermon-gaffer</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#evs_002dgeoip-invocation" accesskey="n" rel="next"><code>evs-geoip</code> invocation</a>, Previous: <a href="#evs_002dgaffer-invocation" accesskey="p" rel="prev"><code>evs-gaffer</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="cybermon_002dcassandra-invocation-1"></span><h3 class="section">9.16 <code>cybermon-cassandra</code> invocation</h3>
+<span id="evs_002dcassandra-invocation-1"></span><h3 class="section">9.16 <code>evs-cassandra</code> invocation</h3>
 
-<span id="index-cybermon_002dcassandra_002c-invocation-1"></span>
+<span id="index-evs_002dcassandra_002c-invocation-1"></span>
 <span id="index-Apache-Cassandra-1"></span>
 <span id="index-Cassandra-1"></span>
 <span id="index-Graph-store-3"></span>
 
-<p><code>cybermon-cassandra</code> subscribes to a Pulsar pub/sub topic for
+<p><code>evs-cassandra</code> subscribes to a Pulsar pub/sub topic for
 <code>cybermon</code>
 events, and upon receipt of events, formats them for delivery to a
 Cassandra store.  The format used is intended to allow Cassandra to be used
@@ -6767,13 +6768,13 @@ Cassandra, see <a href="https://github.com/cybermaggedon/cassandra-redland">http
 <p>Synopsis:
 </p>
 <div class="example">
-<pre class="example">cybermon-cassandra [BINDING [CASSANDRA-HOSTS] ]
+<pre class="example">evs-cassandra [BINDING [CASSANDRA-HOSTS] ]
 </pre></div>
 
 <p>Example:
 </p><div class="example">
-<pre class="example">cybermon-cassandra
-cybermon-cassandra ioc cassandra1,cassandra2
+<pre class="example">evs-cassandra
+evs-cassandra ioc cassandra1,cassandra2
 </pre></div>
 
 <dl compact="compact">
@@ -6794,16 +6795,16 @@ to &lsquo;<samp>localhost</samp>&rsquo;.
 
 
 <hr>
-<span id="cybermon_002dgeoip-invocation"></span><div class="header">
+<span id="evs_002dgeoip-invocation"></span><div class="header">
 <p>
-Next: <a href="#cybermon_002ddetector-invocation" accesskey="n" rel="next"><code>cybermon-detector</code> invocation</a>, Previous: <a href="#cybermon_002dcassandra-invocation" accesskey="p" rel="prev"><code>cybermon-cassandra</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#evs_002ddetector-invocation" accesskey="n" rel="next"><code>evs-detector</code> invocation</a>, Previous: <a href="#evs_002dcassandra-invocation" accesskey="p" rel="prev"><code>evs-cassandra</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="cybermon_002dgeoip-invocation-1"></span><h3 class="section">9.17 <code>cybermon-geoip</code> invocation</h3>
+<span id="evs_002dgeoip-invocation-1"></span><h3 class="section">9.17 <code>evs-geoip</code> invocation</h3>
 
-<span id="index-cybermon_002dgeoip_002c-invocation"></span>
+<span id="index-evs_002dgeoip_002c-invocation"></span>
 <span id="index-GeoIP-1"></span>
 
-<p><code>cybermon-geoip</code> subscribes to a pub/sub topic for
+<p><code>evs-geoip</code> subscribes to a pub/sub topic for
 <code>cybermon</code> events, adds location information from GeoIP, and
 re-publishes the elaborated events.  This effectively creates a processing
 chain.  The event subscription and publishing events should be different in
@@ -6812,13 +6813,13 @@ order to avoid creating an infinite loop.
 <p>Synopsis:
 </p>
 <div class="example">
-<pre class="example">cybermon-geoip [BINDING [PUBLICATION] ]
+<pre class="example">evs-geoip [BINDING [PUBLICATION] ]
 </pre></div>
 
 <p>Example:
 </p><div class="example">
-<pre class="example">cybermon-geoip
-cybermon-geoip cyberprobe geo
+<pre class="example">evs-geoip
+evs-geoip cyberprobe geo
 </pre></div>
 
 <dl compact="compact">
@@ -6837,18 +6838,18 @@ to &lsquo;<samp>geo</samp>&rsquo;.
 
 
 <hr>
-<span id="cybermon_002ddetector-invocation"></span><div class="header">
+<span id="evs_002ddetector-invocation"></span><div class="header">
 <p>
-Next: <a href="#Cyberprobe-indicator-format" accesskey="n" rel="next">Cyberprobe indicator format</a>, Previous: <a href="#cybermon_002dgeoip-invocation" accesskey="p" rel="prev"><code>cybermon-geoip</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#Cyberprobe-indicator-format" accesskey="n" rel="next">Cyberprobe indicator format</a>, Previous: <a href="#evs_002dgeoip-invocation" accesskey="p" rel="prev"><code>evs-geoip</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="cybermon_002ddetector-invocation-1"></span><h3 class="section">9.18 <code>cybermon-detector</code> invocation</h3>
+<span id="evs_002ddetector-invocation-1"></span><h3 class="section">9.18 <code>evs-detector</code> invocation</h3>
 
-<span id="index-cybermon_002ddetector_002c-invocation"></span>
+<span id="index-evs_002ddetector_002c-invocation"></span>
 <span id="index-IOC-2"></span>
 <span id="index-Indicator-of-compromise-1"></span>
 <span id="index-Indicator-1"></span>
 
-<p><code>cybermon-detector</code> subscribes to a pub/sub topic for
+<p><code>evs-detector</code> subscribes to a pub/sub topic for
 <code>cybermon</code> events, inspects them for IOCs, and adds detection
 information if IOCs are observed before re-publishing
 the elaborated events.  This effectively creates a processing
@@ -6858,18 +6859,18 @@ order to avoid creating an infinite loop.
 <p>The indicator file is specified by the &lsquo;<samp>INDICATORS</samp>&rsquo; environment variable,
 the default is <samp>indicators.json</samp>.  The file format is the
 <a href="#Cyberprobe-indicator-format">Cyberprobe indicator format</a>.  When the file changes, the indicators are
-reloaded without the needed to restart <code>cybermon-detector</code>.
+reloaded without the needed to restart <code>evs-detector</code>.
 </p>
 <p>Synopsis:
 </p>
 <div class="example">
-<pre class="example">cybermon-detector [BINDING [PUBLICATION] ]
+<pre class="example">evs-detector [BINDING [PUBLICATION] ]
 </pre></div>
 
 <p>Example:
 </p><div class="example">
-<pre class="example">cybermon-detector
-cybermon-detector geo ioc
+<pre class="example">evs-detector
+evs-detector geo ioc
 </pre></div>
 
 <dl compact="compact">
@@ -6891,7 +6892,7 @@ to &lsquo;<samp>ioc</samp>&rsquo;.
 <hr>
 <span id="Cyberprobe-indicator-format"></span><div class="header">
 <p>
-Next: <a href="#cybermon_002ddump-invocation" accesskey="n" rel="next"><code>cybermon-dump</code> invocation</a>, Previous: <a href="#cybermon_002ddetector-invocation" accesskey="p" rel="prev"><code>cybermon-detector</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#evs_002ddump-invocation" accesskey="n" rel="next"><code>evs-dump</code> invocation</a>, Previous: <a href="#evs_002ddetector-invocation" accesskey="p" rel="prev"><code>evs-detector</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="Cyberprobe-indicator-format-1"></span><h3 class="section">9.19 Cyberprobe indicator format</h3>
 
@@ -6901,8 +6902,8 @@ Next: <a href="#cybermon_002ddump-invocation" accesskey="n" rel="next"><code>cyb
 
 <span id="Overview-5"></span><h3 class="heading">Overview</h3>
 
-<p>The <code>cybermon-detector</code> subscriber implements detection against a
-set of indicators (see <a href="#cybermon_002ddetector-invocation"><code>cybermon-detector</code> invocation</a>.  The
+<p>The <code>evs-detector</code> subscriber implements detection against a
+set of indicators (see <a href="#evs_002ddetector-invocation"><code>evs-detector</code> invocation</a>.  The
 indicators are presented in a file containing JSON describing the
 indicators.
 </p>
@@ -6923,7 +6924,7 @@ indicator selects data.
 intended to record a revision history identified for the indicators, and
 should be changed to a unique value when an update occurs.
 </p>
-<p>These fields are not used by <code>cybermon-detect</code>.  
+<p>These fields are not used by <code>evs-detector</code>.  
 </p>
 <div class="example">
 <pre class="example">{
@@ -7109,29 +7110,29 @@ creates indicator sets from threat exchanges.
 
 
 <hr>
-<span id="cybermon_002ddump-invocation"></span><div class="header">
+<span id="evs_002ddump-invocation"></span><div class="header">
 <p>
-Next: <a href="#cybermon_002dalert-invocation" accesskey="n" rel="next"><code>cybermon-alert</code> invocation</a>, Previous: <a href="#Cyberprobe-indicator-format" accesskey="p" rel="prev">Cyberprobe indicator format</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#evs_002dalert-invocation" accesskey="n" rel="next"><code>evs-alert</code> invocation</a>, Previous: <a href="#Cyberprobe-indicator-format" accesskey="p" rel="prev">Cyberprobe indicator format</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="cybermon_002ddump-invocation-1"></span><h3 class="section">9.20 <code>cybermon-dump</code> invocation</h3>
+<span id="evs_002ddump-invocation-1"></span><h3 class="section">9.20 <code>evs-dump</code> invocation</h3>
 
-<span id="index-cybermon_002ddump_002c-invocation"></span>
+<span id="index-evs_002ddump_002c-invocation"></span>
 <span id="index-JSON-7"></span>
 <span id="index-Cybermon-JSON-message-format-5"></span>
 
-<p><code>cybermon-dump</code> subscribes to a pub/sub topic for
+<p><code>evs-dump</code> subscribes to a pub/sub topic for
 <code>cybermon</code> events, and dumps the raw JSON to standard output.
 </p>
 <p>Synopsis:
 </p>
 <div class="example">
-<pre class="example">cybermon-dump [BINDING]
+<pre class="example">evs-dump [BINDING]
 </pre></div>
 
 <p>Example:
 </p><div class="example">
-<pre class="example">cybermon-dump
-cybermon-dump cyberprobe
+<pre class="example">evs-dump
+evs-dump cyberprobe
 </pre></div>
 
 <dl compact="compact">
@@ -7145,29 +7146,29 @@ to &lsquo;<samp>cyberprobe</samp>&rsquo;.
 
 
 <hr>
-<span id="cybermon_002dalert-invocation"></span><div class="header">
+<span id="evs_002dalert-invocation"></span><div class="header">
 <p>
-Next: <a href="#taxii_002dclient-invocation" accesskey="n" rel="next"><code>taxii-client</code> invocation</a>, Previous: <a href="#cybermon_002ddump-invocation" accesskey="p" rel="prev"><code>cybermon-dump</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#taxii_002dclient-invocation" accesskey="n" rel="next"><code>taxii-client</code> invocation</a>, Previous: <a href="#evs_002ddump-invocation" accesskey="p" rel="prev"><code>evs-dump</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="cybermon_002dalert-invocation-1"></span><h3 class="section">9.21 <code>cybermon-alert</code> invocation</h3>
+<span id="evs_002dalert-invocation-1"></span><h3 class="section">9.21 <code>evs-alert</code> invocation</h3>
 
-<span id="index-cybermon_002dalert_002c-invocation"></span>
+<span id="index-evs_002dalert_002c-invocation"></span>
 <span id="index-Alert"></span>
 
-<p><code>cybermon-alert</code> subscribes to a pub/sub topic for
+<p><code>evs-alert</code> subscribes to a pub/sub topic for
 <code>cybermon</code> events, and outputs a human-readable message
 when an IOC hits.
 </p>
 <p>Synopsis:
 </p>
 <div class="example">
-<pre class="example">cybermon-alert [BINDING]
+<pre class="example">evs-alert [BINDING]
 </pre></div>
 
 <p>Example:
 </p><div class="example">
-<pre class="example">cybermon-alert
-cybermon-alert ioc
+<pre class="example">evs-alert
+evs-alert ioc
 </pre></div>
 
 <dl compact="compact">
@@ -7183,7 +7184,7 @@ to &lsquo;<samp>ioc</samp>&rsquo;.
 <hr>
 <span id="taxii_002dclient-invocation"></span><div class="header">
 <p>
-Next: <a href="#taxii_002dsync_002djson-invocation" accesskey="n" rel="next"><code>taxii-sync-json</code> invocation</a>, Previous: <a href="#cybermon_002dalert-invocation" accesskey="p" rel="prev"><code>cybermon-alert</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#taxii_002dsync_002djson-invocation" accesskey="n" rel="next"><code>taxii-sync-json</code> invocation</a>, Previous: <a href="#evs_002dalert-invocation" accesskey="p" rel="prev"><code>evs-alert</code> invocation</a>, Up: <a href="#Reference" accesskey="u" rel="up">Reference</a> &nbsp; [<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="taxii_002dclient-invocation-1"></span><h3 class="section">9.22 <code>taxii-client</code> invocation</h3>
 
@@ -7331,8 +7332,8 @@ Next: <a href="#taxii_002dserver-invocation" accesskey="n" rel="next"><code>taxi
 server to acquire cyber threat information.  <code>taxii-sync-json</code>
 uses a TAXII poll request, and reformats all STIX information into a single
 JSON file which is written to the current directory.  This JSON form is
-intended to be used with <code>cybermon-detector</code>.
-See <a href="#cybermon_002ddetector-invocation"><code>cybermon-detector</code> invocation</a>.
+intended to be used with <code>evs-detector</code>.
+See <a href="#evs_002ddetector-invocation"><code>evs-detector</code> invocation</a>.
 </p>
 <p>TAXII/STIX implementation is experimental and incomplete.
 </p>
@@ -7541,12 +7542,12 @@ Previous: <a href="#etsi_002drcvr-invocation" accesskey="p" rel="prev"><code>ets
 
 <span id="Overview-6"></span><h3 class="heading">Overview</h3>
 
-<p>When <code>cybermon-elasticsearch</code> is used
+<p>When <code>evs-elasticsearch</code> is used
 observations are created in an ElasticSearch database.
 These configuration files call the <samp>elastic.lua</samp> utility module.
 This section describes the data model used in the ElasticSearch database.
 </p>
-<p>ElasticSearch accepts data in JSON form.  <code>cybermon-elasticsearch</code>
+<p>ElasticSearch accepts data in JSON form.  <code>evs-elasticsearch</code>
 uses an
 index called <code>cyberprobe</code> and an object type <code>observation</code>.
 </p>
@@ -7988,8 +7989,8 @@ actions. For each event, a call is made to a Lua script which the caller
 provides.
 </p>
 </dd>
-<dt><code>cybermon-detector</code></dt>
-<dd><span id="index-cybermon_002ddetector-invocation"></span>
+<dt><code>evs-detector</code></dt>
+<dd><span id="index-evs_002ddetector-invocation"></span>
 <p>runs events past an IOC list, searching for
 cyber threat indicators. When these indicators are observed, the indicator
 meta-data is also added to the JSON events.
@@ -8003,23 +8004,23 @@ Pulsar pub/sub exchange.  It allows connection of consumers to the
 <code>cybermon</code> event stream.
 </p>
 </dd>
-<dt><code>cybermon-cassandra</code></dt>
-<dd><span id="index-cybermon_002dcassandra-1"></span>
+<dt><code>evs-cassandra</code></dt>
+<dd><span id="index-evs_002dcassandra-1"></span>
 <span id="index-Cassandra-2"></span>
 <span id="index-Apache-Cassandra-2"></span>
 <p>is an event subscriber which output <code>cybermon</code> events to a
 Cassandra store.
 </p>
 </dd>
-<dt><code>cybermon-elasticsearch</code></dt>
-<dd><span id="index-cybermon_002delasticsearch-1"></span>
+<dt><code>evs-elasticsearch</code></dt>
+<dd><span id="index-evs_002delasticsearch-1"></span>
 <span id="index-ElasticSearch-4"></span>
 <p>is an event subscriber which output <code>cybermon</code> events to a
 ElasticSearch store.
 </p>
 </dd>
-<dt><code>cybermon-gaffer</code></dt>
-<dd><span id="index-cybermon_002dgaffer-1"></span>
+<dt><code>evs-gaffer</code></dt>
+<dd><span id="index-evs_002dgaffer-1"></span>
 <span id="index-Gaffer-3"></span>
 <p>is an event subscriber which output <code>cybermon</code> events to a
 Gaffer store.
@@ -8104,12 +8105,12 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><th id="Index_cp_letter-A">A</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-action"><code>action</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-configuration"><code>cybermon</code> configuration</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Actions">Actions</a>:</td><td>&nbsp;</td><td valign="top"><a href="#ElasticSearch-model">ElasticSearch model</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Alert">Alert</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002dalert-invocation"><code>cybermon-alert</code> invocation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Alert">Alert</a>:</td><td>&nbsp;</td><td valign="top"><a href="#evs_002dalert-invocation"><code>evs-alert</code> invocation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Amazon-Linux">Amazon Linux</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Obtaining-the-software">Obtaining the software</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-AMQP">AMQP</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-AMQP-1">AMQP</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cybermon-JSON-message-format">Cybermon JSON message format</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Apache-Cassandra">Apache Cassandra</a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-Cassandra-subscriber">The Cassandra subscriber</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Apache-Cassandra-1">Apache Cassandra</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002dcassandra-invocation"><code>cybermon-cassandra</code> invocation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Apache-Cassandra-1">Apache Cassandra</a>:</td><td>&nbsp;</td><td valign="top"><a href="#evs_002dcassandra-invocation"><code>evs-cassandra</code> invocation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Apache-Cassandra-2">Apache Cassandra</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Architecture">Architecture</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Apache-Pulsar">Apache Pulsar</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-apt_002dget"><code>apt-get</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Obtaining-the-software">Obtaining the software</a></td></tr>
@@ -8127,7 +8128,7 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Index_cp_letter-C">C</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Cassandra">Cassandra</a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-Cassandra-subscriber">The Cassandra subscriber</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Cassandra-1">Cassandra</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002dcassandra-invocation"><code>cybermon-cassandra</code> invocation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Cassandra-1">Cassandra</a>:</td><td>&nbsp;</td><td valign="top"><a href="#evs_002dcassandra-invocation"><code>evs-cassandra</code> invocation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Cassandra-2">Cassandra</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Architecture">Architecture</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-certificate_002c-cyberprobe-configuration-option"><code>certificate</code>, cyberprobe configuration option</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cyberprobe-configuration"><code>cyberprobe</code> configuration</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Checkout-from-git-repository">Checkout from <code>git</code> repository</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Obtaining-the-software">Obtaining the software</a></td></tr>
@@ -8155,7 +8156,7 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><td></td><td valign="top"><a href="#index-Cybermon-JSON-message-format-2">Cybermon JSON message format</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Cybermon-JSON-message-format-3">Cybermon JSON message format</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Cybermon-JSON-message-format-4">Cybermon JSON message format</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cybermon-JSON-message-format">Cybermon JSON message format</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Cybermon-JSON-message-format-5">Cybermon JSON message format</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002ddump-invocation"><code>cybermon-dump</code> invocation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Cybermon-JSON-message-format-5">Cybermon JSON message format</a>:</td><td>&nbsp;</td><td valign="top"><a href="#evs_002ddump-invocation"><code>evs-dump</code> invocation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Cybermon-protobuf-event-format">Cybermon protobuf event format</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Cybermon-protobuf-event-format-1">Cybermon protobuf event format</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cybermon-protobuf-event-format">Cybermon protobuf event format</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-cybermon_002c-configuration"><code>cybermon</code>, configuration</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Using-cybermon">Using <code>cybermon</code></a></td></tr>
@@ -8167,31 +8168,6 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><td></td><td valign="top"><a href="#index-cybermon_002c-pub_002fsub"><code>cybermon</code>, pub/sub</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Running-cyberprobe_002fcybermon-at-boot-time">Running cyberprobe/cybermon at boot time</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-cybermon_002c-pub_002fsub-1"><code>cybermon</code>, pub/sub</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Pub_002fsub-overview">Pub/sub overview</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-cybermon_002c-pulsar_002elua-configuration-file"><code>cybermon</code>, <samp>pulsar.lua</samp> configuration file</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Architecture">Architecture</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002dalert"><code>cybermon-alert</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002dalert_002c-invocation"><code>cybermon-alert</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002dalert-invocation"><code>cybermon-alert</code> invocation</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002dcassandra"><code>cybermon-cassandra</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002dcassandra-1"><code>cybermon-cassandra</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Architecture">Architecture</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002dcassandra_002c-invocation"><code>cybermon-cassandra</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-Cassandra-subscriber">The Cassandra subscriber</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002dcassandra_002c-invocation-1"><code>cybermon-cassandra</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002dcassandra-invocation"><code>cybermon-cassandra</code> invocation</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002ddetector"><code>cybermon-detector</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002ddetector-1"><code>cybermon-detector</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cybermon-JSON-message-format">Cybermon JSON message format</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002ddetector-invocation"><code>cybermon-detector</code> invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Architecture">Architecture</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002ddetector_002c-invocation"><code>cybermon-detector</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002ddetector-invocation"><code>cybermon-detector</code> invocation</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002ddump"><code>cybermon-dump</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002ddump_002c-invocation"><code>cybermon-dump</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002ddump-invocation"><code>cybermon-dump</code> invocation</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002delasticsearch"><code>cybermon-elasticsearch</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002delasticsearch-1"><code>cybermon-elasticsearch</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Architecture">Architecture</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002delasticsearch_002c-invocation"><code>cybermon-elasticsearch</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-ElasticSearch-subscriber">The ElasticSearch subscriber</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002delasticsearch_002c-invocation-1"><code>cybermon-elasticsearch</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002delasticsearch-invocation"><code>cybermon-elasticsearch</code> invocation</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002dgaffer"><code>cybermon-gaffer</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002dgaffer-1"><code>cybermon-gaffer</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Architecture">Architecture</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002dgaffer_002c-invocation"><code>cybermon-gaffer</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-Gaffer-subscriber">The Gaffer subscriber</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002dgaffer_002c-invocation-1"><code>cybermon-gaffer</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002dgaffer-invocation"><code>cybermon-gaffer</code> invocation</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002dgeoip"><code>cybermon-geoip</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002dgeoip-1"><code>cybermon-geoip</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cybermon-JSON-message-format">Cybermon JSON message format</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002dgeoip_002c-invocation"><code>cybermon-geoip</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002dgeoip-invocation"><code>cybermon-geoip</code> invocation</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002dmonitor_002c-invocation"><code>cybermon-monitor</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-debug-monitor-subscriber">The debug monitor subscriber</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-cybermon_002dmonitor_002c-invocation-1"><code>cybermon-monitor</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002dmonitor-invocation"><code>cybermon-monitor</code> invocation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-cyberprobe"><code>cyberprobe</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Top">Top</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-cyberprobe-1"><code>cyberprobe</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Overview">Overview</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-cyberprobe-2"><code>cyberprobe</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
@@ -8268,6 +8244,31 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><td></td><td valign="top"><a href="#index-event-2"><code>event</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Writing-your-own-configuration-file">Writing your own configuration file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-event-3"><code>event</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Writing-your-own-configuration-file">Writing your own configuration file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-eventstream_002dservice_002c-invocation"><code>eventstream-service</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#eventstream_002dservice-invocation"><code>eventstream-service</code> invocation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-evs_002dalert"><code>evs-alert</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-evs_002dalert_002c-invocation"><code>evs-alert</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#evs_002dalert-invocation"><code>evs-alert</code> invocation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-evs_002dcassandra"><code>evs-cassandra</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-evs_002dcassandra-1"><code>evs-cassandra</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Architecture">Architecture</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-evs_002dcassandra_002c-invocation"><code>evs-cassandra</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-Cassandra-subscriber">The Cassandra subscriber</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-evs_002dcassandra_002c-invocation-1"><code>evs-cassandra</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#evs_002dcassandra-invocation"><code>evs-cassandra</code> invocation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-evs_002ddetector"><code>evs-detector</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-evs_002ddetector-1"><code>evs-detector</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cybermon-JSON-message-format">Cybermon JSON message format</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-evs_002ddetector-invocation"><code>evs-detector</code> invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Architecture">Architecture</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-evs_002ddetector_002c-invocation"><code>evs-detector</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#evs_002ddetector-invocation"><code>evs-detector</code> invocation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-evs_002ddump"><code>evs-dump</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-evs_002ddump_002c-invocation"><code>evs-dump</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#evs_002ddump-invocation"><code>evs-dump</code> invocation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-evs_002delasticsearch"><code>evs-elasticsearch</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-evs_002delasticsearch-1"><code>evs-elasticsearch</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Architecture">Architecture</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-evs_002delasticsearch_002c-invocation"><code>evs-elasticsearch</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-ElasticSearch-subscriber">The ElasticSearch subscriber</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-evs_002delasticsearch_002c-invocation-1"><code>evs-elasticsearch</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#evs_002delasticsearch-invocation"><code>evs-elasticsearch</code> invocation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-evs_002dgaffer"><code>evs-gaffer</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-evs_002dgaffer-1"><code>evs-gaffer</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Architecture">Architecture</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-evs_002dgaffer_002c-invocation"><code>evs-gaffer</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-Gaffer-subscriber">The Gaffer subscriber</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-evs_002dgaffer_002c-invocation-1"><code>evs-gaffer</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#evs_002dgaffer-invocation"><code>evs-gaffer</code> invocation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-evs_002dgeoip"><code>evs-geoip</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-evs_002dgeoip-1"><code>evs-geoip</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cybermon-JSON-message-format">Cybermon JSON message format</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-evs_002dgeoip_002c-invocation"><code>evs-geoip</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#evs_002dgeoip-invocation"><code>evs-geoip</code> invocation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-evs_002dmonitor_002c-invocation"><code>evs-monitor</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-debug-monitor-subscriber">The debug monitor subscriber</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-evs_002dmonitor_002c-invocation-1"><code>evs-monitor</code>, invocation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#evs_002dmonitor-invocation"><code>evs-monitor</code> invocation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Executables">Executables</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Index_cp_letter-F">F</th><td></td><td></td></tr>
@@ -8281,17 +8282,17 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><th id="Index_cp_letter-G">G</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Gaffer">Gaffer</a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-Gaffer-subscriber">The Gaffer subscriber</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Gaffer-1">Gaffer</a>:</td><td>&nbsp;</td><td valign="top"><a href="#A-containerised-processing-system">A containerised processing system</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Gaffer-2">Gaffer</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002dgaffer-invocation"><code>cybermon-gaffer</code> invocation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Gaffer-2">Gaffer</a>:</td><td>&nbsp;</td><td valign="top"><a href="#evs_002dgaffer-invocation"><code>evs-gaffer</code> invocation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Gaffer-3">Gaffer</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Architecture">Architecture</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-GeoIP">GeoIP</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cybermon-JSON-message-format">Cybermon JSON message format</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-GeoIP-1">GeoIP</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002dgeoip-invocation"><code>cybermon-geoip</code> invocation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-GeoIP-1">GeoIP</a>:</td><td>&nbsp;</td><td valign="top"><a href="#evs_002dgeoip-invocation"><code>evs-geoip</code> invocation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Getting-started">Getting started</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Quick-start-tutorial">Quick start tutorial</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-git-repository"><code>git</code> repository</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Obtaining-the-software">Obtaining the software</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-GLIC">GLIC</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Output-streaming-protocols">Output streaming protocols</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Graph-store">Graph store</a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-Cassandra-subscriber">The Cassandra subscriber</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Graph-store-1">Graph store</a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-Gaffer-subscriber">The Gaffer subscriber</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Graph-store-2">Graph store</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002dgaffer-invocation"><code>cybermon-gaffer</code> invocation</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Graph-store-3">Graph store</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002dcassandra-invocation"><code>cybermon-cassandra</code> invocation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Graph-store-2">Graph store</a>:</td><td>&nbsp;</td><td valign="top"><a href="#evs_002dgaffer-invocation"><code>evs-gaffer</code> invocation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Graph-store-3">Graph store</a>:</td><td>&nbsp;</td><td valign="top"><a href="#evs_002dcassandra-invocation"><code>evs-cassandra</code> invocation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-gRPC">gRPC</a>:</td><td>&nbsp;</td><td valign="top"><a href="#eventstream_002dservice-invocation"><code>eventstream-service</code> invocation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-gRPC-1">gRPC</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-configuration"><code>cybermon</code> configuration</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-gRPC-2">gRPC</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
@@ -8307,18 +8308,18 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><td></td><td valign="top"><a href="#index-ICMP">ICMP</a>:</td><td>&nbsp;</td><td valign="top"><a href="#ElasticSearch-model">ElasticSearch model</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-ifconfig"><code>ifconfig</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Indicator">Indicator</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Threat-indicators">Threat indicators</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Indicator-1">Indicator</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002ddetector-invocation"><code>cybermon-detector</code> invocation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Indicator-1">Indicator</a>:</td><td>&nbsp;</td><td valign="top"><a href="#evs_002ddetector-invocation"><code>evs-detector</code> invocation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Indicator-2">Indicator</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cyberprobe-indicator-format">Cyberprobe indicator format</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Indicator-of-Compromise">Indicator of Compromise</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Threat-indicators">Threat indicators</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Indicator-of-compromise">Indicator of compromise</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cybermon-JSON-message-format">Cybermon JSON message format</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Indicator-of-compromise-1">Indicator of compromise</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002ddetector-invocation"><code>cybermon-detector</code> invocation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Indicator-of-compromise-1">Indicator of compromise</a>:</td><td>&nbsp;</td><td valign="top"><a href="#evs_002ddetector-invocation"><code>evs-detector</code> invocation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Indicator-of-compromise-2">Indicator of compromise</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cyberprobe-indicator-format">Cyberprobe indicator format</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Installation">Installation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Preparation">Preparation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Integration-with-snort">Integration with <code>snort</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Integration-with-snort">Integration with <code>snort</code></a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-interfaces"><code>interfaces</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#cyberprobe-configuration"><code>cyberprobe</code> configuration</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-IOC">IOC</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Threat-indicators">Threat indicators</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-IOC-1">IOC</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cybermon-JSON-message-format">Cybermon JSON message format</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-IOC-2">IOC</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002ddetector-invocation"><code>cybermon-detector</code> invocation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-IOC-2">IOC</a>:</td><td>&nbsp;</td><td valign="top"><a href="#evs_002ddetector-invocation"><code>evs-detector</code> invocation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-IOC-3">IOC</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cyberprobe-indicator-format">Cyberprobe indicator format</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-IP-address-mask">IP address mask</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cyberprobe-configuration"><code>cyberprobe</code> configuration</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-IP-address-matching">IP address matching</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cyberprobe-configuration"><code>cyberprobe</code> configuration</a></td></tr>
@@ -8331,7 +8332,7 @@ Previous: <a href="#Architecture" accesskey="p" rel="prev">Architecture</a>, Up:
 <tr><td></td><td valign="top"><a href="#index-JSON-4">JSON</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-JSON-5">JSON</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon-example-configurations"><code>cybermon</code> example configurations</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-JSON-6">JSON</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Cybermon-JSON-message-format">Cybermon JSON message format</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-JSON-7">JSON</a>:</td><td>&nbsp;</td><td valign="top"><a href="#cybermon_002ddump-invocation"><code>cybermon-dump</code> invocation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-JSON-7">JSON</a>:</td><td>&nbsp;</td><td valign="top"><a href="#evs_002ddump-invocation"><code>evs-dump</code> invocation</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-json_002elua"><samp>json.lua</samp></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Using-cybermon">Using <code>cybermon</code></a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Index_cp_letter-K">K</th><td></td><td></td></tr>
